@@ -1,0 +1,6 @@
+[submodule "web/themes/ace"]
+	path = web/themes/ace
+	url = https://github.com/vantagedesign/ace-documentation.git
+[submodule "web/themes/hugo-geekdoc"]
+	path = web/themes/hugo-geekdoc
+	url = https://github.com/thegeeklab/hugo-geekdoc
