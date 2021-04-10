@@ -12,7 +12,7 @@
   <a href="http://kivmob.com"><img alt="docs" src="https://img.shields.io/static/v1?label=docs&message=passing&color=blue"/></a>
 </p>
 
-A website for for learning cloud computing using popular programming languages.
+A website for for learning cloud computing concepts and AWS using Typescript, Javascript, Python, and Golang
 
 ## Deploy
 
