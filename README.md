@@ -1,7 +1,7 @@
 <p align="center">
   <img alt="Tech Squawks" src="https://raw.githubusercontent.com/MichaelStott/tech-squawks/main/logo.svg?token=AF62KLA75TZPIPW3YNB4RKLAOEKNE">
 </p>
-<h2 align="center">Cloud Computing Tutorials</h2>
+<h2 align="center">Tech Squawks</h2>
 <p align="center">
   <a href="https://travis-ci.com/MichaelStott/KivMob"><img alt="Build Status" src="https://travis-ci.com/MichaelStott/KivMob.svg?branch=master"></a>
   <a href="https://badge.fury.io/py/kivmob"><img alt="pypi" src="https://badge.fury.io/py/kivmob.svg"></a>
