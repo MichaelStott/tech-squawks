@@ -12,7 +12,7 @@
 </p>
 
 <p align="center">
-A website for learning cloud computing concepts and AWS using programming languages such as Python <img style="height: 1em" alt="Tech Squawks" src="./images/pythonparrot.gif">, Golang <img  style="height: 1em" alt="Tech Squawks" src="./images/partygopher.gif">, or Node <img  style="height: 1em" alt="Tech Squawks" src="./images/nodeparrot.gif">.
+A website for learning cloud computing concepts using programming languages such as Python <img style="height: 1em" alt="Tech Squawks" src="./images/pythonparrot.gif">, Go <img  height="1em" alt="Tech Squawks" src="./images/partygopher.gif">, and Node <img  style="height: 1em" alt="Tech Squawks" src="./images/nodeparrot.gif">.
 </p>
 
 ## About
