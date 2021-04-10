@@ -28,7 +28,7 @@ The result speaks for itself:
 
 ![squawk](https://cultofthepartyparrot.com/parrots/hd/revolutionparrot.gif)
 
-### Prequisites
+### Prerequisites
 
 Before continuing, readers should:
 
