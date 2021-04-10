@@ -12,9 +12,6 @@
   <a href="http://kivmob.com"><img alt="docs" src="https://img.shields.io/static/v1?label=docs&message=passing&color=blue"/></a>
 </p>
 
-
-![node-current](https://img.shields.io/node/v/no)
-
 A website for for learning cloud computing using popular programming languages.
 
 ## Deploy
