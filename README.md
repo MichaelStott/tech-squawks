@@ -5,8 +5,7 @@ A website for for learning cloud computing using popular programming languages.
 
 ## Deploy
 
-```sh
+```
 $ pulumi stack select dev
 $ pulumi up
 ```
-
