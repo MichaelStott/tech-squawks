@@ -17,7 +17,7 @@ will compile and behave as expected on the reader's machine.
 
 Below is a short example of deploying a small serverless web app. The deploy button will create the stack in the reader's Pulumi account, which can then be deployed using the Pulumi CLI tool.
 
-{{< tabs >}}
+{{< tabs groupId="code" >}}
 {{% tab name="Typescript" %}}
 typescript code
 
