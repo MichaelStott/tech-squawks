@@ -12,7 +12,7 @@ networking infrastructure for their systems and services.
 ![On-Prem Stack](/parrots/parrotnotfound.gif)
 
 Depending on the type of service offering, cloud computing manages some or all of these components. There 
-are three cloud computing models, Infrastructure as a Service) (IaaS) Platform as a Service (PaaS), 
+are three cloud computing models, Infrastructure as a Service (IaaS) Platform as a Service (PaaS), 
 and Software as a Service (SaaS).
 
 #### Infrastructure as a Service - IaaS
