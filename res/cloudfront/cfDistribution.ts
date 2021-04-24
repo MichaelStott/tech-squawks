@@ -10,18 +10,18 @@ const eastRegion = new aws.Provider("east", {
 });
 
 const certificate = new aws.acm.Certificate("certificate", {
-    domainName: "www.saxthrift.com",
+    domainName: "www.techsquawks.com",
     validationMethod: "DNS",
 }, { provider: eastRegion });
 
 
-export const hostedZoneId = aws.route53.getZone({ name: "saxthrift.com" }, { async: true }).then(zone => zone.zoneId);
+export const hostedZoneId = aws.route53.getZone({ name: "techsquawks.com" }, { async: true }).then(zone => zone.zoneId);
 
 /**
  *  Create a DNS record to prove that we _own_ the domain we're requesting a certificate for.
  *  See https://docs.aws.amazon.com/acm/latest/userguide/gs-acm-validate-dns.html for more info.
  */
-export const certificateValidationDomain = new aws.route53.Record(`saxthrift-validation`, {
+export const certificateValidationDomain = new aws.route53.Record(`tech-squawks-validation`, {
     name: certificate.domainValidationOptions[0].resourceRecordName,
     zoneId: hostedZoneId,
     type: certificate.domainValidationOptions[0].resourceRecordType,
@@ -47,7 +47,7 @@ let certificateArn = certificateValidation.certificateArn
 
 export const distributionArgs: aws.cloudfront.DistributionArgs = {
     enabled: true,
-    aliases: ["www.saxthrift.com" ],
+    aliases: ["www.techsquawks.com" ],
     origins: [
         {
             originId: staticSiteBucket.arn,
@@ -108,7 +108,7 @@ export const distributionArgs: aws.cloudfront.DistributionArgs = {
     loggingConfig: {
         bucket: logBucket.bucketDomainName,
         includeCookies: false,
-        prefix: `www.saxthrift.com/`,
+        prefix: `www.techsquawks.com/`,
     },
 };
 
@@ -153,4 +153,4 @@ async function createAliasRecord(
     });
 }
 
-export const aRecord = cdn !== undefined ? createAliasRecord("www.saxthrift.com", cdn) : undefined
+export const aRecord = cdn !== undefined ? createAliasRecord("www.techsquawks.com", cdn) : undefined

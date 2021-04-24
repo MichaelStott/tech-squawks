@@ -3,7 +3,7 @@ import * as pulumi from "@pulumi/pulumi"
 import * as mime from "mime"
 import * as glob from "glob"
 
-export const staticSiteBucket = new aws.s3.Bucket("sax-thrift-bucket-" + pulumi.getStack(), {
+export const staticSiteBucket = new aws.s3.Bucket("tech-squawks-bucket-" + pulumi.getStack(), {
     acl: "public-read",
     website: {
         indexDocument: "index.html",
