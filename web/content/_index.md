@@ -6,12 +6,18 @@ weight: 1
 
 # Howdy!
 
-Welcome to Tech Squawks, a website for learning how to build web services in AWS using popular programming languages.
+Welcome to Tech Squawks, a website for learning AWS cloud development and design using programming languages such as Typescript, Javascript, Python,
+or Go.
 
 AWS can seem like a daunting platform to master. At the time of writing, there are over 200 cloud services offered by AWS. 
-The goal of Tech Squawks is to provide straightforward explanations of cloud computing concepts coupled with short W3-esque examples of 
-small self-contained AWS apps that can be swiftly compiled and deployed. All examples are unit-tested to help ensure that they 
-will compile and behave as expected on the reader's machine.
+The goal of Tech Squawks is to provide straightforward explanations of cloud computing concepts using with short W3-esque examples of 
+small self-contained AWS apps that can be swiftly compiled and deployed.
+
+In an effort to make these tutorials accesible to those without an AWS account, examples are designed to be compatible with
+[LocalStack](https://github.com/localstack/localstack), a framework for running AWS cloud applications on the user's local machine, whenever possible. 
+
+Flashcards are included at the end of each section for additional study and review, which may be useful for those who wish to pursue 
+certification. These flaschards are publicly hosted on [Cram](https://www.cram.com/) and accesible through both the website and mobile app.
 
 ### Severless Webpage Demo
 
@@ -47,6 +53,15 @@ const api = new awsx.apigateway.API("serverless-party-parrot", {
 export const url = api.url;
 ```
 {{% /tab %}}
+{{% tab name="Javascript" %}}
+TODO
+{{% /tab %}}
+{{% tab name="Python" %}}
+TODO
+{{% /tab %}}
+{{% tab name="Go" %}}
+TODO
+{{% /tab %}}
 {{< /tabs >}}
 
 The result speaks for itself:
@@ -55,9 +70,10 @@ The result speaks for itself:
 
 ### Prerequisites
 
-Before continuing, readers should:
+Before continuing, readers should be:
 
-- Posses knowledge of at least one of the following programming languages: Typescript, Javascript, Python, or Go.
-- Be comfortorable with using the shell/terminal on their OS.
+- Knowledgeable of at least one of the following programming languages: Typescript, Javascript, Python, or Go.
+- Comfortable with using the shell or terminal on their OS.
+- Familiar with basic computer networking concepts.
 
 For setting up your development environment, see the  [Getting Started]({{< ref "getting_started" >}}) section.
