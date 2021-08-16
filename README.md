@@ -17,19 +17,16 @@ A website for learning cloud computing concepts using programming languages such
 
 ## About
 
-Originally, I had compiled study notes in a private repository while studying for the AWS Solutions Architect certification. The goal of 
-this project is to rewrite, organize, and present those notes in a more digestible format to help reinforce those topics for the purpose 
-of studying for the professional level certification and to aid newcomers to AWS and cloud engineering.
-
-Rather than frontload sections with theory and detailed explanations followed by lengthy and convoluted examples switching between the AWS 
-Console, downloading bulky files, etc. etc., the aim is have a more W3-esque style, with short explanations with small, self contained 
+The aim of this website is to have a more W3-esque style, with short explanations with small, self contained 
 examples of cloud applications. To achieve this, cloud infrastructure and services are manage through Pulumi. Pulumi allows users to
 express their cloud architecture using programming languages such as Python, Golang, Typescript, or Javascript. Time will tell how well 
 the website achives this.
 
 Flashcards are included at the end of each section to help reinforce concepts covered in the section.
 
-## Local
+## Dev Guide
+
+### Local
 
 To launch the website locally, you will need to install `hugo`:
 
@@ -38,7 +35,7 @@ $ cd web
 $ hugo server -D
 ```
 
-## Deploy
+### Deploy
 
 ```
 $ pulumi stack select dev

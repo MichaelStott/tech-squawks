@@ -27,6 +27,6 @@ personal AWS account.
 
 ![Account Setup Step 3](/images/setup/aws_account_setup_step3.png)
 
-4. ???
+4. Complete the phone number verification process.
 
-5. Wait for the account information to be verified. This could take as long as two days.
+5. You should recieve an email once the account information is verified. This could take as long as two days.

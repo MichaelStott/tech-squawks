@@ -53,15 +53,26 @@ $ sudo ./aws/install
 {{< /tabs >}}
 
 2. To confirm that your CLI has been successfully installed, run the following in your shell/terminal:
-```
+```sh
 aws --version
 ```
 If everything was successful, this command should output the CLI versioning information. 
 
-3. To ensure that your CLI is able to perform API calls, run the following:
+3. Using the credentials that were generated in the previous section, 
+
+```sh
+aws configure
 ```
-aws sts get-caller-identity
+```
+AWS Access Key ID [None]: access-key-value-here
+AWS Secret Access Key [None]: secret-key-value-here
+Default region name [None]: us-east-2
+Default output format [None]:
 ```
 
+4. To ensure that your CLI is able to perform API calls, run the following:
+```sh
+aws sts get-caller-identity
+```
 This could return the user and account information of the active credentials used by the CLI.
 
