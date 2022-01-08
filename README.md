@@ -9,14 +9,16 @@ Cloud computing tutorials in programming languages such as<br/>Python <img  heig
 ## About
 
 The aim of this website is to present cloud-computing concepts using small, self-contained web apps. To achieve this, 
-cloud infrastructure and services are manage through Pulumi. Pulumi allows users to express their cloud architecture 
+cloud infrastructure and services are manage through Pulumi. Pulumi allows users to easilty define their cloud resources 
 using programming languages such as Python, Golang, Typescript, or Javascript. 
 
 Flashcards are included at the end of each section to help reinforce concepts covered in the section.
 
 ## Roadmap
 
-AWS (In-Progress)
+The following topics are planned in the order they are listed. No fixed date for these topics exists as of yet.
+
+### AWS (In-Progress)
 - [x] Overview
 - [ ] IAM
 - [ ] S3
@@ -32,9 +34,11 @@ AWS (In-Progress)
 - [ ] Kinesis
 - [ ] SES
 
-Docker (Not-Started)
+### Docker (Not-Started)
+- Content TBD
 
-Kubernetes (Not-Started)
+### Kubernetes (Not-Started)
+- Content TBD
 
 ## Development
 
