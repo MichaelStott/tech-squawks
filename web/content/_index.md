@@ -14,7 +14,7 @@ AWS can seem like a daunting platform to master. At the time of writing, there a
 The goal of Tech Squawks is to provide straightforward explanations of cloud computing concepts using short W3-esque examples of 
 brief self-contained AWS apps that can be swiftly built and deployed.
 
-In an effort to make these tutorials accesible to those without AWS access and reduce costs, examples are designed to be compatible with 
+In an effort to make these tutorials accesible to those without AWS access and minimize costs, examples are designed to be compatible with 
 [LocalStack](https://localstack.cloud/), a framework for running AWS cloud applications on the user's local 
 machine, whenever possible. 
 

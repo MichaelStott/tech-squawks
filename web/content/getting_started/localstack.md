@@ -1,5 +1,5 @@
 ---
 title: Localstack
 chapter: true
-weight: 7
+weight: 6
 ---

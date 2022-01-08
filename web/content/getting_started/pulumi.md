@@ -1,5 +1,5 @@
 ---
 title: Pulumi
 chapter: true
-weight: 6
+weight: 7 
 ---
