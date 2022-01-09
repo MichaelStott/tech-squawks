@@ -1,5 +1,5 @@
 ---
-title: AWS Programatic Credentials
+title: Programatic Credentials
 chapter: false
 weight: 3
 ---

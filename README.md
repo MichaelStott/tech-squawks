@@ -14,6 +14,8 @@ using programming languages such as Python, Golang, Typescript, or Javascript.
 
 Flashcards are included at the end of each section to help reinforce concepts covered in the section.
 
+These tutorials are very much a work-in-progress.
+
 ## Roadmap
 
 The following topics are planned in the order they are listed. No fixed date for these topics exists as of yet.

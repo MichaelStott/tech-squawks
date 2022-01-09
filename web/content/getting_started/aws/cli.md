@@ -1,5 +1,6 @@
 ---
 title: AWS CLI
+menutTitle: CLI
 chapter: false
 weight: 4
 ---
