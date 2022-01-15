@@ -28,7 +28,7 @@ Below is a short example of deploying a small serverless web app. The deploy but
 {{< tabs groupId="code" >}}
 {{< tab name="Typescript" >}}
 {{% gist MichaelStott fb97da6768443ca12ca6c0c720fe2e89 "homepage_example.ts" %}}
-{{% button href="https://github.com/MichaelStott/AWSExamples/tree/master/examples/homepage/ts" icon="fab fa-github" icon-position="left" %}}View Project{{% /button %}}
+{{% button href="https://github.com/MichaelStott/AWSExamples/tree/master/examples/homepage/ts" icon="fab fa-github" icon-position="left" %}}GitHub{{% /button %}}
 {{% button href="https://app.pulumi.com/new?template=https://github.com/MichaelStott/AWSExamples/tree/master/examples/homepage/ts" icon="fab fa-github" icon-position="left" %}}Deploy{{% /button %}}
 {{< /tab >}}
 {{< tab name="Javascript" >}}
