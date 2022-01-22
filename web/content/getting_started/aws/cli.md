@@ -37,14 +37,14 @@ $ sudo installer -pkg AWSCLIV2.pkg -target /
 
 {{% /tab %}}
 {{% tab name="Linux" %}}
-For x86 (64-bit) distrobutions:
+For x86 (64-bit) distributions:
 ```sh
 $ curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
 $ unzip awscliv2.zip
 $ sudo ./aws/install
 ```
 
-For ARM distrobutions, execute the following: 
+For ARM distributions, execute the following: 
 ```sh
 $ curl "https://awscli.amazonaws.com/awscli-exe-linux-aarch64.zip" -o "awscliv2.zip"
 $ unzip awscliv2.zip

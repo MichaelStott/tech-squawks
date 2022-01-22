@@ -11,8 +11,7 @@ such as Typescript, Javascript, Python, or Go. This site is currently a work in 
 updates!
 
 AWS can seem like a daunting platform to master. At the time of writing, there are over 200 cloud services offered by AWS. 
-The goal of Tech Squawks is to provide straightforward explanations of cloud computing concepts using short W3-esque examples of 
-brief self-contained AWS apps that can be swiftly built and deployed.
+The goal of Tech Squawks is to provide straightforward explanations of cloud computing concepts using short W3-esque examples of self-contained AWS apps that can be swiftly built and deployed.
 
 In an effort to make these tutorials accesible to those without AWS access and minimize costs, examples are designed to be compatible with 
 [LocalStack](https://localstack.cloud/), a framework for running AWS cloud applications on the user's local 
@@ -29,12 +28,17 @@ Below is a short example of deploying a small serverless web app. The deploy but
 {{< tab name="Typescript" >}}
 {{% gist MichaelStott fb97da6768443ca12ca6c0c720fe2e89 "homepage_example.ts" %}}
 {{% button href="https://github.com/MichaelStott/AWSExamples/tree/master/examples/homepage/ts" icon="fab fa-github" icon-position="left" %}}GitHub{{% /button %}}
-{{% button href="https://app.pulumi.com/new?template=https://github.com/MichaelStott/AWSExamples/tree/master/examples/homepage/ts" icon="fab fa-github" icon-position="left" %}}Deploy{{% /button %}}
+{{% button href="https://app.pulumi.com/new?template=https://github.com/MichaelStott/AWSExamples/tree/master/examples/homepage/ts" icon="fas fa-cloud-upload-alt" icon-position="left" %}}Deploy{{% /button %}}
+{{% button href="https://localstack.cloud/" icon="fas fa-laptop-code" icon-position="left" %}}LocalStack Compatible{{% /button %}}
 {{< /tab >}}
 {{< tab name="Javascript" >}}
+
 {{% gist MichaelStott fb97da6768443ca12ca6c0c720fe2e89 "homepage_example.js" %}}
 {{% button href="https://github.com/MichaelStott/AWSExamples/tree/master/examples/homepage/js" icon="fab fa-github" icon-position="left" %}}View Project{{% /button %}}
-{{% button href="https://app.pulumi.com/new?template=https://github.com/MichaelStott/AWSExamples/tree/master/examples/homepage/js" icon="fab fa-github" icon-position="left" %}}Deploy{{% /button %}}
+{{% button href="https://app.pulumi.com/new?template=https://github.com/MichaelStott/AWSExamples/tree/master/examples/homepage/js" icon="fas fa-cloud-upload-alt" icon-position="left" %}}Deploy{{% /button %}}
+
+{{% button href="https://localstack.cloud/" icon="fas fa-laptop-code" icon-position="left" %}}LocalStack Compatible{{% /button %}}
+
 {{< /tab >}}
 {{< tab name="Python" >}}
 {{< figure src="parrots/parrotnotfound.gif" title="Not yet available." >}}
