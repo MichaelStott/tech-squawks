@@ -4,10 +4,9 @@ chapter: false
 weight: 4
 ---
 
-The AWS CLI is used to interact with AWS resources and services through a local terminal or shell by making AWS API calls on your behalf with your local credentials.
+The AWS CLI is used to interact with AWS resources and services through a local terminal or shell by making AWS API calls on your behalf with local credentials.
 
-The following instructions target version 2 of the AWS CLI. See these [instructions](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv1.html) if you would prefer version 1. Note that these versions are not backwards compatible, so commands may differ
-in execution.
+The following instructions target version 2 of the AWS CLI. See these [instructions](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv1.html) if you would prefer version 1. Note that these versions are not backwards compatible, so commands may differ between the two.
 
 ### Instructions 
 
