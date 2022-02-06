@@ -6,7 +6,7 @@ weight: 4
 
 The AWS CLI is used to interact with AWS resources and services through a local terminal or shell by making AWS API calls on your behalf with local credentials.
 
-The following instructions target version 2 of the AWS CLI. See these [instructions](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv1.html) if you would prefer version 1. Note that these versions are not backwards compatible, so commands may differ between the two.
+The following instructions target *version 2* of the AWS CLI. See these [instructions](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv1.html) if you would prefer *version 1*. Note that these versions are not backwards compatible, so commands may differ between the two.
 
 ### Instructions 
 
@@ -70,9 +70,8 @@ Default region name [None]: us-east-2
 Default output format [None]:
 ```
 
-4. To ensure that your CLI is able to perform API calls, run the following:
+4. To ensure that your CLI is able to perform API calls, run the following, which should return the user and account information of the active credentials used by the CLI.
 ```sh
 aws sts get-caller-identity
 ```
-This could return the user and account information of the active credentials used by the CLI.
 
