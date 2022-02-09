@@ -35,4 +35,19 @@ pip3 install localstack
 
 ### AWS CLI Configuration
 
-### Pulumi Configuration
+Adding the `--endpoint-url` option to CLI will direct API requests to your Localstack instance. For instance, the following
+will create an AWS resource bucket called an S3 bucket on your local machine.
+
+```
+aws --endpoint-url=http://localhost:4572 s3 mb s3://mytestbucket
+```
+
+### Pulumi 
+
+Pulumi provides a CLI tool that you can substitue for the regular `pulumi` command, `pulumilocal`. Install with the following:
+
+```
+pip install pulumi-local
+```
+
+You can learn more about the tool [here](https://github.com/localstack/pulumi-local).
