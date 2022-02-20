@@ -1,13 +1,12 @@
 ---
-title: AWS CLI
+title: CLI
 chapter: false
 weight: 4
 ---
 
-The AWS CLI is used to interact with AWS resources and services through a local terminal or shell by making AWS API calls on your behalf with your local credentials.
+The AWS CLI is used to interact with AWS resources and services through a local terminal or shell by making AWS API calls on your behalf with local credentials.
 
-The following instructions target version 2 of the AWS CLI. See these [instructions](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv1.html) if you would prefer version 1. Note that these versions are not backwards compatible, so commands may differ
-in execution.
+The following instructions target *version 2* of the AWS CLI. See these [instructions](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv1.html) if you would prefer *version 1*. Note that these versions are not backwards compatible, so commands may differ between the two.
 
 ### Instructions 
 
@@ -37,14 +36,14 @@ $ sudo installer -pkg AWSCLIV2.pkg -target /
 
 {{% /tab %}}
 {{% tab name="Linux" %}}
-For x86 (64-bit) distrobutions:
+For x86 (64-bit) distributions:
 ```sh
 $ curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
 $ unzip awscliv2.zip
 $ sudo ./aws/install
 ```
 
-For ARM distrobutions, execute the following: 
+For ARM distributions, execute the following: 
 ```sh
 $ curl "https://awscli.amazonaws.com/awscli-exe-linux-aarch64.zip" -o "awscliv2.zip"
 $ unzip awscliv2.zip
@@ -71,9 +70,8 @@ Default region name [None]: us-east-2
 Default output format [None]:
 ```
 
-4. To ensure that your CLI is able to perform API calls, run the following:
+4. To ensure that your CLI is able to perform API calls, run the following, which should return the user and account information of the active credentials used by the CLI.
 ```sh
 aws sts get-caller-identity
 ```
-This could return the user and account information of the active credentials used by the CLI.
 

@@ -1,15 +1,14 @@
 ---
-title: AWS Account Setup
+title: Account Setup
 chapter: false
 weight: 2
 ---
 
-An AWS account is required in order to provision cloud resources. You can create a new personal AWS account [here](https://aws.amazon.com/). The process is rather straightforward, but steps for setting up your account are provided below for additional guidance.
+An AWS account is required to begin provisioning cloud resources, which can be created [here](https://aws.amazon.com/). While the process is rather straightforward, instructions are provided below for additional guidance.
 
 {{% notice info %}}
-A credit card, email address, and phone number are required for setting up an AWS account. If you are a student, you
-may qualify for AWS Educate. You can find more information [here](https://aws.amazon.com/blogs/aws/aws-educate-credits-training-content-and-collaboration-for-students-educators/). Account setup instructions may differ
-from what is outlined here.
+A credit card, email address, and phone number are required for setting up an AWS account. Readers who are students or US 
+veterans may qualify for AWS Educate, which provides AWS credits for both courses and projects. More information can be found [here](https://aws.amazon.com/blogs/aws/aws-educate-credits-training-content-and-collaboration-for-students-educators/).
 {{% /notice %}}
 
 ### Instructions

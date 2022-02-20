@@ -6,6 +6,4 @@ weight: 1
 
 # Getting Started
 
-Before diving into the individual AWS services, we're going to configure our development environment. The sections in this chapter will 
-walk you through setting up your AWS account and CLI. Additionally, we will also install Pulumi for managing the cloud infrastructure 
-for our projects.
+Before progressing further, readers should ensure their development environments are properly configured. This chapter will walk through setting up a personal AWS account. Additional Pulumi and LocalStack installation instructions are included for managing cloud resources and local development respectively.
