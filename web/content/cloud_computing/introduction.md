@@ -12,6 +12,8 @@ weight: 1
 
 Companies and third-parties with cloud computing platform offerings are known as *cloud providers*. Popular cloud providers incude [Amazon Web Services (AWS)](https://aws.amazon.com/), [Microsoft Azure](https://azure.microsoft.com/en-us/), and [Google Cloud Platform (GCP)](https://cloud.google.com/).
 
+![The Big Three: AWS, Azure, and GCP](/parrots/parrotnotfound.gif)
+
 ### Benefits and Drawbacks
 
 Cloud computing affords engineers numerous benefits when developing applications, such as:
@@ -24,6 +26,7 @@ Simultaneously, developing within a cloud environment brings additional consider
 - Visibility: Ascertaining pertinent resources and activity are acruing charges within a cloud envirornment.
 - Observability: Assessing the state of applications deployed to the cloud.
 
+
 ### Classifications
 
 Various offerings that provide trade-offs between environment configuration, costs, and overhead, ranging from fully user-configurable servers and virtual environments to completely managed services, such as for databases. Cloud services are broadly categorized as:
@@ -33,9 +36,9 @@ Various offerings that provide trade-offs between environment configuration, cos
 
 ![Cloud Classifications](/parrots/parrotnotfound.gif)
 
-### Cloud Native Development
+### Cloud Native
 
-The rise of cloud computing has accelerated the adoption of practices for developing robust cloud applications, collectively known as cloud-native development. These practices include microservices, containerization, and serverless development for increasing application scalability, portability, and speed of development.
+The rise of cloud computing has accelerated the adoption of practices for developing robust cloud applications, collectively known as cloud-native development. These practices include _microservices_, _containerization_, and _serverless_ development for improving application scalability, portability, deployability, and development.
 
 ### AWS
 
