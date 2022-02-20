@@ -1,7 +1,7 @@
 ---
-title: Categories
+title: Classifications
 
-weight: 2
+weight: 3
 ---
 
 ### Cloud Computing Services

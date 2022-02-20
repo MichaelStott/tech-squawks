@@ -1,7 +1,7 @@
 ---
-title: Deployment Models
+title: Benefits & Drawbacks
 
-weight: 3
+weight: 2
 ---
 
 ### Deployment Models
