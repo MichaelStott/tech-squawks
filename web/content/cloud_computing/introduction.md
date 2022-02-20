@@ -15,8 +15,8 @@ Companies and third-parties with cloud computing platform offerings are known as
 ### Benefits and Drawbacks
 
 Cloud computing affords engineers numerous benefits when developing applications, such as:
-- Rapid, on-demand provisioning of cloud resources (servers, data stores, etc.)
-- Cost-effective computing and storage.
+- On-demand provisioning: Servers, networks, and other cloud resources and be rapidly provisioned
+- Cost-effectiveness: Cloud providers are able to leverage the enconomy of scale when  
 - Easily scale infrastructure up or down based on service load. 
 
 ### Classifications
@@ -25,7 +25,7 @@ Various cloud service offerings provide customers trade-offs between configurabi
 
 ### Cloud Native
 
-The rise of cloud computing has accelerated the adoption of practices for developing robust cloud applications, collectively known as cloud-native development. These practices include microservices, containerization, and serverless development. 
+The rise of cloud computing has accelerated the adoption of practices for developing robust cloud applications, collectively known as cloud-native development. These practices include microservices, containerization, and serverless development for increasing application scalability, portability, and speed of development.
 
 ### AWS
 
