@@ -20,12 +20,12 @@ These tutorials are very much a work-in-progress.
 
 The following topics are planned in the order they are listed. No fixed date for these topics exists as of yet.
 
-### AWS (In-Progress)
+### AWS (🚧 In-Progress)
 - [x] Overview
 - [x] IAM
 - [x] S3
-- [ ] EC2 (in-progress)
-- [ ] VPC (in-progress)
+- [ ] EC2 (🚧 In-Progress)
+- [ ] VPC (🚧 In-Progress)
 - [ ] Route53
 - [ ] CloudWatch
 - [ ] CloudTrail
