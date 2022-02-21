@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-Cloud computing tutorials in programming languages such as<br/>Python <img  height="16" alt="Tech Squawks" src="./images/pythonparrot.gif">, Go <img  height="16" alt="Tech Squawks" src="./images/partygopher.gif">, and Node <img   height="16" alt="Tech Squawks" src="./images/nodeparrot.gif">.
+Cloud computing tutorials in programming languages such as Node (Typescript/Javascript)<img   height="16" alt="Tech Squawks" src="./images/nodeparrot.gif", <br/>Python <img  height="16" alt="Tech Squawks" src="./images/pythonparrot.gif">, and Go <img  height="16" alt="Tech Squawks" src="./images/partygopher.gif">.
 </p>
 
 ## About
@@ -21,7 +21,7 @@ These tutorials are very much a work-in-progress.
 The following topics are planned in the order they are listed. No fixed date for these topics exists as of yet.
 
 ### AWS (🚧 In-Progress)
-- [x] Overview
+- [x] AWS Environment 
 - [x] IAM
 - [x] S3
 - [ ] EC2 (🚧 In-Progress)
