@@ -22,10 +22,10 @@ The following topics are planned in the order they are listed. No fixed date for
 
 ### AWS (In-Progress)
 - [x] Overview
-- [ ] IAM
-- [ ] S3
-- [ ] EC2
-- [ ] VPC
+- [x] IAM
+- [x] S3
+- [ ] EC2 (in-progress)
+- [ ] VPC (in-progress)
 - [ ] Route53
 - [ ] CloudWatch
 - [ ] CloudTrail

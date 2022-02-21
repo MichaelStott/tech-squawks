@@ -21,7 +21,7 @@ Cloud computing affords engineers numerous benefits when developing applications
 - Cost-effectiveness: Cloud providers are able to leverage the enconomy of scale when purchasing hardware and pass those savings onto developers.
 - Scalability: Infrastructure can be horizontally and vertically scaled as needed.
 
-Simultaneously, developing within a cloud environment introduces additional factors for considerations:
+Simultaneously, developing within a cloud environment introduces additional factors to consider:
 - Security: Ensure only authorized individuals are able to access and modify an organization's cloud resources.
 - Visibility: Ascertaining pertinent resources and activity are acruing charges within a cloud envirornment.
 - Observability: Assessing the state of applications deployed to the cloud.
