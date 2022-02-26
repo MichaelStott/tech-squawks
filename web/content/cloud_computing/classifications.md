@@ -4,7 +4,7 @@ title: Classifications
 weight: 3
 ---
 
-### Cloud Computing Services
+### Cloud Computing Service Classifications
 
 For on-premise applications, organizations or individuals manage all the underlying compute, storage, and 
 networking infrastructure for their systems and services.
@@ -34,3 +34,5 @@ For SaaS products, the user manages none of the underlying instrastructure or ap
 users can upload data through a web console or API while AWS maintains all backend services.
 
 ![SaaS Stack](/parrots/parrotnotfound.gif)
+
+### Cloud Computing Deployment Models
