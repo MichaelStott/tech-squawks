@@ -4,6 +4,5 @@ title = "Tech Squawks"
 theme = "hugo-theme-learn"
 
 [params]
-menu = ["s3", "iam"]
 themeVariant = "blue"
 disableSearch = true

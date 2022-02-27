@@ -13,7 +13,7 @@ networking infrastructure for their systems and services.
 
 Depending on the type of service offering, cloud computing manages some or all of these components. There 
 are three cloud computing models, Infrastructure as a Service (IaaS) Platform as a Service (PaaS), 
-and Software as a Service (SaaS).
+and Software as a Service (SaaS). [^1]
 
 #### Infrastructure as a Service - IaaS
 
@@ -36,3 +36,14 @@ users can upload data through a web console or API while AWS maintains all backe
 ![SaaS Stack](/parrots/parrotnotfound.gif)
 
 ### Cloud Computing Deployment Models
+
+#### In-Cloud
+
+#### Private
+
+#### Community
+
+#### Public
+
+[^1]: NIST Definition of Cloud Computing: https://csrc.nist.gov/publications/detail/sp/800-145/final
+
