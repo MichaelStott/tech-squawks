@@ -4,7 +4,7 @@ chapter: false
 weight: 3
 ---
 
- ![LocalStack Logo](https://localstack.cloud/images/header-logo.svg)
+# LocalStack
 
 
 While it is preferrable to develop and test applications against actual cloud resources when possible, 

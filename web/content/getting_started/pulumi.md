@@ -4,8 +4,7 @@ chapter: false
 weight: 2
 ---
 
-
- ![Pulumi Logo](https://www.pulumi.com/logos/brand/logo-on-white.svg)
+# Pulumi
 
 When working in cloud environments, it is useful to be able to define and statefully mange infrastructure. Pulumi is such a tool that allows developers to programatically create, update, and delete cloud resources using popular programming languages such as Typescript,
 Javascript, Python, and Go.
