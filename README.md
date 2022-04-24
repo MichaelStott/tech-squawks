@@ -26,21 +26,31 @@ The following topics are planned in the order they are listed. No fixed date for
 - [x] IAM
 - [x] S3
 - [ ] EC2 (🚧 In-Progress)
+- [ ] ELB (🚧 In-Progress)
 - [ ] VPC (🚧 In-Progress)
+- [ ] KMS
 - [ ] Route53
 - [ ] CloudWatch
 - [ ] CloudTrail
-- [ ] RDS
 - [ ] Lambda
+- [ ] Step Functions
 - [ ] SNS
 - [ ] SQS
 - [ ] Kinesis
 - [ ] SES
+- [ ] RDS
+- [ ] DynamoDB
+- [ ] Secrets Manager
+- [ ] STS
+- [ ] Config
 
 ### Docker (Not-Started)
+- [ ] Introduction
 - Content TBD
+(Need to outline)
 
 ### Kubernetes (Not-Started)
+- [ ] Introduction
 - Content TBD
 
 ## Development
