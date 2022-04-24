@@ -10,16 +10,17 @@ weight: 1
 
 > Cloud computing is a model for enabling ubiquitous, convenient, on-demand network access to a shared pool of configurable computing resources (e.g., networks, servers, storage, applications, and services) that can be rapidly provisioned and released with minimal management effort or service provider interaction.
 
+![Cloud Computing Overview](/images/cc/overview7.png)
+
 Companies and third-parties with cloud computing platform offerings are known as *cloud providers*. Popular cloud providers incude [Amazon Web Services (AWS)](https://aws.amazon.com/), [Microsoft Azure](https://azure.microsoft.com/en-us/), and [Google Cloud Platform (GCP)](https://cloud.google.com/).
 
-![The Big Three: AWS, Azure, and GCP](/parrots/parrotnotfound.gif)
-
-### Benefits & Drawbacks
+### Benefits & Considerations
 
 Cloud computing affords engineers numerous benefits when developing applications, such as:
-- On-demand provisioning: Servers, networks, and other cloud resources and be rapidly provisioned.
-- Cost-effectiveness: Cloud providers are able to leverage the enconomy of scale when purchasing hardware and pass those savings onto developers.
-- Scalability: Infrastructure can be horizontally and vertically scaled as needed.
+- On-Demand: Servers, networks, and other cloud resources and be rapidly provisioned.
+- Economy of Scale: Cloud providers operate at a scale beyond most organizations. As a result, customers are
+able to benefit from massive economies of scale when leveraging the cloud.
+- Scalability: Organizations can horizontally and vertically scale infrastructure as needed.
 
 Simultaneously, developing within a cloud environment introduces additional factors to consider:
 - Security: Ensure only authorized individuals are able to access and modify an organization's cloud resources.
@@ -32,8 +33,6 @@ Cloud service offerings typically provide trade-offs between user configurabilit
 - _Infrastructure as a Service (IaaS)_: Provides access to the underlying infrastructure.
 - _Platform as a Service (PaaS)_: Provides a runtime environment for easily deploying applications to the cloud.
 - _Software as a Service (SaaS)_: Software hosted in the cloud where end-users are not conernced with the underlying platform or infrastructure.
-
-![Cloud Classifications](/parrots/parrotnotfound.gif)
 
 ### Cloud Native
 

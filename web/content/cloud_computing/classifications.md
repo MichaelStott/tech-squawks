@@ -9,7 +9,7 @@ weight: 3
 For on-premise applications, organizations or individuals manage all the underlying compute, storage, and 
 networking infrastructure for their systems and services.
 
-![On-Prem Stack](/parrots/parrotnotfound.gif)
+![Cloud Classifications](/images/cc/cloud_classifications.png)
 
 Depending on the type of service offering, cloud computing manages some or all of these components. There 
 are three cloud computing models, Infrastructure as a Service (IaaS) Platform as a Service (PaaS), 

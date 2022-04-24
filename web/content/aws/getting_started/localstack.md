@@ -33,21 +33,39 @@ LocalStack offers a CLI for provisioning an AWS test environment. To install it,
 pip3 install localstack
 ```
 
-### AWS CLI Configuration
+### AWS Local Client
 
-Adding the `--endpoint-url` option to CLI will direct API requests to your Localstack instance. For instance, the following
+#### AWS CLI
+
+Adding the `--endpoint-url` option to the AWS CLI will direct API requests to your Localstack instance. For instance, the following
 will create an AWS resource bucket called an S3 bucket on your local machine.
 
+```sh
+aws --endpoint-url=http://localhost:4566 s3 mb s3://mytestbucket
 ```
-aws --endpoint-url=http://localhost:4572 s3 mb s3://mytestbucket
+
+#### AWSLocal CLI
+
+If you do not wish to add the above option for every CLI call, you may instead use the `awslocal` CLI, which is automatically 
+configured to target Localstack. It can be installed with the 
+following:
+
+```sh
+pip3 install awscli-local
+```
+
+To validate that `awslocal` is properly installed, run the following:
+
+```sh
+awslocal s3 mb s3://mytestbucket
 ```
 
 ### Pulumi 
 
 Pulumi provides a CLI tool that you can substitue for the regular `pulumi` command, `pulumilocal`. Install with the following:
 
-```
-pip install pulumi-local
+```sh
+pip3 install pulumi-local
 ```
 
 You can learn more about the tool [here](https://github.com/localstack/pulumi-local).
