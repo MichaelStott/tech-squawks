@@ -1,5 +1,6 @@
 ---
 menuTitle: LocalStack
+draft: false
 chapter: false
 weight: 3
 ---
@@ -33,6 +34,12 @@ LocalStack offers a CLI for provisioning an AWS test environment. To install it,
 pip3 install localstack
 ```
 
+Initialize Localstack with the following:
+
+```sh
+localstack start
+```
+
 ### AWS Local Client
 
 #### AWS CLI
@@ -59,13 +66,3 @@ To validate that `awslocal` is properly installed, run the following:
 ```sh
 awslocal s3 mb s3://mytestbucket
 ```
-
-### Pulumi 
-
-Pulumi provides a CLI tool that you can substitue for the regular `pulumi` command, `pulumilocal`. Install with the following:
-
-```sh
-pip3 install pulumi-local
-```
-
-You can learn more about the tool [here](https://github.com/localstack/pulumi-local).

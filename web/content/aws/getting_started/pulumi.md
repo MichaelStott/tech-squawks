@@ -1,5 +1,6 @@
 ---
 menuTitle: Pulumi
+draft: false
 chapter: false
 weight: 2
 ---

@@ -1,6 +1,7 @@
 ---
 menuTitle: AWS
 title: AWS
+draft: false
 chapter: true
 weight: 1
 ---

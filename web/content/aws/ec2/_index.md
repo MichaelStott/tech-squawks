@@ -1,5 +1,6 @@
 ---
 title: EC2 🚧
+draft: true
 chapter: true
 weight: 5
 ---
