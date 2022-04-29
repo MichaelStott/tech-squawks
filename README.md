@@ -61,8 +61,10 @@ To launch the website locally, you will need to install `hugo`:
 
 ```
 $ cd web
-$ hugo server -D
+$ hugo server
 ```
+
+To build the website with drafts included, run `hugo server -D`
 
 ### Deploy
 
