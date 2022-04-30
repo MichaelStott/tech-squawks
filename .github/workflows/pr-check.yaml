@@ -5,7 +5,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Checkout submodules
-        uses: textbook/git-checkout-submodule-action@master
+      - uses: actions/checkout@v1
+        with:
+          submodules: true
+          token: ${{ secrets.CI_TOKEN }}
       - run: brew install hugo
       - run: (cd web; hugo)
