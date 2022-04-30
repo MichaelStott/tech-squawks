@@ -2,6 +2,7 @@ import * as aws from "@pulumi/aws";
 import * as pulumi from "@pulumi/pulumi"
 import * as mime from "mime"
 import * as glob from "glob"
+import * as fs from "fs"
 
 export const staticSiteBucket = new aws.s3.Bucket("tech-squawks-bucket-" + pulumi.getStack(), {
     acl: "public-read",
@@ -25,9 +26,11 @@ export const staticSiteBucket = new aws.s3.Bucket("tech-squawks-bucket-" + pulum
 })
 
 glob.sync("./web/public/**/*", {}).map((filePath: string) => {
-    let obj = new aws.s3.BucketObject(filePath.replace('./web/public/',''), {
-        bucket: staticSiteBucket,
-        source: new pulumi.asset.FileAsset(filePath),
-        contentType: mime.getType(filePath) || undefined,
-    })
+    if (fs.lstatSync(filePath).isFile()) {
+        let obj = new aws.s3.BucketObject(filePath.replace('./web/public/',''), {
+            bucket: staticSiteBucket,
+            source: new pulumi.asset.FileAsset(filePath),
+            contentType: mime.getType(filePath) || undefined,
+        })
+    }
 })
