@@ -112,7 +112,7 @@ export const distributionArgs: aws.cloudfront.DistributionArgs = {
     },
 };
 
-export const cdn = pulumi.getStack() === "prod" ? new aws.cloudfront.Distribution("cdn-" + pulumi.getStack(), distributionArgs) : undefined
+export const cdn = pulumi.getStack() === "production" ? new aws.cloudfront.Distribution("cdn-" + pulumi.getStack(), distributionArgs) : undefined
 
 function getDomainAndSubdomain(domain: string): { subdomain: string, parentDomain: string } {
     const parts = domain.split(".");
