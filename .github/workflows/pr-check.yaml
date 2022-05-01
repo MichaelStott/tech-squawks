@@ -1,7 +1,7 @@
 name: Build hugo webpages
 on: [push]
 jobs:
-  check-bats-version:
+  build-website:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -9,5 +9,5 @@ jobs:
           submodules: true
       - name: Install Hugo CLI
         run: brew install hugo
-      - name: Build Website
+      - name: Render Static Website
         run: (cd web; hugo)
