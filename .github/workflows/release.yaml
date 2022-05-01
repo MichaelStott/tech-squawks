@@ -1,0 +1,35 @@
+name: tech-squawks-release
+on:
+  pull_request:
+    branches: 
+      - main
+    types: [closed]
+jobs:
+  deploy-website:
+    if: ${{ github.event.pull_request.merged }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: true
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 14.x
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-region: ${{ secrets.AWS_REGION }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      - name: Install Hugo CLI
+        run: brew install hugo
+      - name: Render Static Website
+        run: (cd web; hugo)
+      - name: Install Project Dependencies
+        run: npm i
+      - uses: pulumi/actions@v3
+        with:
+          command: up
+          stack-name: production
+        env:
+          PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
