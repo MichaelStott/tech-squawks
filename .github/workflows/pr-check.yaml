@@ -1,10 +1,15 @@
-name: Validate that webpage can be built.
+name: Build hugo webpages
 on: [push]
 jobs:
   check-bats-version:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - uses: actions/checkout@v1
         with:
-          node-version: '14'
-      - run: (cd web; hugo)
+        submodules: true
+        token: ${{ secrets.CI_TOKEN }}
+      - name: Install Hugo CLI
+        run: brew install hugo
+      - name: Build Website
+        run: (cd web; hugo)
