@@ -4,11 +4,11 @@ jobs:
   check-bats-version:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out tech-squawks repo and submodules
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
+      - uses: actions/checkout@v1
         with:
-          submodules: true
-          token: ${{ secrets.CI_TOKEN }}
+        submodules: true
+        token: ${{ secrets.CI_TOKEN }}
       - name: Install Hugo CLI
         run: brew install hugo
       - name: Build Hugo Website 
