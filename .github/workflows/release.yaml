@@ -1,8 +1,9 @@
 name: tech-squawks-release
 on:
-  push:
-    branches:
-      - master
+  pull_request:
+    branches: 
+      - main
+    types: [closed]
 jobs:
   deploy-website:
     if: ${{ github.event.pull_request.merged }}
