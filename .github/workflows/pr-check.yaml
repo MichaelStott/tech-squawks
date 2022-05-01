@@ -9,5 +9,7 @@ jobs:
         with:
         submodules: true
         token: ${{ secrets.CI_TOKEN }}
-      - run: brew install hugo
-      - run: (cd web; hugo)
+      - name: Install Hugo CLI
+        run: brew install hugo
+      - name: Build Website
+        run: (cd web; hugo)
