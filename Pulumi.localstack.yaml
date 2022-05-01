@@ -1,0 +1,8 @@
+config:
+  aws:region: us-east-2
+  aws:endpoints:
+    - acm: http://localhost:4566
+    - s3: http://localhost:4566
+  aws:s3ForcePathStyle: true
+  aws:skipCredentialsValidation: true
+  aws:skipRequestingAccountId: true
