@@ -1,5 +1,5 @@
 ---
-title: Getting Started
+title: Developer Setup
 draft: false
 chapter: true
 weight: 1

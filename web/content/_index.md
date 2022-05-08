@@ -6,16 +6,18 @@ weight: 1
 
 # Howdy!
 
-Welcome to Tech Squawks, a website for learning [AWS](https://aws.amazon.com/) cloud development and design, using programming languages
-such as Typescript, Javascript, Python, or Go. This site is currently a work in progress, so check back frequently for new tutorials and
-updates!
+Welcome to Tech Squawks, a website for learning [AWS](https://aws.amazon.com/) cloud development, using programming 
+languages such as Typescript, Javascript, Python, Go, or Java. This site is a work in progress, so check back 
+frequently for new tutorials and updates!
 
-AWS can seem like a daunting platform to master. At the time of writing, there are over 200 cloud services offered by AWS. 
-The goal of Tech Squawks is to provide straightforward explanations of cloud computing concepts using short W3-esque examples of self-contained AWS apps that can be swiftly built and deployed.
+Learning cloud computing and AWS development can seem like a daunting task. At the time of writing, there are over 200 
+cloud services offered by AWS. The goal of this website is to offer a more hands-on approach to understanding AWS 
+development beyond the available documentation by providing code examples of cloud applications to demonstrate 
+cloud computing concepts.
 
-In an effort to make these tutorials accesible to those without AWS access and minimize costs, examples are designed to be compatible with 
-[LocalStack](https://localstack.cloud/), a framework for running AWS cloud applications on the user's local 
-machine, whenever possible. 
+In an effort to make these tutorials accesible to those without AWS access and minimize costs, examples are designed 
+to be compatible with [LocalStack](https://localstack.cloud/), a framework for running AWS cloud applications on the 
+user's local machine, whenever possible. 
 
 Flashcards are included at the end of each section for additional study and review, which may be useful for those wishing to pursue 
 certification. These flaschards are publicly hosted on [Cram](https://www.cram.com/) and accesible through both the website and mobile app.
@@ -46,6 +48,9 @@ Below is a short example of deploying a small serverless web app. The deploy but
 {{< tab name="Go" >}}
 {{< figure src="parrots/parrotnotfound.gif" title="Not yet available." >}}
 {{< /tab >}}
+{{< tab name="Java" >}}
+{{< figure src="parrots/parrotnotfound.gif" title="Not yet available." >}}
+{{< /tab >}}
 {{< /tabs >}}
 
 The exported URL will display the following image in your web browser: 
@@ -57,7 +62,7 @@ The exported URL will display the following image in your web browser:
 Before continuing, readers should be:
 
 - Knowledgeable of at least one of the following programming languages: Typescript, Javascript, Python, or Go
-- Comfortable with using the shell or terminal on their OS
+- Comfortable with using their OS's terminal or shell
 - Familiar with basic computer networking concepts
 
 For setting up your development environment, see the  [Getting Started]({{< ref "getting_started" >}}) section.
