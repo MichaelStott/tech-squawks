@@ -20,7 +20,7 @@ export const staticSiteBucket = new aws.s3.Bucket("tech-squawks-bucket-" + pulum
         `,
     },
     versioning: {
-        enabled: true
+        enabled: false
     },
     forceDestroy: true
 })
