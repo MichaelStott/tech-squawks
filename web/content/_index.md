@@ -62,7 +62,7 @@ The exported URL will display the following image in your web browser:
 Before continuing, readers should be:
 
 - Knowledgeable of at least one of the following programming languages: Typescript, Javascript, Python, or Go
-- Comfortable with using their OS's terminal or shell
+- Comfortable with using their local terminal or shell
 - Familiar with basic computer networking concepts
 
 For setting up your development environment, see the  [Getting Started]({{< ref "getting_started" >}}) section.

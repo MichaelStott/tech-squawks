@@ -11,8 +11,7 @@ weight: 3
 While it is preferrable to develop and test applications against actual cloud resources when possible, 
 not all readers may have AWS access or be able to set up a private account. Additionally, there is always the 
 risk of leaving cloud resources provisioned, which may result in unintended charges.
-To make these tutorials as accessible and cost-effective as possible, examples in these tutorials leverage the free-tier version 
-of [LocalStack](https://localstack.cloud/) whenever possible.  
+To make these tutorials as accessible and cost-effective as possible, examples in these tutorials leverage the free-tier version of [LocalStack](https://localstack.cloud/) whenever possible.  
 
 LocalStack is able to emulate an AWS cloud environment on the user's development machine, making it useful 
 for both development and testing. Examples that work and function with the free-tier version of LocalStack 
