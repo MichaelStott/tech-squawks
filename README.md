@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-Cloud computing tutorials in programming languages such as Node (Typescript/Javascript)<img   height="16" alt="Tech Squawks" src="./images/nodeparrot.gif">,<br/>Python <img  height="16" alt="Tech Squawks" src="./images/pythonparrot.gif">, and Go <img  height="16" alt="Tech .Squawks" src="./images/partygopher.gif">.
+Cloud computing tutorials in programming languages such as Node (Typescript/Javascript)<img   height="16" alt="Tech Squawks" src="./images/nodeparrot.gif">,<br/>Python <img  height="16" alt="Tech Squawks" src="./images/pythonparrot.gif">, Go <img  height="16" alt="Tech .Squawks" src="./images/partygopher.gif">, and Java <img  height="16" alt="Tech .Squawks" src="./images/coffeeparrot.gif">.
 </p>
 
 
@@ -11,7 +11,7 @@ Cloud computing tutorials in programming languages such as Node (Typescript/Java
 
 The aim of this website is to present cloud-computing concepts using small, self-contained web apps. To achieve this, 
 cloud infrastructure and services are managed with Pulumi. Pulumi allows users to easilty define their cloud resources 
-using programming languages such as Python, Golang, Typescript, or Javascript. 
+using programming languages such as Typescript, Javascript, Python, Go, and Java 
 
 Flashcards are included at the end of each section to help reinforce concepts covered in the section.
 
@@ -21,11 +21,12 @@ These tutorials are very much a work-in-progress. As a result, the site structur
 
 The following topics are planned in the order they are listed. No fixed date for these topics exists as of yet.
 
-### AWS (🚧 In-Progress)
-- [x] AWS Environment 
-- [x] IAM
-- [x] S3
-- [ ] EC2 (🚧 In-Progress)
+- [ ] Developer Setup
+- [ ] Cloud Computing
+- [ ] AWS Overview
+- [ ] IAM
+- [ ] S3
+- [ ] EC2 
 - [ ] ELB (🚧 In-Progress)
 - [ ] VPC (🚧 In-Progress)
 - [ ] KMS
@@ -43,15 +44,6 @@ The following topics are planned in the order they are listed. No fixed date for
 - [ ] Secrets Manager
 - [ ] STS
 - [ ] Config
-
-### Docker (Not-Started)
-- [ ] Introduction
-- Content TBD
-(Need to outline)
-
-### Kubernetes (Not-Started)
-- [ ] Introduction
-- Content TBD
 
 ## Development
 
