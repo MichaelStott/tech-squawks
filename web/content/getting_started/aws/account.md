@@ -5,7 +5,7 @@ chapter: false
 weight: 2
 ---
 
-An AWS account is required to begin provisioning cloud resources, which can be created [here](https://aws.amazon.com/). While the process is rather straightforward, instructions are provided below for additional guidance.
+An AWS account is required to begin provisioning cloud resources. While the process is rather straightforward, instructions are provided below for additional guidance.
 
 {{% notice info %}}
 A credit card, email address, and phone number are required for setting up an AWS account. Readers who are students or US 
