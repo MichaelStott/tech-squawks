@@ -5,14 +5,14 @@ chapter: false
 weight: 4
 ---
 
-The AWS CLI is used to interact with AWS resources and services through a local terminal or shell by making AWS API calls on your behalf with local credentials.
+The AWS CLI is used to interact with AWS resources and services through a local terminal or shell. It leverages local 
+credentials on the developers machine to successfully perform API calls.
 
 The following instructions target *version 2* of the AWS CLI. See these [instructions](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv1.html) if you would prefer *version 1*. Note that these versions are not backwards compatible, so commands may differ between the two.
 
 ### Instructions 
 
 1. Download and install the CLI for your development environment's OS:
-
 {{< tabs groupId="os" >}}
 {{% tab name="Windows" %}}
 
@@ -53,25 +53,24 @@ $ sudo ./aws/install
 {{% /tab %}}
 {{< /tabs >}}
 
-2. To confirm that your CLI has been successfully installed, run the following in your shell/terminal:
+2. To confirm that your CLI has been successfully installed, run the following in your shell/terminal to output the CLI version:
 ```sh
 aws --version
 ```
-If everything was successful, this command should output the CLI versioning information. 
 
-3. Using the credentials that were generated in the previous section, 
-
+3. Run the following and enter the credentials downloaded from the previous section when prompted. This will enable the
+CLI to authenitcate with AWS and perform API calls.
 ```sh
 aws configure
 ```
 ```
 AWS Access Key ID [None]: access-key-value-here
 AWS Secret Access Key [None]: secret-key-value-here
-Default region name [None]: us-east-2
+Default region name [None]: us-east-1
 Default output format [None]:
 ```
 
-4. To ensure that your CLI is able to perform API calls, run the following, which should return the user and account information of the active credentials used by the CLI.
+4. Run the following to ensure the CLI is properly configured, which will return the active user and account information.
 ```sh
 aws sts get-caller-identity
 ```

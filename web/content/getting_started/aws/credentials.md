@@ -8,14 +8,14 @@ weight: 3
 After successfully setting up an account, AWS automatically creates a default user entity known as the [root user](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_root-user.html), 
 which has unlimited access to all cloud resources. Because of this, it is considered [best practice](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#lock-away-credentials) to create a separate 
 AWS user for development and rectrict access to the root user. The folowing instructions cover enabling MFA 
-(multi-factor authentication) to secure access to the root user and creating a separate devlopment user with 
+(multi-factor authentication) to secure access to the root user and creating a separate developer user with 
 programtic credentials for the AWS CLI and SDK.
 
 ### Activate MFA for Root Account
 
 1. Log into the AWS console. Type "IAM" into the top search bar and click on the first result from the dropdown.
 
-2. On the dashboard, select the option to configure MFA on the root account.
+2. On the IAM dashboard, select the option to configure MFA on the root account.
 
 3. Select "Virtual MFA Device" for the MFA type.
 {{% notice info %}}
@@ -32,15 +32,15 @@ MFA can then be easily reconfigured on a separate device.
 
 ### Create Admin User
 
-1. Within the IAM menu, go to the users tab.
+1. Within the IAM menu, go to the users tab and press the "Add Users"
 
-2. Select the option to create a user. Under the options, select both "Programatic access" and "AWS Management Console access". Enter an AWS console password and unselect "Require password reset"
+2. Select both "Programatic access" and "AWS Management Console access" options. Enter an AWS console password and unselect "Require password reset"
 
 3. Under "Attach existing policies directly", check "Aministrator Access".
 
 4. Skip the tags section and click Create User
 
-5. After the user is generated, click "Download .csv" to download the access and secret key pair.
+5. After the user is generated, click "Download .csv" to download the access and secret key pair and a user-specific sign-in URL.
 {{% notice warning %}}
-Credentials are only available for download immediately after generation. Otherwise, the credentials will be lost forever.
+Credentials are only available for download immediately after generation. Afterwards, the credentials will be unrecoverable.
 {{% /notice %}}
