@@ -37,7 +37,3 @@ Cloud service offerings typically provide trade-offs between user configurabilit
 ### Cloud Native
 
 The rise of cloud computing has accelerated the adoption of practices for developing robust cloud applications, collectively known as cloud-native development. These practices include _microservices_, _containerization_, and _serverless_ development for improving application scalability, portability, deployability, and development.
-
-### AWS
-
-These tutorials will target Amazon Web Services (AWS) for deploying examples and exploring cloud computing design. AWS is one the earliest and most popular cloud provider. While the individual implementation of computing, data-store, networking, and other cloud services varies between cloud-providers, the principles learned here can be applied to all platforms.
