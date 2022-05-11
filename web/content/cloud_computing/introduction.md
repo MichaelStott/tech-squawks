@@ -40,4 +40,4 @@ The rise of cloud computing has accelerated the adoption of practices for develo
 
 ### AWS
 
-These tutorials will target AWS for deploying examples and exploring cloud computing design. AWS is one the earliest and, at the time of writing, most popular cloud provider. While the individual implementation of computing, data-store, networking, and other cloud services varies between cloud-providers, the principles learned here can be applied to all platforms.
+These tutorials will target Amazon Web Services (AWS) for deploying examples and exploring cloud computing design. AWS is one the earliest and most popular cloud provider. While the individual implementation of computing, data-store, networking, and other cloud services varies between cloud-providers, the principles learned here can be applied to all platforms.

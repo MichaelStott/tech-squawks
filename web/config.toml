@@ -3,6 +3,9 @@ languageCode = "en-us"
 title = "Tech Squawks"
 theme = "hugo-theme-learn"
 
+[markup.goldmark.renderer]
+unsafe = true
+
 [params]
 themeVariant = "blue"
 disableSearch = true
