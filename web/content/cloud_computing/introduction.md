@@ -6,7 +6,7 @@ weight: 1
 
 ### Definition
 
-*Cloud computing* is essentially the ability to provision and manage computational and network resources, such as servers, networks, or data stores, through a web interface, such as a web page or API.  The National Institute of Standards and Technology (NIST) formally [define](https://csrc.nist.gov/publications/detail/sp/800-145/final) cloud computing as follows:
+*Cloud computing*  allows developers to provision and manage computational and network resources, such as servers, networks, or data stores, through a web interface, such as a web page or API.  The National Institute of Standards and Technology (NIST) formally [define](https://csrc.nist.gov/publications/detail/sp/800-145/final) cloud computing as follows:
 
 > Cloud computing is a model for enabling ubiquitous, convenient, on-demand network access to a shared pool of configurable computing resources (e.g., networks, servers, storage, applications, and services) that can be rapidly provisioned and released with minimal management effort or service provider interaction.
 
