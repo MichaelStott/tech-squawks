@@ -30,9 +30,9 @@ Simultaneously, developing within a cloud environment introduces additional fact
 ### Classifications
 
 Cloud service offerings typically provide trade-offs between user configurability, costs, and overhead, ranging from fully user-configurable servers and virtual environments to completely managed services, such as for databases. Cloud services are broadly categorized as:
-- _Infrastructure as a Service (IaaS)_: Provides access to the underlying infrastructure.
-- _Platform as a Service (PaaS)_: Provides a runtime environment for easily deploying applications to the cloud.
-- _Software as a Service (SaaS)_: Software hosted in the cloud where end-users are not conernced with the underlying platform or infrastructure.
+- Infrastructure as a Service (IaaS): Provides access to the underlying infrastructure.
+- Platform as a Service (PaaS): Provides a runtime environment for easily deploying applications to the cloud.
+- Software as a Service (SaaS): Software hosted in the cloud where end-users are not conernced with the underlying platform or infrastructure.
 
 ### Cloud Native
 
