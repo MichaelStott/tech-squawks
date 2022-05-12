@@ -6,7 +6,7 @@ weight: 1
 
 ### Definition
 
-*Cloud computing* is essentially the ability to provision and manage computational and network resources, such as servers, networks, or data stores, through a web interface, such as a web page or API.  The National Institute of Standards and Technology (NIST) formally [define](https://csrc.nist.gov/publications/detail/sp/800-145/final) cloud computing as follows:
+*Cloud computing*  allows developers to provision and manage computational and network resources, such as servers, networks, or data stores, through a web interface, such as a web page or API.  The National Institute of Standards and Technology (NIST) formally [define](https://csrc.nist.gov/publications/detail/sp/800-145/final) cloud computing as follows:
 
 > Cloud computing is a model for enabling ubiquitous, convenient, on-demand network access to a shared pool of configurable computing resources (e.g., networks, servers, storage, applications, and services) that can be rapidly provisioned and released with minimal management effort or service provider interaction.
 
@@ -30,14 +30,10 @@ Simultaneously, developing within a cloud environment introduces additional fact
 ### Classifications
 
 Cloud service offerings typically provide trade-offs between user configurability, costs, and overhead, ranging from fully user-configurable servers and virtual environments to completely managed services, such as for databases. Cloud services are broadly categorized as:
-- _Infrastructure as a Service (IaaS)_: Provides access to the underlying infrastructure.
-- _Platform as a Service (PaaS)_: Provides a runtime environment for easily deploying applications to the cloud.
-- _Software as a Service (SaaS)_: Software hosted in the cloud where end-users are not conernced with the underlying platform or infrastructure.
+- Infrastructure as a Service (IaaS): Provides access to the underlying infrastructure.
+- Platform as a Service (PaaS): Provides a runtime environment for easily deploying applications to the cloud.
+- Software as a Service (SaaS): Software hosted in the cloud where end-users are not conernced with the underlying platform or infrastructure.
 
 ### Cloud Native
 
 The rise of cloud computing has accelerated the adoption of practices for developing robust cloud applications, collectively known as cloud-native development. These practices include _microservices_, _containerization_, and _serverless_ development for improving application scalability, portability, deployability, and development.
-
-### AWS
-
-These tutorials will target AWS for deploying examples and exploring cloud computing design. AWS is one the earliest and, at the time of writing, most popular cloud provider. While the individual implementation of computing, data-store, networking, and other cloud services varies between cloud-providers, the principles learned here can be applied to all platforms.
