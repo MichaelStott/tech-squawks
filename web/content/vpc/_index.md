@@ -2,7 +2,7 @@
 title: VPC 🚧
 draft: true
 chapter: true
-weight: 6
+weight: 7
 ---
 
 # VPC
