@@ -1,0 +1,1 @@
+aws s3 rb s3://ts-first-bucket --region us-east-1

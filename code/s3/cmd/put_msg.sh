@@ -1,0 +1,1 @@
+aws s3api put-object --body "Hello world!"
