@@ -2,7 +2,7 @@ name: tech-squawks-valaidate
 on: 
   pull_request:
     paths:
-      - 'code/s3/cmd/*.sh'
+      - 'code/s3/cmd'
 jobs:
   build-website:
     runs-on: ubuntu-latest
