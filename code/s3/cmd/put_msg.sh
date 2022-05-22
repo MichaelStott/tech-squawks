@@ -1,1 +1,1 @@
-aws s3api put-object --body "Hello world!"
+aws s3api put-object --body "Hello world!" --bucket ts-first-bucket
