@@ -1,8 +1,5 @@
 name: s3-bucket-create-cli-test
-on: 
-  pull_request:
-    paths:
-      - 'code/s3/cmd'
+on: [pull_request]
 jobs:
   build-website:
     runs-on: ubuntu-latest
