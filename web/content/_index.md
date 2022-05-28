@@ -28,14 +28,14 @@ Below is a short example of deploying a small serverless web app. The deploy but
 
 {{< tabs groupId="code" >}}
 {{< tab name="Typescript" >}}
-{{% gist MichaelStott fb97da6768443ca12ca6c0c720fe2e89 "homepage_example.ts" %}}
+<script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2FMichaelStott%2FAWSExamples%2Fblob%2Fmaster%2Fexamples%2Fhomepage%2Fts%2Findex.ts&style=github&showBorder=on&showLineNumbers=on&showFileMeta=on&showCopy=on"></script>
 {{% button href="https://github.com/MichaelStott/AWSExamples/tree/master/examples/homepage/ts" icon="fab fa-github" icon-position="left" %}}GitHub{{% /button %}}
 {{% button href="https://app.pulumi.com/new?template=https://github.com/MichaelStott/AWSExamples/tree/master/examples/homepage/ts" icon="fas fa-cloud-upload-alt" icon-position="left" %}}Deploy{{% /button %}}
 {{% button href="https://localstack.cloud/" icon="fas fa-laptop-code" icon-position="left" %}}LocalStack Compatible{{% /button %}}
 {{< /tab >}}
 {{< tab name="Javascript" >}}
 
-{{% gist MichaelStott fb97da6768443ca12ca6c0c720fe2e89 "homepage_example.js" %}}
+<script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2FMichaelStott%2FAWSExamples%2Fblob%2Fmaster%2Fexamples%2Fhomepage%2Fjs%2Findex.js&style=github&showBorder=on&showLineNumbers=on&showFileMeta=on&showCopy=on"></script>
 {{% button href="https://github.com/MichaelStott/AWSExamples/tree/master/examples/homepage/js" icon="fab fa-github" icon-position="left" %}}View Project{{% /button %}}
 {{% button href="https://app.pulumi.com/new?template=https://github.com/MichaelStott/AWSExamples/tree/master/examples/homepage/js" icon="fas fa-cloud-upload-alt" icon-position="left" %}}Deploy{{% /button %}}
 
