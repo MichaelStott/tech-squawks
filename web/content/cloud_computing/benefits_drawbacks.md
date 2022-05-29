@@ -1,6 +1,6 @@
 ---
 title: Benefits & Considerations
-draft: true
+draft: false
 weight: 2
 ---
 
@@ -30,6 +30,16 @@ There are two types of scaling, horizontal and vertical. Horizontal scaling refe
 
 #### Security
 
+ The [shared responsibility model](https://aws.amazon.com/compliance/shared-responsibility-model/) outlines the security responsibilities of both cloud providers and cloud customers. Broadly speaking, cloud providers are responsible for securing the hardware in their data center, such that unauthorized access to data centers does not happen and that customer data is appropriately segregated using techniques such as virtualization. Cloud customers are responsible for ensuring their applications are properly configured so that data is not leaked unintentionally.
+
+ Additionally, because the cloud can provide a theoretically limitless amount of computational power, customers are responsible for ensuring that their cloud access is secure and that services and organization users have the appropriate credentials. Generally, it is recommended that administrators follow the principle of least privilege, granting the minimum amount of permissions users need for a specific task,  when providing access.
+
 #### Cost Management
 
+While there are economical benefits to leveraging the cloud, unintended costs can easily accrue if unused resources are left provisioned or if budgeting is done improperly Cloud providers often have budgeting alarms and tools that can assist customers with monitoring their cloud usage to curb costs
+
+Info: There is often a trade-off in cloud services between cost and convenience. The less managerial work required by engineers to use the service, the more expensive it tends to be. For instance, manually provisioning servers for a database cluster can be cumbersome because engineers are responsible for all maintenance tasks associated with the cluster, but it is significantly cheaper than most cloud provider options for managed database solutions, where the cloud provider manages all maintenance tasks for updating the database.
+
 #### Visibility
+
+Keeping track of your cloud resources can appear to be a daunting task when numbers members of your organization may be provisioning new or updating existing resources in the cloud. When cloud resource specifications differ from what is specified in IaC ((?), that is known as Infrastructure Drift. One must also ensure that appropriate monitoring and alerting is setup in their environment in the event that there is an infrastructure or application failure.
