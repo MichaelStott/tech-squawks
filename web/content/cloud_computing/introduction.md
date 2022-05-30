@@ -22,11 +22,6 @@ Cloud computing affords engineers numerous benefits when developing applications
 able to benefit from massive economies of scale when leveraging the cloud.
 - Scalability: Organizations can horizontally and vertically scale infrastructure as needed.
 
-Simultaneously, developing within a cloud environment introduces additional factors to consider:
-- Security: Ensure only authorized individuals are able to access and modify an organization's cloud resources.
-- Visibility: Ascertaining pertinent resources and activity are acruing charges within a cloud envirornment.
-- Observability: Assessing the state of applications deployed to the cloud.
-
 ### Classifications
 
 Cloud service offerings typically provide trade-offs between user configurability, costs, and overhead, ranging from fully user-configurable servers and virtual environments to completely managed services, such as for databases. Cloud services are broadly categorized as:
