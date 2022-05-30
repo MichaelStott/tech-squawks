@@ -18,14 +18,9 @@ Companies and third-parties with cloud computing platform offerings are known as
 
 Cloud computing affords engineers numerous benefits when developing applications, such as:
 - On-Demand: Servers, networks, and other cloud resources and be rapidly provisioned.
-- Economy of Scale: Cloud providers operate at a scale beyond most organizations. As a result, customers are
+- Coss-Effectivness: Cloud providers operate at a scale beyond most organizations. As a result, customers are
 able to benefit from massive economies of scale when leveraging the cloud.
 - Scalability: Organizations can horizontally and vertically scale infrastructure as needed.
-
-Simultaneously, developing within a cloud environment introduces additional factors to consider:
-- Security: Ensure only authorized individuals are able to access and modify an organization's cloud resources.
-- Visibility: Ascertaining pertinent resources and activity are acruing charges within a cloud envirornment.
-- Observability: Assessing the state of applications deployed to the cloud.
 
 ### Classifications
 
