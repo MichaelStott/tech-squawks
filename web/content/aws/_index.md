@@ -1,6 +1,6 @@
 ---
 title: AWS 
-draft: true
+draft: false
 chapter: true
 weight: 3
 ---
