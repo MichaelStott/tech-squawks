@@ -22,8 +22,8 @@ aws ec2 describe-regions --all-regions --query  Regions[*].RegionName
 ]
 ```
 
-Each region is isolated from one another for additional fault tolerance and stability.[^1] Regions may also have 
-different AWS services available. 
+Each region is isolated from one another for additional fault tolerance and stability.[^1] Cloud service offerings
+may also differ between AWS regions.
 
 ### Availability Zones
 
