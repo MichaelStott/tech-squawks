@@ -4,19 +4,33 @@ draft: false
 weight: 4
 ---
 
-An AWS _resource_ is a broad term for any cloud resource that can be provisioned in AWS. Anything from a server, a virtual network, security policy, account user, etc. is considered a resource. Every resource has an associated Amazon Resource Number (ARN)
-which uniquely identifies it. For instance, the following fetches the ARN of the active AWS user associated with 
+A _resource_ is a broad term for any cloud entity that can be provisioned in AWS. For instance, servers, virtual private networks, networking policies, and account users are considered AWS resources. Every resource is associated with an Amazon Resource Number (ARN),
+which uniquely identifies it. ARNs have the following format[^1]:
+
+```
+arn:aws:[service]:[region]:[account-number]:[resource-type]/[resource-name]
+```
+- service: The AWS service which the resource is associated with 
+- region: Region in which the resource is located.
+- account-number: The account which contains the resource
+- resource-type: The type of service resource (i.e. IAM user, EC2 instance, etc.)
+- resource-name: The user-defined name of the resource.
+[Needs to be updated. See the documentation.]
+
+For instance, the following fetches the ARN of the active AWS user associated with 
 the local developers AWS credentials.
 
 **CLI**
 ```sh
-aws sts get-caller-identity --query Arn --output text
+aws sts get-caller-identity --query Arn --output text --region us-east1
 ```
 **Output**
 ```
 arn:aws:iam::[account-number]:user/[username]
 ```
 
+For the above output, `iam` refers to the AWS Identity Access Management service. This is followed by the account number which owns 
+the user entity and the IAM resource is of type `user`.
 ### Tags
 
 Tags are user-defined metadata that can be attached to resources. This 
@@ -26,10 +40,20 @@ For instance, to add a tag to your active user.
 
 **CLI**
 ```sh
-aws iam tag-user --user-name [username] --tags '{"Key": "Tagged", "Value": "True"}'
-aws iam list-user-tags --user-name [username]
+export USERNAME=$(aws iam get-user --query  User.UserName)
+aws iam tag-user --user-name $USERNAME --tags '{"Key": "Tagged", "Value": "True"}'
+aws iam list-user-tags --user-name $USERNAME
 ```
 **Output**
 ```
-arn:aws:iam::[account-number]:user/[username]
+{
+    "Tags": [
+        {
+            "Key": "Tagged",
+            "Value": "True"
+        }
+    ]
+}
 ```
+
+[^1]: https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html

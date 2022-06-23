@@ -4,9 +4,8 @@ draft: false
 weight: 1
 ---
 
-An _AWS Account_ acts as a container for AWS cloud resources. Organizaitons may 
-create separate accounts to house resources for specific environments. 
-For example, organizations may create separate development, staging, and produciton accoutns for their deployment pipeline. It is also common practice to create separate environments for different teams or workload types, such as datalake, R&D, analytics, etc. In addition, it acts as a security boundary, as only users 
+An _AWS Account_ acts as a container for AWS cloud resources. It can be beneficial to create separate accounts to house resources for specific environments. 
+For example, organizations may create separate development, staging, and produciton accoutns for their deployment pipeline. It is also common practice to create separate environments for different teams or workload types, such as datalake, billing, research and development, analytics, etc. In addition, it acts as a security boundary, as only users 
 with valid account credentials to access cloud resources. [^1]
 
 An AWS account has the following unique identifiers[^2]:

@@ -29,6 +29,8 @@ different AWS services available.
 
 An _availabiilty zone_ (abreviated as _AZ_) is one or more discrete AWS data centers that have redundant connectivity, networking, and power within a given AWS region. AZs within a given region are interconnected through low-latency networking and resource/data replciation.[^2]. Applicaitons designed across multiple AZs have increased fault tolerance.[^2]
 
+![Regions and Availability Zones](/images/aws/regions.png)
+
 AZs are named with the following format "_\<region-name\>\<letter[a-z]\>_". This can be validated by enumerating th AZ options within a given region:.
 
 **CLI**
