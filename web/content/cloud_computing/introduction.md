@@ -14,7 +14,7 @@ weight: 1
 
 Companies and third-parties with cloud computing platform offerings are known as *cloud providers*. Popular cloud providers incude [Amazon Web Services (AWS)](https://aws.amazon.com/), [Microsoft Azure](https://azure.microsoft.com/en-us/), and [Google Cloud Platform (GCP)](https://cloud.google.com/).
 
-### Benefits & Considerations
+### Benefits
 
 Cloud computing affords engineers numerous benefits when developing applications, such as:
 - On-Demand: Servers, networks, and other cloud resources and be rapidly provisioned.
