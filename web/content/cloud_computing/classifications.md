@@ -40,4 +40,4 @@ users can upload data through a web console or API while AWS maintains all backe
 #### Public
 
 [^1]: NIST Definition of Cloud Computing: https://csrc.nist.gov/publications/detail/sp/800-145/final
-
+[^2]: AWS Types of Cloud Computing:  https://aws.amazon.com/types-of-cloud-computing/
