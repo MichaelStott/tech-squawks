@@ -1,6 +1,6 @@
 ---
 title: Classifications
-draft: true
+draft: false
 weight: 3
 ---
 
@@ -13,7 +13,7 @@ networking infrastructure for their systems and services.
 
 Depending on the type of service offering, cloud computing manages some or all of these components. There 
 are three cloud computing models, Infrastructure as a Service (IaaS) Platform as a Service (PaaS), 
-and Software as a Service (SaaS). [^1]
+and Software as a Service (SaaS). [^1] [^2]
 
 #### Infrastructure as a Service - IaaS
 
@@ -33,11 +33,20 @@ users can upload data through a web console or API while AWS maintains all backe
 
 #### In-Cloud
 
+In-Cloud deployments are, unsuprisingly, hosted entirely in the cloud. This alleviates customers
+from having to manage the underlying infrastructure.
+
 #### Private
 
-#### Community
+Private cloud deployments refer deploying to privately managed clouds. Rather than leverage a
+pulic cloud provider such as AWS or GCP, organizations make their own infrastructure available
+to developers internally via APIs and virtualization. OpenShift is one such framework that 
+enables users to create and manage their own private cloud environments.
 
-#### Public
+#### Hybrid
+
+Some combination of resources provioned from various cloud environments. This can happen when a
+company or organization has both on-prem and cloud resources.
 
 [^1]: NIST Definition of Cloud Computing: https://csrc.nist.gov/publications/detail/sp/800-145/final
 [^2]: AWS Types of Cloud Computing:  https://aws.amazon.com/types-of-cloud-computing/
