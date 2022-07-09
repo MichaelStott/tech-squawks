@@ -4,7 +4,7 @@ draft: false
 weight: 2
 ---
 
-An increasing number of organizations are either leveraging cloud computing or considering migrating existing on-premise applications to the cloud. Because of this, it is important for developers to be aware of the common benefits of working in such environments. 
+An increasing number of companies are either leveraging cloud computing or considering migrating existing on-premise applications to the cloud. Because of this, it is important for developers to be aware of the common benefits of working in such environments. 
 
 #### On-Demand 
 
