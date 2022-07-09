@@ -24,8 +24,7 @@ A related offering would be _Functions as a Service (FaaS)_, which, similar to P
 
 #### Software as a Service - SaaS
 
-For _SaaS_ products, the user manages none of the underlying instrastructure or application logic and simply and consumes the end result of an application. An example of this would be Dropbox or the AWS S3 service, where 
-users can upload data through a web console or API while AWS maintains all backend services.
+For _SaaS_ products, the user manages none of the underlying instrastructure or application logic and simply and consumes the end result of an application. Any API offering could be considered a SaaS product, such as Dropbox. An example of this would be Dropbox or the AWS S3 service, where users can upload data through a web console or API while AWS maintains all backend services.
 
 ### Cloud Computing Deployment Models
 
