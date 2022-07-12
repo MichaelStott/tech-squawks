@@ -4,21 +4,19 @@ draft: false
 weight: 5
 ---
 
-AWS makes certain resources available through _services_, either via the API or the AWS console.
+AWS makes cloud resources available through _services_. Services are APIs available either programtically or the _AWS console_, a browser portal for AWS cloud services. Individual AWS service offerings and pricings can differ between regions. For instance, new service offergings tend to be rolled out in the `us-east-1` region initially, and gradually made available to other regions after a period of time.
 
-Regions offerings and pricing can differ between various regions. New service offergings tend to be rolled out to us-east-1 initially Because of this, us-east-1 also tends to be the most volatile of AWS regions.
-
-An overview of AWS service classifications is provided below. You can also explore the full service offering/classification [here]( https://aws.amazon.com/products). [^1]
+AWS provides many different service classifications for use cases, such as machine learning, analytics, quantum computing, and many more.[^1] We will explore some of the more common services here.
 
 #### Compute
 
-Compute services allow users to execute programs and applications, ranging from virtual servers to providing managed environments for executing code. AWS EC2 enables developers to provision virtual and private servers. AWS Lambda allows developers to execute code snippets in ephemeral environments without needing to provision or manage underlying infrastructure
+Compute services enables users to run and host programs and applications. _AWS EC2_ enables cloud engineers to provision virtual and private servers for hosting applications. _AWS Lambda_ allows developers to execute code snippets in ephemeral environments without needing to provision or manage underlying compute infrastructure, which can be useful for executing arbitrary code or scripts in cloud environments. [^2]
 
 #### Storage
 
-AWS offers various storage offerings of the following types:
-- Object Storage
-- Block Storage
+AWS offers various storage offerings of the following types[^3]:
+- Object Storage: Stores objects, composed of data and user metadata, with an associate unique identifier.
+- Block Storage: Provides 
 - File Storage
 
 AWS S3 offers object storage where data can be uploaded to uniquely named data buckets with a unique key. Block storage is most similar 
@@ -46,18 +44,8 @@ AWS allows users/cloud-engineers to define networking rules. VPC (virtual privat
 - Security Advisor
 - Billing?
 
-#### Analytics
-
-Athena,
-Quicksight,
-etc.
-
-??? (Remove this)
-
-#### Machine Learning
-
-??? (Remove this)
-
 [^1]: https://aws.amazon.com/products
+[^2]: https://docs.aws.amazon.com/whitepapers/latest/aws-overview/compute-services.html
+[^3]: https://www.ibm.com/cloud/learn/block-storage
 
 
