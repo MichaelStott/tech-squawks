@@ -16,19 +16,19 @@ Compute services enables users to run and host programs and applications. _AWS E
 
 AWS offers various storage offerings of the following types[^3]:
 - Object Storage: Stores objects, composed of data and user metadata, with an associate unique identifier.
-- Block Storage: Provides 
-- File Storage
+- Block Storage: Data is stored within a block of memory, similar to hard disk storage.
+- File Storage: Storage provided via a file system.
 
 AWS S3 offers object storage where data can be uploaded to uniquely named data buckets with a unique key. Block storage is most similar 
-to harddrive storage, and is offered via AWS EBS, which are mounted onto AWS EC2 instances. AWS EFS provides remote files storate via the NFTS protocol. 
+to harddrive storage, and is offered via AWS EBS, which are mounted onto AWS EC2 instances. AWS EFS provides remote files storate via the NFSv4 protocol. 
 
 #### Database
 
 While databases can be provisioned by using both Compute and Storage services, AWS offers managed database services for easily standing up storage for development. They offer databases for the following stoarge use cases:
-- Relational
-- NoSQL
-- Time Series
-- Columnar
+- Relational - Tabular row data, similar to data stored in spreadsheets. Data typically well-defined.
+- NoSQL - Data stored in documents (key-value pairs) that may not necessarily have a well-defined schema.
+- Time Series - Data is indexed in such a manner so that is easy to query and analyze within a given date range.
+- Columnar - Similar to relational databases, columnar stores tabular data by column rather than row. While computationally more expensive, this can enable fast querying of large datasets.
 
 Relational databases can be provisioned via AWS RDS. AWS offers several NoSQL offerings, such as DynamoDB and Document storage. AWS timestream data can be useful for analyzing within a certain data range, such as IoT information. Redshift is AWS's data warehouse solution that provides columnar stoarge. 
 
@@ -38,11 +38,12 @@ AWS allows users/cloud-engineers to define networking rules. VPC (virtual privat
 
 #### Security, Identity, and Compliance
 
-- IAM
-- Cloudwatch
-- CLoudtrail
-- Security Advisor
-- Billing?
+AWS offers an entire suite of tools to help ensure both the customer's cloud account and hosted applications are secure.
+
+- IAM: Ensures authorized access to cloud resources.
+- Cloudwatch: Provides application and service logging.
+- CLoudtrail: Logging of cloud account activities.
+- Security Advisor: Analyzes cloud configuration for potential threats.
 
 [^1]: https://aws.amazon.com/products
 [^2]: https://docs.aws.amazon.com/whitepapers/latest/aws-overview/compute-services.html
