@@ -38,7 +38,7 @@ AWS allows users/cloud-engineers to define networking rules. VPC (virtual privat
 
 #### Security, Identity, and Compliance
 
-AWS offers an entire suite of tools to help ensure both the customer's cloud account and hosted applications are secure.
+AWS offers multiple services to help ensure both the customer's cloud account and hosted applications are secure.
 
 - IAM: Ensures authorized access to cloud resources.
 - Cloudwatch: Provides application and service logging.
