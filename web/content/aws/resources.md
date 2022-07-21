@@ -8,17 +8,24 @@ A _resource_ is a broad term for any cloud entity that can be provisioned in AWS
 which uniquely identifies it. ARNs have the following format[^1]:
 
 ```
-arn:aws:[service]:[region]:[account-number]:[resource-type]/[resource-name]
+arn:aws:[service]:[region]:[account-id]:[resource-id]
+arn:aws:[service]:[region]:[account-id]:[resource-type]:[resource-id]
+arn:aws:[service]:[region]:[account-id]:[resource-type]/[resource-id]
 ```
+
+A breakdown of the above fields is provided below:
 - service: The AWS service which the resource is associated with 
 - region: Region in which the resource is located.
-- account-number: The account which contains the resource
-- resource-type: The type of service resource (i.e. IAM user, EC2 instance, etc.)
-- resource-name: The user-defined name of the resource.
-[Needs to be updated. See the documentation.]
+- account-id: The account which contains the resource
+- resource-type: The type of service resource (i.e. users, compute servers, managed databases, etc.)
+- resource-id: The unique resource identifier
 
-For instance, the following fetches the ARN of the active AWS user associated with 
-the local developers AWS credentials.
+{{% notice info %}}
+Certain resources may omit either or both the region, account-id from the ARN. 
+{{% /notice %}}
+
+
+For instance, the following fetches the ARN of the active AWS user associated with the local developers AWS credentials.
 
 **CLI**
 ```sh

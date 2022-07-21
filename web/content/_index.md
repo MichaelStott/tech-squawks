@@ -27,32 +27,134 @@ certification. These flaschards are publicly hosted on [Cram](https://www.cram.c
 Below is a short example of deploying a small serverless web app. The deploy button will create the stack in the reader's Pulumi account, which can then be deployed using the Pulumi CLI tool.
 
 {{< tabs groupId="code" >}}
-{{< tab name="Typescript" >}}
+{{% tab name="Typescript" %}}
+```ts
+import * as aws from "@pulumi/aws";
+import * as awsx from "@pulumi/awsx";
 
-<script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2FMichaelStott%2FAWSExamples%2Fblob%2Fmaster%2Fexamples%2Fhomepage%2Fts%2Findex.ts&style=github-gist&showLineNumbers=on&showCopy=on"></script>
+// Provision an API Gateway instance.
+const api = new awsx.apigateway.API("serverless-party-parrot", {
+    routes: [{
+        // Define an HTTP endpoint.
+        path: "/",
+        method: "GET",
+        // Create a Lambda function that will be triggered upon accessing this endpoint.
+        eventHandler: new aws.lambda.CallbackFunction("handler", {
+            callback: async (event) => {
+                // Cry havoc and let slip the parrots of war.
+                return {
+                    statusCode: 200,
+                    headers: {"Content-Type": "text/html"},
+                    body: '<img src="https://cultofthepartyparrot.com/parrots/hd/revolutionparrot.gif">',
+                };
+            },
+        }),
+    }],
+})
 
-{{% button href="https://github.com/MichaelStott/AWSExamples/tree/master/examples/homepage/ts" icon="fab fa-github" icon-position="left" %}}GitHub{{% /button %}}
-{{% button href="https://app.pulumi.com/new?template=https://github.com/MichaelStott/AWSExamples/tree/master/examples/homepage/ts" icon="fas fa-cloud-upload-alt" icon-position="left" %}}Deploy{{% /button %}}
-{{% button href="https://localstack.cloud/" icon="fas fa-laptop-code" icon-position="left" %}}LocalStack Compatible{{% /button %}}
-{{< /tab >}}
-{{< tab name="Javascript" >}}
+// The URL of the deployed serverless webpage.
+export const url = api.url;
+```
+{{% /tab %}}
+{{% tab name="Javascript" %}}
+```js
+"use strict";
+const aws = require("@pulumi/aws");
+const awsx = require("@pulumi/awsx");
+
+// Provision an API Gateway instance.
+const api = new awsx.apigateway.API("serverless-party-parrot", {
+    routes: [{
+        // Define an HTTP endpoint.
+        path: "/",
+        method: "GET",
+        // Create a Lambda function that will be triggered upon accessing this endpoint.
+        eventHandler: new aws.lambda.CallbackFunction("handler", {
+            callback: async (event) => {
+                // Cry havoc and let slip the parrots of war.
+                return {
+                    statusCode: 200,
+                    headers: {"Content-Type": "text/html"},
+                    body: '<img src="https://cultofthepartyparrot.com/parrots/hd/revolutionparrot.gif">',
+                };
+            },
+        }),
+    }],
+})
+
+// The URL of the deployed serverless webpage.
+exports.url = api.url;
+```
+{{% /tab %}}
+{{% tab name="Python" %}}
+```py
+import json, os, mimetypes
+
+import pulumi
+from pulumi import export, FileAsset, ResourceOptions, Output
+import pulumi_aws as aws
+from pulumi_aws import s3, lambda_, apigateway
 
 
-{{% button href="https://github.com/MichaelStott/AWSExamples/tree/master/examples/homepage/js" icon="fab fa-github" icon-position="left" %}}View Project{{% /button %}}
-{{% button href="https://app.pulumi.com/new?template=https://github.com/MichaelStott/AWSExamples/tree/master/examples/homepage/js" icon="fas fa-cloud-upload-alt" icon-position="left" %}}Deploy{{% /button %}}
+# Create Lambda permissions.
+lambda_role = aws.iam.Role("apiGatewayLambdaRole", 
+    assume_role_policy=json.dumps({
+        "Version": "2012-10-17",
+        "Statement": [{
+                "Action": "sts:AssumeRole",
+                "Principal": {
+                    "Service": "lambda.amazonaws.com",
+                },
+                "Effect": "Allow",
+                "Sid": "",
+            }]
+    }))
+role_policy_attachment = aws.iam.RolePolicyAttachment("lambdaRoleAttachment",
+    role=lambda_role,
+    policy_arn=aws.iam.ManagedPolicy.AWS_LAMBDA_BASIC_EXECUTION_ROLE)
 
-{{% button href="https://localstack.cloud/" icon="fas fa-laptop-code" icon-position="left" %}}LocalStack Compatible{{% /button %}}
+# Provision Lambda function which will be invoked upon an http request.
+LAMBDA_SOURCE = 'lambda.py'
+LAMBDA_PACKAGE = 'lambda.zip'
+LAMBDA_VERSION = '1.0.0'
+os.system('zip %s %s' % (LAMBDA_PACKAGE, LAMBDA_SOURCE))
 
-{{< /tab >}}
-{{< tab name="Python" >}}
-{{< figure src="parrots/parrotnotfound.gif" title="Not yet available." >}}
-{{< /tab >}}
-{{< tab name="Go" >}}
-{{< figure src="parrots/parrotnotfound.gif" title="Not yet available." >}}
-{{< /tab >}}
-{{< tab name="Java" >}}
-{{< figure src="parrots/parrotnotfound.gif" title="Not yet available." >}}
-{{< /tab >}}
+# Create an AWS resource (S3 Bucket)c
+bucket = s3.Bucket('lambda-api-gateway-example')
+
+mime_type, _ = mimetypes.guess_type(LAMBDA_PACKAGE)
+obj = s3.BucketObject(
+            LAMBDA_VERSION+'/'+LAMBDA_PACKAGE,
+            bucket=bucket.id,
+            source=FileAsset(LAMBDA_PACKAGE),
+            content_type=mime_type
+            )
+
+lambda_function = lambda_.Function(
+    'ServerlessExample',
+    s3_bucket=bucket.id,
+    s3_key=LAMBDA_VERSION+'/'+LAMBDA_PACKAGE,
+    handler="lambda.handler",
+    runtime="python3.7",
+    role=lambda_role.arn,
+)
+
+# Give API Gateway permissions to invoke the Lambda
+lambda_permission = aws.lambda_.Permission("lambdaPermission", 
+    action="lambda:InvokeFunction",
+    principal="apigateway.amazonaws.com",
+    function=lambda_function)
+
+# Set up the API Gateway
+apigw = aws.apigatewayv2.Api("httpApiGateway", 
+    protocol_type="HTTP",
+    route_key="GET /",
+    target=lambda_function.invoke_arn)
+
+# Export the API endpoint for easy access
+pulumi.export("url", apigw.api_endpoint)
+```
+{{% /tab %}}
 {{< /tabs >}}
 
 The exported URL will display the following image in your web browser: 
