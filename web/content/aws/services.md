@@ -4,7 +4,7 @@ draft: false
 weight: 5
 ---
 
-AWS makes cloud resources available through _services_. Services are APIs available either programtically or the _AWS console_, a browser portal for AWS cloud services. Individual AWS service offerings and pricings can differ between regions. For instance, new service offergings tend to be rolled out in the `us-east-1` region initially, and gradually made available to other regions after a period of time.
+AWS makes cloud resources available through _services_, which are APIs available either through the _AWS console_, a webpage for AWS account access, or using programtic credentials. Individual AWS service offerings and pricings can differ between regions. For instance, new service offergings tend to be rolled out in the `us-east-1` region initially, and gradually made available to other regions after a period of time.
 
 AWS provides many different service classifications for use cases, such as machine learning, analytics, quantum computing, and many more.[^1] We will explore some of the more common services here.
 
