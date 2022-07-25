@@ -6,4 +6,3 @@ theme = "hugo-theme-learn"
 [params]
 themeVariant = "blue"
 disableSearch = true
-googleAnalytics = "G-9LB746F56L"
