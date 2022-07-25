@@ -21,6 +21,10 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-region: ${{ secrets.AWS_REGION }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      - name: Install 'embedme' tool
+        run: npm i embedme
+      - name: Embed code examples
+        run: npx embedme  --source-root code  web/content/**/*.md --silent
       - name: Install Hugo CLI
         run: brew install hugo
       - name: Render Static Website

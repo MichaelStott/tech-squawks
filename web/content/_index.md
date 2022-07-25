@@ -29,6 +29,8 @@ Below is a short example of deploying a small serverless web app. The deploy but
 {{< tabs groupId="code" >}}
 {{% tab name="Typescript" %}}
 ```ts
+// homepage/ts/index.ts
+
 import * as aws from "@pulumi/aws";
 import * as awsx from "@pulumi/awsx";
 
@@ -54,10 +56,13 @@ const api = new awsx.apigateway.API("serverless-party-parrot", {
 
 // The URL of the deployed serverless webpage.
 export const url = api.url;
+
 ```
 {{% /tab %}}
 {{% tab name="Javascript" %}}
 ```js
+// homepage/js/index.js
+
 "use strict";
 const aws = require("@pulumi/aws");
 const awsx = require("@pulumi/awsx");
@@ -84,10 +89,20 @@ const api = new awsx.apigateway.API("serverless-party-parrot", {
 
 // The URL of the deployed serverless webpage.
 exports.url = api.url;
+
+
+
+
 ```
 {{% /tab %}}
 {{% tab name="Python" %}}
 ```py
+# homepage/py/__main__.py
+
+"""NOTE: Because Pulumi Crosswalk is only available for Typescript and Javascript,
+the Python and Golang based examples are significantly larger.
+"""
+
 import json, os, mimetypes
 
 import pulumi

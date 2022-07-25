@@ -24,6 +24,10 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: 14.x
+      - name: Install 'embedme' tool
+        run: npm i embedme
+      - name: Embed code examples
+        run: npx embedme  --source-root code  web/content/**/*.md --silent
       - name: Install Hugo CLI
         run: brew install hugo
       - name: Render Static Website
