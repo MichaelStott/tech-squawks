@@ -12,7 +12,7 @@ Welcome to Tech Squawks, a website for learning cloud computing technologies and
 
 Learning cloud computing can seem like a daunting task. In the case of AWS, there are over 200 cloud services offered at the time of writing. The goal of this website is to offer a more hands-on approach to understanding cloud development beyond the first-party documentation by providing code examples of cloud applications to demonstrate cloud computing concepts and common design patterns.
 
-Below is a short example of deploying a small serverless web app. The deploy button will create the stack in the reader's Pulumi account, which can then be deployed using the Pulumi CLI tool.
+For instance, the below examples demonstrate a small serverless AWS app in multiple languages:
 
 {{< tabs groupId="code" >}}
 {{% tab name="Typescript" %}}
@@ -166,11 +166,10 @@ The exported URL will display the following image in your web browser:
 
 ### Try Locally
 
-Cloud computing examples are notoriously difficult to demonstrate and quickly execute, due to the need for cloud access and the time it
-may take to deploy resources. Additionally, there is the risk of leaving these resources provisioned and incurring unintended costs.
+Cloud computing examples are notoriously difficult to demonstrate and quickly execute, due to the need for cloud access and the time required for deploying resources. Additionally, there is the risk of leaving resources provisioned and incurring unintended costs.
 
 In an effort to make these tutorials accesible to those without cloud access and minimize costs, examples are designed 
-to run locally, using technologies such as `localstack`, `kind`, etc., whenever possible. 
+to run locally, using technologies such as `localstack` (AWS Emulator), `kind` (Local Kubernetes Cluster), etc., whenever possible. 
 
 ### Study Buddy
 
