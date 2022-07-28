@@ -77,10 +77,6 @@ const api = new awsx.apigateway.API("serverless-party-parrot", {
 
 // The URL of the deployed serverless webpage.
 exports.url = api.url;
-
-
-
-
 ```
 {{% /tab %}}
 {{% tab name="Python" %}}
@@ -166,14 +162,14 @@ The exported URL will display the following image in your web browser:
 
 ### Try Locally
 
-Cloud computing examples are notoriously difficult to demonstrate and quickly execute, due to the need for cloud access and the time required for deploying resources. Additionally, there is the risk of leaving resources provisioned and incurring unintended costs.
+Cloud computing examples are often difficult to demonstrate, due to the need for cloud access and the time required for deploying resources. Additionally, there is the risk of leaving resources provisioned and incurring unintended costs.
 
 In an effort to make these tutorials accesible to those without cloud access and minimize costs, examples are designed 
-to run locally, using technologies such as `localstack` (AWS Emulator), `kind` (Local Kubernetes Cluster), etc., whenever possible. 
+to support local execution, using technologies such as `localstack` (AWS Emulator), `kind` (Local Kubernetes Cluster), etc., whenever possible. 
 
 ### Study Buddy
 
-While any specific certification preparation is beyond the scope of this site, flashcards are included at the end of each section for additional study and review. These flaschards are publicly hosted on [Cram](https://www.cram.com/) and accesible through both the website and mobile app.
+While any specific certification preparation is beyond the scope of this site, flashcards are included at the end of each section for additional study and review. Cheatsheats for certain topics are also included to help for easy reference.
 
 ### Prerequisites
 
