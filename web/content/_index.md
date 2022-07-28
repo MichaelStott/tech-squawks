@@ -6,25 +6,13 @@ weight: 1
 
 # Howdy!
 
-Welcome to Tech Squawks, a website for learning [AWS](https://aws.amazon.com/) cloud development, using programming 
-languages such as Typescript, Javascript, Python, Go, or Java. This site is a work in progress, so check back 
-frequently for new tutorials and updates!
+Welcome to Tech Squawks, a website for learning cloud computing technologies and concepts, using popular programming languages such as Typescript, Javascript, Python, Go, or Java. This site is a work in progress, so check back frequently for new tutorials and updates!
 
-Learning cloud computing and AWS development can seem like a daunting task. At the time of writing, there are over 200 
-cloud services offered by AWS. The goal of this website is to offer a more hands-on approach to understanding AWS 
-development beyond the available documentation by providing code examples of cloud applications to demonstrate 
-cloud computing concepts and common design patterns.
+### Hands-On Learning
 
-In an effort to make these tutorials accesible to those without AWS access and minimize costs, examples are designed 
-to be compatible with [LocalStack](https://localstack.cloud/), a framework for running AWS cloud applications on the 
-user's local machine, whenever possible. 
+Learning cloud computing can seem like a daunting task. In the case of AWS, there are over 200 cloud services offered at the time of writing. The goal of this website is to offer a more hands-on approach to understanding cloud development beyond the first-party documentation by providing code examples of cloud applications to demonstrate cloud computing concepts and common design patterns.
 
-Flashcards are included at the end of each section for additional study and review, which may be useful for those wishing to pursue 
-certification. These flaschards are publicly hosted on [Cram](https://www.cram.com/) and accesible through both the website and mobile app.
-
-### Severless Webpage Demo
-
-Below is a short example of deploying a small serverless web app. The deploy button will create the stack in the reader's Pulumi account, which can then be deployed using the Pulumi CLI tool.
+For instance, the below examples demonstrate a small serverless AWS app in multiple languages:
 
 {{< tabs groupId="code" >}}
 {{% tab name="Typescript" %}}
@@ -89,10 +77,6 @@ const api = new awsx.apigateway.API("serverless-party-parrot", {
 
 // The URL of the deployed serverless webpage.
 exports.url = api.url;
-
-
-
-
 ```
 {{% /tab %}}
 {{% tab name="Python" %}}
@@ -176,12 +160,23 @@ The exported URL will display the following image in your web browser:
 
 ![squawk](https://cultofthepartyparrot.com/parrots/hd/revolutionparrot.gif)
 
+### Try Locally
+
+Cloud computing examples are often difficult to demonstrate, due to the need for cloud access and the time required for deploying resources. Additionally, there is the risk of leaving resources provisioned and incurring unintended costs.
+
+In an effort to make these tutorials accesible to those without cloud access and minimize costs, examples are designed 
+to support local execution, using technologies such as `localstack` (AWS Emulator), `kind` (Local Kubernetes Cluster), etc., whenever possible. 
+
+### Study Buddy
+
+While any specific certification preparation is beyond the scope of this site, flashcards are included at the end of each section for additional study and review. Cheatsheats for certain topics are also included to help for easy reference.
+
 ### Prerequisites
 
 Before continuing, readers should be:
 
-- Knowledgeable of at least one of the following programming languages: Typescript, Javascript, Python, or Go
-- Comfortable with using their local terminal or shell
-- Familiar with basic computer networking concepts
+- Knowledgeable of at least one of the following programming languages: Typescript, Javascript, Python, Go, or Java
+- Comfortable shell/bash scripting
+- Familiarity with basic computer networking concepts
 
 For setting up your development environment, see the  [Getting Started]({{< ref "getting_started" >}}) section.
