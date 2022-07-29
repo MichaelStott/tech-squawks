@@ -6,3 +6,4 @@ theme = "hugo-theme-learn"
 [params]
 themeVariant = "blue"
 disableSearch = true
+alwaysopen = true

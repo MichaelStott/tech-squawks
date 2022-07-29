@@ -7,4 +7,4 @@ weight: 3
 
 # AWS
 
-An introduction and overview.
+Amazon Web Services
