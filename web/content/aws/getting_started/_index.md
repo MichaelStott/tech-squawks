@@ -2,6 +2,7 @@
 title: Developer Setup
 draft: false
 chapter: true
+alwaysopen: false
 weight: 1
 ---
 
