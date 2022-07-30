@@ -1,11 +1,8 @@
 ---
-menuTitle: Pulumi
+title: Pulumi
 draft: false
-chapter: false
 weight: 2
 ---
-
-# Pulumi
 
 When working in cloud environments, it is useful to be able to define and statefully manage infrastructure. Pulumi is an _Infrastructure as Code (IAC)_ utility that allows developers to programatically create, update, and delete cloud resources using popular programming languages such as Typescript, Javascript, Python, Go and Java.
 
