@@ -1,12 +1,8 @@
 ---
-menuTitle: LocalStack
+title: LocalStack
 draft: false
-chapter: false
 weight: 3
 ---
-
-# LocalStack
-
 
 While it is preferrable to develop and test applications against actual cloud resources when possible, 
 not all readers may have AWS access or be able to set up a private account. Additionally, there is always the 

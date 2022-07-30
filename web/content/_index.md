@@ -1,7 +1,7 @@
 ---
 title: "Welcome!"
 date: 2021-01-23T16:49:34-05:00
-alwaysopen: false
+
 weight: 1
 ---
 
