@@ -1,9 +1,11 @@
 baseURL = "http://example.org/"
 languageCode = "en-us"
 title = "Tech Squawks"
-theme = "hugo-theme-learn"
+theme = "hugo-theme-relearn"
 
 [params]
-themeVariant = "blue"
+alwaysopen = false
 disableSearch = true
-alwaysopen = true
+collapsibleMenu = false
+themeVariant = [ "dark", "light" ]
+
