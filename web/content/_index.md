@@ -87,14 +87,14 @@ exports.url = api.url;
 import pulumi
 import pulumi_aws
 
-from lambda_util import upload_handler
+from lambda_util import create_python_lambda
 
 LAMBDA_SOURCE = 'lambda.py'
 LAMBDA_PACKAGE = 'lambda.zip'
 LAMBDA_VERSION = '1.0.0'
 
 # Provision Lambda function which will be invoked upon an http request.
-lambda_function = upload_handler(LAMBDA_SOURCE, LAMBDA_PACKAGE, LAMBDA_VERSION)
+lambda_function = create_python_lambda(LAMBDA_SOURCE, LAMBDA_PACKAGE, LAMBDA_VERSION)
 
 # Give API Gateway permissions to invoke the Lambda
 lambda_permission = pulumi_aws.lambda_.Permission("lambdaPermission", 
@@ -110,6 +110,51 @@ apigw = pulumi_aws.apigatewayv2.Api("httpApiGateway",
 
 # Export the API endpoint for easy access
 pulumi.export("url", apigw.api_endpoint)
+```
+{{% /tab %}}
+{{% tab name="Go" %}}
+```go
+// homepage/go/main.go
+
+package main
+
+import (
+	"encoding/json"
+
+	"github.com/pulumi/pulumi-aws/sdk/v4/go/aws/iam"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+)
+
+func main() {
+	pulumi.Run(func(ctx *pulumi.Context) error {
+		tmpJSON0, err := json.Marshal(map[string]interface{}{
+			"Version": "2012-10-17",
+			"Statement": [{
+					"Action": "sts:AssumeRole",
+					"Principal": {
+						"Service": "lambda.amazonaws.com",
+					},
+					"Effect": "Allow",
+					"Sid": "",
+				}]
+		})
+		if err != nil {
+			return err
+		}
+		json0 := string(tmpJSON0)
+		_, err = iam.NewRole(ctx, "testRole", &iam.RoleArgs{
+			AssumeRolePolicy: pulumi.String(json0),
+			Tags: pulumi.StringMap{
+				"tag-key": pulumi.String("tag-value"),
+			},
+		})
+		if err != nil {
+			return err
+		}
+		return nil
+	})
+}
+
 ```
 {{% /tab %}}
 {{< /tabs >}}
