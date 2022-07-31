@@ -37,7 +37,7 @@
     --MENU-SECTIONS-ACTIVE-BG-color: rgba( 0, 0, 0, .166 ); /* background color of the active menu section */
     --MENU-SECTIONS-LINK-color: #bababa; /* link color of menu topics */
     --MENU-SECTIONS-LINK-HOVER-color: #ffffff; /* hoverd link color of menu topics */
-    --MENU-SECTION-ACTIVE-CATEGORY-color: #444444; /* text color of the displayed menu topic */
+    --MENU-SECTION-ACTIVE-CATEGORY-color: #1c90f3; /* text color of the displayed menu topic */
     --MENU-SECTION-HR-color: #606060; /* separator color of menu footer */
 
     --BOX-CAPTION-color: rgba( 255, 255, 255, 1 ); /* text color of colored box titles */

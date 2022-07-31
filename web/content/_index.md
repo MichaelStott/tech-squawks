@@ -11,7 +11,7 @@ Welcome to Tech Squawks, a website for learning cloud computing technologies and
 
 ### Hands-On Learning
 
-Learning cloud computing can seem like a daunting task. In the case of AWS, there are over 200 cloud services offered at the time of writing. The goal of this website is to offer a more hands-on approach to understanding cloud development beyond the first-party documentation by providing code examples of cloud applications to demonstrate cloud computing concepts and common design patterns.
+Cloud computing documentation often provides lengthy descriptions of cloud concepts, functionality, or architecture without providing concrete examples. The goal of this website is to offer a more hands-on approach to learning cloud development beyond the first-party documentation by providing code examples which clearly demonstrate key concepts and design patterns.
 
 For instance, the below examples demonstrate a small serverless AWS app in multiple languages:
 
