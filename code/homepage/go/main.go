@@ -11,7 +11,7 @@ func main() {
 	pulumi.Run(func(ctx *pulumi.Context) error {
 		tmpJSON0, err := json.Marshal(map[string]interface{}{
 			"Version": "2012-10-17",
-			"Statement": [{
+			"Statement": map[string]interface{} [{
 					"Action": "sts:AssumeRole",
 					"Principal": {
 						"Service": "lambda.amazonaws.com",

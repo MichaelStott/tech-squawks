@@ -1,4 +1,4 @@
-import json, mimetypes, os
+import json, mimetypes, shutil, os
 import pulumi_aws as aws
 from pulumi_aws import lambda_, s3
 from pulumi import FileAsset
@@ -15,14 +15,15 @@ lambda_role = aws.iam.Role("apiGatewayLambdaRole",
                 "Sid": "",
             }]
     }))
-role_policy_attachment = pulumi_aws.iam.RolePolicyAttachment("lambdaRoleAttachment",
+role_policy_attachment = aws.iam.RolePolicyAttachment("lambdaRoleAttachment",
     role=lambda_role,
-    policy_arn=pulumi_aws.iam.ManagedPolicy.AWS_LAMBDA_BASIC_EXECUTION_ROLE)
+    policy_arn=aws.iam.ManagedPolicy.AWS_LAMBDA_BASIC_EXECUTION_ROLE)
 
 def create_python_lambda(package, source, version, bucket_name="ts-test-lambda-py"):
     """ Uploads handler project to S3 and returns S3 object.
     """
-    os.system('zip %s %s' % (package, source))
+    #os.system('zip %s %s' % (package, source))
+    shutil.make_archive(package, "zip", ".", source)
 
     # Create an AWS resource (S3 Bucket)c
     bucket = s3.Bucket(bucket_name)
@@ -37,7 +38,7 @@ def create_python_lambda(package, source, version, bucket_name="ts-test-lambda-p
     lambda_function = lambda_.Function(
         'ServerlessExample',
         s3_bucket=bucket.id,
-        s3_key=version+'/'+package,
+        s3_key=obj.key,
         handler="lambda.handler",
         runtime="python3.7",
         role=lambda_role.arn,
