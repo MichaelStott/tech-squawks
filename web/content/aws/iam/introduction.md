@@ -12,4 +12,4 @@ When a user or web service needs to access an AWS resource through the API, web 
 
 ![IAM Access Flow](/images/iam/iam_flow.png)
 
-Any AWS users, by default, have no default permissions associated upon creation. Thus, any permissions must be granted explicitly. The exception to this is the account root user, which has unlimited access.
+All AWS users, by default, have no default permissions associated upon creation. Thus, any permissions must be granted explicitly. The exception to this is the account root user, which has unlimited access.
