@@ -22,7 +22,6 @@ role_policy_attachment = aws.iam.RolePolicyAttachment("lambdaRoleAttachment",
 def create_python_lambda(package, source, version, bucket_name="ts-test-lambda-py"):
     """ Uploads handler project to S3 and returns S3 object.
     """
-    #os.system('zip %s %s' % (package, source))
     shutil.make_archive(package, "zip", ".", source)
 
     # Create an AWS resource (S3 Bucket)c

@@ -1,7 +1,7 @@
 ---
 title: Cloud Computing
-chapter: true
 draft: false
+chapter: true
 weight: 2
 ---
 

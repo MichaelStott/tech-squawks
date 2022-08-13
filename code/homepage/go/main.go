@@ -1,38 +1,22 @@
 package main
 
 import (
-	"encoding/json"
-
-	"github.com/pulumi/pulumi-aws/sdk/v4/go/aws/iam"
+	"github.com/pulumi/pulumi-aws/sdk/v5/go/aws/s3"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
 func main() {
 	pulumi.Run(func(ctx *pulumi.Context) error {
-		tmpJSON0, err := json.Marshal(map[string]interface{}{
-			"Version": "2012-10-17",
-			"Statement": map[string]interface{} [{
-					"Action": "sts:AssumeRole",
-					"Principal": {
-						"Service": "lambda.amazonaws.com",
-					},
-					"Effect": "Allow",
-					"Sid": "",
-				}]
-		})
+		// Create an AWS resource (S3 Bucket)
+		bucket, err := s3.NewBucket(ctx, "my-bucket", nil)
 		if err != nil {
 			return err
 		}
-		json0 := string(tmpJSON0)
-		_, err = iam.NewRole(ctx, "testRole", &iam.RoleArgs{
-			AssumeRolePolicy: pulumi.String(json0),
-			Tags: pulumi.StringMap{
-				"tag-key": pulumi.String("tag-value"),
-			},
-		})
-		if err != nil {
-			return err
-		}
+
+		// Export the name of the bucket
+		ctx.Export("bucketName", bucket.ID())
+
+		ZipHandler("handler/main.go")
 		return nil
 	})
 }
