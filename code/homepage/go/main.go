@@ -1,22 +1,31 @@
 package main
 
 import (
-	"github.com/pulumi/pulumi-aws/sdk/v5/go/aws/s3"
+	"github.com/pulumi/pulumi-aws/sdk/v5/go/aws/apigatewayv2"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
 func main() {
 	pulumi.Run(func(ctx *pulumi.Context) error {
-		// Create an AWS resource (S3 Bucket)
-		bucket, err := s3.NewBucket(ctx, "my-bucket", nil)
+		// Create lambda function that will return HTML.
+		lambda, err := CreateGoLambda(ctx)
 		if err != nil {
-			return err
+			panic(err)
 		}
 
-		// Export the name of the bucket
-		ctx.Export("bucketName", bucket.ID())
+		// Provision API Gateway instance to invoke Lambda
+		api, err := apigatewayv2.NewApi(ctx,
+			"serverless-parrot-demo-go",
+			&apigatewayv2.ApiArgs{
+				ProtocolType: pulumi.String("HTTP"),
+				RouteKey:     pulumi.String("GET /"),
+				Target:       lambda.InvokeArn,
+			},
+			nil,
+		)
 
-		ZipHandler("handler/main.go")
+		ctx.Export("url", api.ApiEndpoint)
+
 		return nil
 	})
 }

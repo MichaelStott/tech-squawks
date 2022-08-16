@@ -2,9 +2,11 @@ module serverless-parrot-gov2
 
 go 1.17
 
+require github.com/pulumi/pulumi/sdk/v3 v3.37.2
+
 require (
-	github.com/pulumi/pulumi-aws/sdk/v5 v5.10.0
-	github.com/pulumi/pulumi/sdk/v3 v3.37.2
+	github.com/gabriel-vasile/mimetype v1.4.1 // indirect
+	github.com/mattn/go-isatty v0.0.14 // indirect
 )
 
 require (
@@ -30,6 +32,8 @@ require (
 	github.com/opentracing/opentracing-go v1.1.0 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/pkg/term v1.1.0 // indirect
+	github.com/pulumi/pulumi-aws/sdk/v4 v4.38.1
+	github.com/pulumi/pulumi-aws/sdk/v5 v5.10.0
 	github.com/rivo/uniseg v0.2.0 // indirect
 	github.com/rogpeppe/go-internal v1.8.1 // indirect
 	github.com/sabhiram/go-gitignore v0.0.0-20180611051255-d3107576ba94 // indirect
@@ -44,9 +48,9 @@ require (
 	github.com/xanzy/ssh-agent v0.2.1 // indirect
 	go.uber.org/atomic v1.6.0 // indirect
 	golang.org/x/crypto v0.0.0-20200622213623-75b288015ac9 // indirect
-	golang.org/x/net v0.0.0-20201021035429-f5854403a974 // indirect
-	golang.org/x/sys v0.0.0-20210817190340-bfb29a6856f2 // indirect
-	golang.org/x/text v0.3.3 // indirect
+	golang.org/x/net v0.0.0-20220624214902-1bab6f366d9e // indirect
+	golang.org/x/sys v0.0.0-20220520151302-bc2c85ada10a // indirect
+	golang.org/x/text v0.3.7 // indirect
 	google.golang.org/genproto v0.0.0-20200608115520-7c474a2e3482 // indirect
 	google.golang.org/grpc v1.29.1 // indirect
 	google.golang.org/protobuf v1.24.0 // indirect
