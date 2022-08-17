@@ -106,7 +106,7 @@ func CreateLambdaRole(ctx *pulumi.Context) (*iam.Role, error) {
 
 func CreateGoLambda(ctx *pulumi.Context) (*lambda.Function, error) {
 	// Package lambda function.
-	err := zipSource("handler/main.go", "handler.zip")
+	err := zipSource("handler/handler", "handler.zip")
 	if err != nil {
 		return nil, err
 	}
@@ -145,5 +145,13 @@ func CreateGoLambda(ctx *pulumi.Context) (*lambda.Function, error) {
 		},
 		nil,
 	)
+
+	lambda.NewPermission(ctx, "lambdaPermission", &lambda.PermissionArgs{
+		Action:    pulumi.String("lambda:InvokeFunction"),
+		Principal: pulumi.String("apigateway.amazonaws.com"),
+		Function:  function,
+	})
+
+	// Enable API Gateway to invoke the Lambda
 	return function, err
 }

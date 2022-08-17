@@ -11,6 +11,7 @@ require (
 
 require (
 	github.com/aead/chacha20 v0.0.0-20180709150244-8b13a72661da // indirect
+	github.com/aws/aws-lambda-go v1.34.1
 	github.com/blang/semver v3.5.1+incompatible // indirect
 	github.com/cheggaaa/pb v1.0.18 // indirect
 	github.com/djherbis/times v1.2.0 // indirect
