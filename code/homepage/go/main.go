@@ -1,38 +1,31 @@
 package main
 
 import (
-	"encoding/json"
-
-	"github.com/pulumi/pulumi-aws/sdk/v4/go/aws/iam"
+	"github.com/pulumi/pulumi-aws/sdk/v5/go/aws/apigatewayv2"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
 func main() {
 	pulumi.Run(func(ctx *pulumi.Context) error {
-		tmpJSON0, err := json.Marshal(map[string]interface{}{
-			"Version": "2012-10-17",
-			"Statement": [{
-					"Action": "sts:AssumeRole",
-					"Principal": {
-						"Service": "lambda.amazonaws.com",
-					},
-					"Effect": "Allow",
-					"Sid": "",
-				}]
-		})
+		// Create lambda function that will return HTML.
+		lambda, err := CreateGoLambda(ctx)
 		if err != nil {
-			return err
+			panic(err)
 		}
-		json0 := string(tmpJSON0)
-		_, err = iam.NewRole(ctx, "testRole", &iam.RoleArgs{
-			AssumeRolePolicy: pulumi.String(json0),
-			Tags: pulumi.StringMap{
-				"tag-key": pulumi.String("tag-value"),
+
+		// Provision API Gateway instance to invoke Lambda
+		api, err := apigatewayv2.NewApi(ctx,
+			"serverless-parrot-demo-go",
+			&apigatewayv2.ApiArgs{
+				ProtocolType: pulumi.String("HTTP"),
+				RouteKey:     pulumi.String("GET /"),
+				Target:       lambda.InvokeArn,
 			},
-		})
-		if err != nil {
-			return err
-		}
+			nil,
+		)
+
+		ctx.Export("url", api.ApiEndpoint)
+
 		return nil
 	})
 }
