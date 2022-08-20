@@ -4,6 +4,9 @@ jobs:
   get-pulumi-projects:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: true
       - uses: actions/setup-python@v2
         with:
           python-version: 3.9
