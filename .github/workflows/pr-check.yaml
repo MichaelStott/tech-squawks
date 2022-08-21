@@ -45,11 +45,12 @@ jobs:
         run: bash scripts/install_dep.sh
         env:
           WORKING_DIR: ${{ matrix.project }}
+      - name: Change Directory
+        run: cd ${{ matrix.project }}
       - uses: pulumi/actions@v3
         with:
           command: preview
           stack-name: dev
-          working-directory: ./${{ matrix.project }}
           comment-on-pr: false
         env:
           PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
