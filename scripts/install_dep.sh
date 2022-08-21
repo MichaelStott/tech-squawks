@@ -1,11 +1,11 @@
 
-if [[ $name == *py ]] 
+if [[ $WORKING_DIR == *py ]] 
 then
   pip install -r requirements.txt -t $WORKING_DIR
-elif [[ $name == *ts ]]  || [[ $name == *js]] 
+elif [[ $WORKING_DIR == *ts ]]  || [[ $WORKING_DIR == *js]] 
 then
   npm i --prefix $WORKING_DIR
-elif [[ $name == *go]] 
+elif [[ $WORKING_DIR == *go]] 
 then
   echo "Nothing to do."
 else
