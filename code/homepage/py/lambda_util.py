@@ -26,6 +26,7 @@ def create_python_lambda(package, source, version, bucket_name="ts-test-lambda-p
 
     # Create an AWS resource (S3 Bucket)c
     bucket = s3.Bucket(bucket_name)
+    package += ".zip"
     mime_type, _ = mimetypes.guess_type(package)
     obj = s3.BucketObject(
                 version+'/'+package,
