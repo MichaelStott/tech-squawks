@@ -42,7 +42,7 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       - name: Install Dependencies
-        run: bash bin/install_dep.sh
+        run: bash scripts/install_dep.sh
         env:
           WORKING_DIR: ${{ matrix.project }}
       - uses: pulumi/actions@v3
