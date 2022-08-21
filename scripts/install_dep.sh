@@ -13,7 +13,7 @@ then
   npm i --prefix $working_dir
 elif [[ $working_dir == *go ]] 
 then
-  echo "Nothing to do."
+  (cd $working_dir; go mod init)
 else
   echo "Cannot detect language from directory: " + $working_dir; 
 fi
