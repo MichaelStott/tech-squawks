@@ -9,7 +9,7 @@ then
 elif [[ $WORKING_DIR == *js ]] 
 then
   npm i --prefix $WORKING_DIR
-elif [[ $WORKING_DIR == *go]] 
+elif [[ $WORKING_DIR == *go ]] 
 then
   echo "Nothing to do."
 else
