@@ -4,6 +4,7 @@ working_dir="${WORKING_DIR//\\//}"
 echo $working_dir
 if [[ $working_dir == *py ]] 
 then
+  python3 -m venv "$working_dir/env" 
   pip install -r "$working_dir/requirements.txt" 
 elif [[ $working_dir == *ts ]] 
 then
