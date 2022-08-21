@@ -4,16 +4,16 @@ working_dir="${WORKING_DIR//\\//}"
 echo $working_dir
 if [[ $working_dir == *py ]] 
 then
-  pip install -r requirements.txt
+  pip install -r "$working_dir/requirements.txt" 
 elif [[ $working_dir == *ts ]] 
 then
-  npm i
+  npm i --prefix $working_dir
 elif [[ $working_dir == *js ]] 
 then
-  npm i
+  npm i --prefix $working_dir
 elif [[ $working_dir == *go ]] 
 then
-  go mod init techsquawks.com/example
+  (cd $working_dir; go mod init techsquawks.com/example)
 else
   echo "Cannot detect language from directory: " + $working_dir; 
 fi
