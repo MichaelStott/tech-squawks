@@ -13,7 +13,7 @@ then
   npm i
 elif [[ $working_dir == *go ]] 
 then
-  go mod init
+  go mod init techsquawks.com/example
 else
   echo "Cannot detect language from directory: " + $working_dir; 
 fi
