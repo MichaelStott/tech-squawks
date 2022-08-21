@@ -4,8 +4,8 @@ working_dir="${WORKING_DIR//\\//}"
 echo $working_dir
 if [[ $working_dir == *py ]] 
 then
-  pip install -r requirements.txt -t $working_dir
-elif [[ $working_dirR == *ts ]] 
+  pip install -r "${working_dir}/requirements.txt" 
+elif [[ $working_dir == *ts ]] 
 then
   npm i --prefix $working_dir
 elif [[ $working_dir == *js ]] 
