@@ -1,6 +1,7 @@
 #!bin/bash
 
 working_dir="${WORKING_DIR//\\//}"
+echo $working_dir
 if [[ $working_dir == *py ]] 
 then
   pip install -r requirements.txt -t $working_dir
