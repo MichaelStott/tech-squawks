@@ -13,7 +13,7 @@ then
   npm i --prefix $working_dir
 elif [[ $working_dir == *go ]] 
 then
-  (cd $working_dir; go mod init)
+  (cd $working_dir; go build -o $(basename $(pwd)))
 else
   echo "Cannot detect language from directory: " + $working_dir; 
 fi
