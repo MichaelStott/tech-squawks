@@ -9,7 +9,7 @@ class PulumiEnumerator():
         with open(self.project_list_file) as project_file:
             for line in project_file:
                 if line:
-                    results.append(line)
+                    results.append(line.removesuffix("\n"))
         return results
 
 if __name__ == "__main__":
