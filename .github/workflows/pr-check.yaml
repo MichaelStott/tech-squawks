@@ -13,7 +13,7 @@ jobs:
         with:
           python-version: 3.9
       - id: set-matrix
-        run: echo '::set-output name=diff::$(python scripts/enumerate_pulumi.py)'
+        run: echo '::set-output name=matrix::$(python scripts/enumerate_pulumi.py)'
   validate-pulumi-preview:
     runs-on: ubuntu-latest
     strategy:
