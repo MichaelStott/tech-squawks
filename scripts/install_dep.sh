@@ -1,17 +1,18 @@
 #!bin/bash
 
-if [[ $WORKING_DIR == *py ]] 
+working_dir="${WORKING_DIR//\\//}"
+if [[ $working_dir == *py ]] 
 then
-  pip install -r requirements.txt -t $WORKING_DIR
-elif [[ $WORKING_DIR == *ts ]] 
+  pip install -r requirements.txt -t $working_dir
+elif [[ $working_dirR == *ts ]] 
 then
-  npm i --prefix $WORKING_DIR
-elif [[ $WORKING_DIR == *js ]] 
+  npm i --prefix $working_dir
+elif [[ $working_dir == *js ]] 
 then
-  npm i --prefix $WORKING_DIR
-elif [[ $WORKING_DIR == *go ]] 
+  npm i --prefix $working_dir
+elif [[ $working_dir == *go ]] 
 then
   echo "Nothing to do."
 else
-  echo "Cannot detect language from directory: " + $WORKING_DIR; 
+  echo "Cannot detect language from directory: " + $working_dir; 
 fi
