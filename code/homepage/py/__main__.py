@@ -4,7 +4,7 @@ import pulumi_aws
 from lambda_util import create_python_lambda
 
 LAMBDA_SOURCE = 'lambda.py'
-LAMBDA_PACKAGE = 'lambda.zip'
+LAMBDA_PACKAGE = 'lambda'
 LAMBDA_VERSION = '1.0.0'
 
 # Provision Lambda function which will be invoked upon an http request.
@@ -24,3 +24,4 @@ apigw = pulumi_aws.apigatewayv2.Api("httpApiGateway",
 
 # Export the API endpoint for easy access
 pulumi.export("url", apigw.api_endpoint)
+pulumi.export("invoke_arn", lambda_function.name)
