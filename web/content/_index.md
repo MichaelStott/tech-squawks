@@ -165,7 +165,7 @@ to support local execution, using technologies such as `localstack` (AWS Emulato
 
 ### Study Buddy
 
-While any specific certification preparation is beyond the scope of this site, flashcards are included at the end of each section for additional study and review. Cheatsheats for certain topics are also included to help for easy reference.
+While any specific certification preparation is beyond the scope of this site, flashcards are included at the end of each section for additional study and review. Cheatsheats for certain topics are also included for easy reference.
 
 ### Prerequisites
 
