@@ -161,18 +161,18 @@ The exported URL will display the following image in your web browser:
 Cloud computing examples are often difficult to demonstrate, due to the need for cloud access and the time required for deploying resources. Additionally, there is the risk of leaving resources provisioned and incurring unintended costs.
 
 In an effort to make these tutorials accesible to those without cloud access and minimize costs, examples are designed 
-to support local execution, using technologies such as `localstack` (AWS Emulator), `kind` (Local Kubernetes Cluster), etc., whenever possible. 
+to support local execution, using technologies such as [LocalStack](https://localstack.cloud/), [Cloud Code](https://cloud.google.com/code), [Kind](https://kind.sigs.k8s.io/), etc., whenever possible. 
 
 ### Study Buddy
 
-While any specific certification preparation is beyond the scope of this site, flashcards are included at the end of each section for additional study and review. Cheatsheats for certain topics are also included to help for easy reference.
+While any specific certification preparation is beyond the scope of this site, flashcards are included at the end of each section for additional study and review. Cheatsheats for certain topics are also included for easy reference.
 
 ### Prerequisites
 
 Before continuing, readers should be:
 
-- Knowledgeable of at least one of the following programming languages: Typescript, Javascript, Python, Go, or Java
-- Comfortable shell/bash scripting
-- Familiarity with basic computer networking concepts
+- Experienced with Typescript, Javascript, Python, Go, or Java
+- Comfortable with shell/bash scripting
+- Familiar with basic computer networking concepts
 
 For setting up your development environment, see the  [Getting Started]({{< ref "getting_started" >}}) section.

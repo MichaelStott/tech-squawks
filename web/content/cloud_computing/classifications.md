@@ -24,7 +24,7 @@ A related offering would be _Functions as a Service (FaaS)_, which, similar to P
 
 #### Software as a Service - SaaS
 
-For _SaaS_ services, users manage none of the underlying instrastructure or application logic and simply and consume the result of an application. An example of this would be Dropbox or the AWS S3 service, where users can upload data through a web console or API while AWS maintains all backend storage.
+For _SaaS_ services, users manage none of the underlying instrastructure or application logic and are instead strictly service consumers. An example of this would be Dropbox or the AWS S3 service, where users can upload data through a web console or API while AWS maintains all backend storage.
 
 [^1]: NIST Definition of Cloud Computing: https://csrc.nist.gov/publications/detail/sp/800-145/final
 [^2]: AWS Types of Cloud Computing:  https://aws.amazon.com/types-of-cloud-computing/
