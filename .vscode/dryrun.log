@@ -1,0 +1,6 @@
+make.exe --dry-run --always-make --keep-going --print-directory
+make: Entering directory 'c:/Users/Michael/tech-squawks'
+make: Leaving directory 'c:/Users/Michael/tech-squawks'
+ 
+make: *** No targets specified and no makefile found.  Stop.
+
