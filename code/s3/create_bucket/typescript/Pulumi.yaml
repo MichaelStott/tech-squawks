@@ -1,3 +1,0 @@
-name: create-bucket-ts
-runtime: nodejs
-description: Create an S3 bucket
