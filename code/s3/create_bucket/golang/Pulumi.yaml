@@ -1,3 +1,0 @@
-name: create-bucket-go
-runtime: go
-description: Create an S3 bucket
