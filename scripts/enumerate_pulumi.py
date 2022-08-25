@@ -25,7 +25,7 @@ class PulumiEnumerator():
         """
         results = set()
         for path in Path(self.project_dir).rglob('Pulumi.*.yaml'):
-            path_str = str(path)
+            path_str = str(path.parent)
             if "node_modules" not in path_str:
                 results.add(path_str)
         return list(results)
