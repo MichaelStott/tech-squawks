@@ -1,10 +1,14 @@
-""" Script used by CI/CD process to determine which directories to test.
+""" Helper functions for CI/CD process.
 """
 
 import os
 from pathlib import Path
 
-class PulumiEnumerator():
+from git import Repo
+
+class TSHelper():
+    """ Helper class for all CI/CD operations.
+    """
 
     DEFAULT_PROJECT_DIR = "code"
 
@@ -13,6 +17,7 @@ class PulumiEnumerator():
         """
         self.project_dir = os.getenv("PROJECT_DIR", self.DEFAULT_PROJECT_DIR)
         self.blacklisted = self._get_ignore_dirs()
+        self.ts_repo = os.getenv("REPO_ROOT_DIR", ".")
         
     def _get_ignore_dirs(self):
         """ Determine which directories to ignore.
@@ -29,6 +34,17 @@ class PulumiEnumerator():
             if "node_modules" not in path_str:
                 results.add(path_str)
         return list(results)
+
+    def website_updated(self):
+        """ Determine if website has been updated
+        """
+        result = False
+        return result
+
+    def git_diff(self, branch_a, branch_b):
+        """ Check if git 
+        """
+        pass
 
 if __name__ == "__main__":
     pulumi_enum = PulumiEnumerator()
