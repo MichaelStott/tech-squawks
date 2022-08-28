@@ -6,7 +6,6 @@
 Cloud computing tutorials in programming languages such as Node (Typescript/Javascript)<img   height="16" alt="Tech Squawks" src="./images/nodeparrot.gif">,<br/>Python <img  height="16" alt="Tech Squawks" src="./images/pythonparrot.gif">, Go <img  height="16" alt="Tech .Squawks" src="./images/partygopher.gif">, and Java <img  height="16" alt="Tech .Squawks" src="./images/coffeeparrot.gif">.
 </p>
 
-
 ## About
 
 The aim of this website is to present cloud-computing concepts using small, self-contained web apps. To achieve this, 
