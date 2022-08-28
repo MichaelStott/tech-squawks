@@ -5,7 +5,7 @@ import os
 from pathlib import Path
 from pydoc import Helper
 
-import git
+import click, git
 
 class CIHelper():
     """ Helper class for all CI/CD operations.
@@ -54,10 +54,27 @@ class CIHelper():
         changes = [ item.a_path for item in repo.index.diff("main") ]
         return(changes)
 
+@click.group()
+def main():
+    pass
 
+@main.group()
+def web():
+    pass
+
+@main.group()
+def code():
+    pass
+
+@web.command("has-changed")
+def has_changed():
+    helper = CIHelper()
+    click.echo(helper.website_updated())
+
+@code.command("ls")
+def has_changed():
+    helper = CIHelper()
+    click.echo(helper.get_pulumi_projects())
 
 if __name__ == "__main__":
-    helper = CIHelper()
-    projects = helper.get_pulumi_projects()
-    print(projects)
-    print(helper.website_updated())
+    main()
