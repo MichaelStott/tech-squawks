@@ -3,10 +3,11 @@
 
 import os
 from pathlib import Path
+from pydoc import Helper
 
-from git import Repo
+import git
 
-class TSHelper():
+class CIHelper():
     """ Helper class for all CI/CD operations.
     """
 
@@ -39,14 +40,24 @@ class TSHelper():
         """ Determine if website has been updated
         """
         result = False
+        changes = self._get_changed_files()
+        for change in changes:
+            if change.startswith("web/"):
+                result = True
+                break
         return result
 
-    def git_diff(self, branch_a, branch_b):
-        """ Check if git 
+    def _get_changed_files(self):
+        """ Get list of files that changed in branch.
         """
-        pass
+        repo = git.Repo(".", search_parent_directories=True)
+        changes = [ item.a_path for item in repo.index.diff(None) ]
+        return(changes)
+
+
 
 if __name__ == "__main__":
-    pulumi_enum = PulumiEnumerator()
-    projects = pulumi_enum.get_pulumi_projects()
+    helper = CIHelper()
+    projects = helper.get_pulumi_projects()
     print(projects)
+    print(helper.website_updated())

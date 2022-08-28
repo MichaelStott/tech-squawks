@@ -1,2 +1,2 @@
 click
-GitPython
+pygit2
