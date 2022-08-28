@@ -12,8 +12,10 @@ jobs:
       - uses: actions/setup-python@v2
         with:
           python-version: 3.9
+      - name: Install python script requirements
+        run: pip3 install -r scripts/requirements.txt
       - id: get-projects
-        run: python scripts/enumerate_pulumi.py
+        run: python3 scripts/ci_helper.py code ls
       - id: set-matrix
         run: echo "::set-output name=matrix::$(python scripts/enumerate_pulumi.py)"
   validate-pulumi-preview:

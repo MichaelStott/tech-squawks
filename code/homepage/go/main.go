@@ -13,7 +13,7 @@ func main() {
 			panic(err)
 		}
 
-		// Provision API Gateway instance to invoke Lambda
+		// Provision API Gateway instance to invoke Lambda function
 		api, err := apigatewayv2.NewApi(ctx,
 			"serverless-parrot-demo-go",
 			&apigatewayv2.ApiArgs{
