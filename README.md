@@ -20,6 +20,8 @@ These tutorials are very much a work-in-progress. As a result, the site structur
 
 The following topics are planned in the order they are listed. No fixed date for these topics exists as of yet.
 
+### AWS
+
 - [x] Developer Setup
 - [ ] Cloud Computing (🚧 In-Progress)
 - [ ] AWS Overview (🚧 In-Progress)
@@ -43,6 +45,12 @@ The following topics are planned in the order they are listed. No fixed date for
 - [ ] Secrets Manager
 - [ ] STS
 - [ ] Config
+
+### GCP
+
+### Docker
+
+### Kubernetes
 
 ## Development
 
