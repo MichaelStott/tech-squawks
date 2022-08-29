@@ -30,19 +30,23 @@ class CIHelper():
         """ Get Pulumi project directories.
         """
         results = set()
+        changed_files = self._get_changed_files()
+        changed_paths = [ str(Path(x).parent) for x in changed_files]
         for path in Path(self.project_dir).rglob('Pulumi.*.yaml'):
             path_str = str(path.parent)
-            if "node_modules" not in path_str:
+            if "node_modules" not in path_str and \
+                path_str not in self.blacklisted and \
+                path_str in changed_paths:
                 results.add(path_str)
         return list(results)
 
-    def website_updated(self):
+    def dir_changed(self, dir):
         """ Determine if website has been updated
         """
         result = False
         changes = self._get_changed_files()
         for change in changes:
-            if change.startswith("web/"):
+            if change.startswith(dir):
                 result = True
                 break
         return result
@@ -67,12 +71,17 @@ def code():
     pass
 
 @web.command("has-changed")
-def has_changed():
+def changed_web():
     helper = CIHelper()
-    click.echo(helper.website_updated())
+    click.echo(helper.dir_changed("web/"))
+
+@code.command("has-changed")
+def changed_code():
+    helper = CIHelper()
+    click.echo(helper.dir_changed("code/"))
 
 @code.command("ls")
-def has_changed():
+def list_pulumi():
     helper = CIHelper()
     click.echo(helper.get_pulumi_projects())
 
