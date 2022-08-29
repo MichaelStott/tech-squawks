@@ -13,9 +13,9 @@ func main() {
 			panic(err)
 		}
 
-		// Provision API Gateway instance to invoke Lambda function
+		// Provision API Gateway instance to invoke Lambda
 		api, err := apigatewayv2.NewApi(ctx,
-			"serverless-parrot-demo-go",
+			"serverless-parrot-demo-gov2",
 			&apigatewayv2.ApiArgs{
 				ProtocolType: pulumi.String("HTTP"),
 				RouteKey:     pulumi.String("GET /"),

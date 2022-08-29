@@ -32,6 +32,7 @@ class CIHelper():
         results = set()
         changed_files = self._get_changed_files()
         changed_paths = [ str(Path(x).parent) for x in changed_files]
+        print(changed_paths)
         for path in Path(self.project_dir).rglob('Pulumi.*.yaml'):
             path_str = str(path.parent)
             if "node_modules" not in path_str and \
