@@ -58,14 +58,14 @@ class CIHelper():
         return(changes)
 
 @click.group()
-def main():
+def helper():
     pass
 
-@main.group()
+@helper.group()
 def web():
     pass
 
-@main.group()
+@helper.group()
 def code():
     pass
 
@@ -85,4 +85,4 @@ def list_pulumi():
     click.echo(helper.get_pulumi_projects())
 
 if __name__ == "__main__":
-    main()
+    helper()
