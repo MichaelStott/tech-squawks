@@ -8,8 +8,10 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          submodules: true
-          fetch-depth: 0
+        - run: |
+          git fetch --no-tags --depth=1 origin main
+          git checkout -b main
+          git checkout ${{ github.event.pull_request.head.sha }}
       - uses: actions/setup-python@v2
         with:
           python-version: 3.9
