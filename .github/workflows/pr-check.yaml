@@ -7,7 +7,7 @@ jobs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
       - uses: actions/checkout@v3
-        run: |
+      - run: |
           git fetch --no-tags --depth=1 origin main
           git checkout -b main
           git checkout ${{ github.event.pull_request.head.sha }}
