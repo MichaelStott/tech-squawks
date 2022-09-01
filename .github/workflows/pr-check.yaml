@@ -17,7 +17,7 @@ jobs:
       - id: get-projects
         run: python scripts/ci_helper.py code ls
       - id: set-matrix
-        run: echo "::set-output name=matrix::$(python scripts/enumerate_pulumi.py)"
+        run: echo "::set-output name=matrix::$(python scripts/ci_helper.py code ls)"
   validate-pulumi-preview:
     needs: get-pulumi-projects
     runs-on: ubuntu-latest
