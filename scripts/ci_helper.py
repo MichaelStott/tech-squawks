@@ -3,7 +3,6 @@
 
 import os
 from pathlib import Path
-from pydoc import Helper
 
 import click, git
 
