@@ -1,0 +1,3 @@
+name: serverless-parrot-java
+runtime: java
+description: A minimal AWS Java Pulumi program
