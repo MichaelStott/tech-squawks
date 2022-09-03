@@ -9,15 +9,14 @@ jobs:
       - uses: actions/checkout@v3
         with:
           submodules: true
+          fetch-depth: 0
       - uses: actions/setup-python@v2
         with:
           python-version: 3.9
       - name: Install python script requirements
         run: pip3 install -r scripts/requirements.txt
-      - id: get-projects
-        run: python3 scripts/ci_helper.py code ls
       - id: set-matrix
-        run: echo "::set-output name=matrix::$(python scripts/enumerate_pulumi.py)"
+        run: echo "::set-output name=matrix::$(python scripts/ci_helper.py code ls)"
   validate-pulumi-preview:
     needs: get-pulumi-projects
     runs-on: ubuntu-latest
