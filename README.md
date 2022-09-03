@@ -54,7 +54,7 @@ The following topics are planned in the order they are listed. No fixed date for
 
 ## Development
 
-### Local
+### Website
 
 To launch the website locally, you will need to install `hugo`:
 
@@ -65,7 +65,21 @@ $ hugo server
 
 To build the website with drafts included, run `hugo server -D`
 
-### Deploy
+To sync any code examples referenced in the `code` directory run `npm run sync`
+
+### Code Examples
+
+All code examples can be found under the `code` directory. All should be 
+deployable via:
+
+```
+$ pulumi up
+```
+
+The CI/CD pipeline should automatically detect new or modified projects and
+ensure that `pulumi preview` runs successfully.
+
+## Deployment
 
 ```
 $ pulumi stack select dev
