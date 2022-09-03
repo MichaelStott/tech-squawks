@@ -6,9 +6,6 @@ jobs:
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
-      - uses: actions/checkout@v3
-        with:
-          submodules: true
       - uses: actions/checkout@main
         with:
           ref: ${{ github.ref }}
