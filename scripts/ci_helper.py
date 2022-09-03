@@ -55,6 +55,7 @@ class CIHelper():
         """
         repo = git.Repo(".", search_parent_directories=True)
         print(repo.active_branch)
+        print(repo.branches)
         changes = [ item.a_path for item in repo.index.diff("origin/main") ]
         return(changes)
 
