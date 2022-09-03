@@ -7,8 +7,9 @@ jobs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
       - uses: actions/checkout@v3
-      - run: git clone https://github.com/MichaelStott/tech-squawks.git
-      - run: cd tech-squawks
+        with:
+          submodules: true
+          fetch-depth: 0
       - uses: actions/setup-python@v2
         with:
           python-version: 3.9
