@@ -54,7 +54,7 @@ class CIHelper():
         """ Get list of files that changed in branch.
         """
         repo = git.Repo(".", search_parent_directories=True)
-        changes = [ item.a_path for item in repo.index.diff("main") ]
+        changes = [ item.a_path for item in repo.index.diff("origin/main") ]
         return(changes)
 
 @click.group()
