@@ -90,7 +90,7 @@ import pulumi_aws
 from lambda_util import create_python_lambda
 
 LAMBDA_SOURCE = 'lambda.py'
-LAMBDA_PACKAGE = 'lambda.zip'
+LAMBDA_PACKAGE = 'lambda'
 LAMBDA_VERSION = '1.0.0'
 
 # Provision Lambda function which will be invoked upon an http request.
@@ -110,6 +110,7 @@ apigw = pulumi_aws.apigatewayv2.Api("httpApiGateway",
 
 # Export the API endpoint for easy access
 pulumi.export("url", apigw.api_endpoint)
+pulumi.export("invoke_arn", lambda_function.name)
 ```
 {{% /tab %}}
 {{% tab name="Go" %}}
@@ -133,7 +134,7 @@ func main() {
 
 		// Provision API Gateway instance to invoke Lambda
 		api, err := apigatewayv2.NewApi(ctx,
-			"serverless-parrot-demo-go",
+			"serverless-parrot-demo-gov2",
 			&apigatewayv2.ApiArgs{
 				ProtocolType: pulumi.String("HTTP"),
 				RouteKey:     pulumi.String("GET /"),

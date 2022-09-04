@@ -16,42 +16,6 @@ Flashcards are included at the end of each section to help reinforce concepts co
 
 These tutorials are very much a work-in-progress. As a result, the site structure and URLs may be subject to change. 
 
-## Roadmap
-
-The following topics are planned in the order they are listed. No fixed date for these topics exists as of yet.
-
-### AWS
-
-- [x] Developer Setup
-- [ ] Cloud Computing (🚧 In-Progress)
-- [ ] AWS Overview (🚧 In-Progress)
-- [ ] IAM (🚧 In-Progress)
-- [ ] S3 (🚧 In-Progress)
-- [ ] EC2 (🚧 In-Progress)
-- [ ] ELB (🚧 In-Progress)
-- [ ] VPC (🚧 In-Progress)
-- [ ] KMS
-- [ ] Route53
-- [ ] CloudWatch
-- [ ] CloudTrail
-- [ ] Lambda
-- [ ] Step Functions
-- [ ] SNS
-- [ ] SQS
-- [ ] Kinesis
-- [ ] SES
-- [ ] RDS
-- [ ] DynamoDB
-- [ ] Secrets Manager
-- [ ] STS
-- [ ] Config
-
-### GCP
-
-### Docker
-
-### Kubernetes
-
 ## Development
 
 ### Website
@@ -65,7 +29,7 @@ $ hugo server
 
 To build the website with drafts included, run `hugo server -D`
 
-To sync any code examples referenced in the `code` directory run `npm run sync`
+To sync any code examples referenced in the webpage markdown, run `npm run sync`
 
 ### Code Examples
 
