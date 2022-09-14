@@ -3,14 +3,14 @@
 </p>
 
 <p align="center">
-Cloud computing tutorials in programming languages such as Node (Typescript/Javascript)<img   height="16" alt="Tech Squawks" src="./images/nodeparrot.gif">,<br/>Python <img  height="16" alt="Tech Squawks" src="./images/pythonparrot.gif">, Go <img  height="16" alt="Tech .Squawks" src="./images/partygopher.gif">, and Java <img  height="16" alt="Tech .Squawks" src="./images/coffeeparrot.gif">.
+Cloud computing tutorials in programming languages such as Node (Typescript/Javascript)<img   height="16" alt="Tech Squawks" src="./images/nodeparrot.gif">,<br/>Python <img  height="16" alt="Tech Squawks" src="./images/pythonparrot.gif">, and Go <img  height="16" alt="Tech .Squawks" src="./images/partygopher.gif">.
 </p>
 
 ## About
 
 The aim of this website is to present cloud-computing concepts using small, self-contained web apps. To achieve this, 
 cloud infrastructure and services are managed with Pulumi. Pulumi allows users to easily define their cloud resources 
-using programming languages such as Typescript, Javascript, Python, Go, and Java 
+using programming languages such as Typescript, Javascript, Python, and Go 
 
 Flashcards are included at the end of each section to help reinforce concepts covered in the section.
 

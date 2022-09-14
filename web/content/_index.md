@@ -7,7 +7,7 @@ weight: 1
 
 # Howdy!
 
-Welcome to Tech Squawks, a website for learning cloud computing technologies and concepts, using popular programming languages such as Typescript, Javascript, Python, Go, or Java. This site is a work in progress, so check back frequently for new tutorials and updates!
+Welcome to Tech Squawks, a website for learning cloud computing technologies and concepts, using popular programming languages such as Typescript, Javascript, Python, or Go. This site is a work in progress, so check back frequently for new tutorials and updates!
 
 ### Hands-On Learning
 
@@ -172,7 +172,7 @@ While any specific certification preparation is beyond the scope of this site, f
 
 Before continuing, readers should be:
 
-- Experienced with Typescript, Javascript, Python, Go, or Java
+- Experienced with Typescript, Javascript, Python, or Go
 - Comfortable with shell/bash scripting
 - Familiar with basic computer networking concepts
 
