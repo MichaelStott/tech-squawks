@@ -1,4 +1,4 @@
-""" Helper functions for CI/CD process.
+""" Utilities for CI/CD process.
 """
 
 import os
@@ -13,7 +13,7 @@ class CIHelper():
     DEFAULT_PROJECT_DIR = "code"
 
     def __init__(self):
-        """ Initialize enumerators. Determine which directories to test.
+        """ Initialize enumera   tors. Determine which directories to test.
         """
         self.project_dir = os.getenv("PROJECT_DIR", self.DEFAULT_PROJECT_DIR)
         self.blacklisted = self._get_ignore_dirs()
