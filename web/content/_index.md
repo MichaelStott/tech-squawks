@@ -157,14 +157,14 @@ The exported URL will display the following image in your web browser:
 
 ![squawk](https://cultofthepartyparrot.com/parrots/hd/revolutionparrot.gif)
 
-### Try Locally
+### Local Development
 
 Cloud computing examples are often difficult to demonstrate, due to the need for cloud access and the time required for deploying resources. Additionally, there is the risk of leaving resources provisioned and incurring unintended costs.
 
 In an effort to make these tutorials accesible to those without cloud access and minimize costs, examples are designed 
 to support local execution, using technologies such as [LocalStack](https://localstack.cloud/), [Cloud Code](https://cloud.google.com/code), [Kind](https://kind.sigs.k8s.io/), etc., whenever possible. 
 
-### Study Buddy
+### Study Aid
 
 While any specific certification preparation is beyond the scope of this site, flashcards are included at the end of each section for additional study and review. Cheatsheats for certain topics are also included for easy reference.
 

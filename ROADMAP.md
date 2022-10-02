@@ -7,6 +7,7 @@ The following topics are planned in the order they are listed. No fixed date for
 - [x] Developer Setup
 - [ ] Cloud Computing (🚧 In-Progress)
 - [ ] AWS Overview (🚧 In-Progress)
+- [x] STS
 - [ ] IAM (🚧 In-Progress)
 - [ ] S3 (🚧 In-Progress)
 - [ ] EC2 (🚧 In-Progress)
@@ -25,7 +26,6 @@ The following topics are planned in the order they are listed. No fixed date for
 - [ ] RDS
 - [ ] DynamoDB
 - [ ] Secrets Manager
-- [ ] STS
 - [ ] Config
 
 ### GCP
