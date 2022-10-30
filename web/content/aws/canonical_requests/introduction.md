@@ -4,7 +4,7 @@ draft: false
 weight: 1
 ---
 
-AWS SDKs, CLI, or IaC tools, unsurprisingly invoke network calls to AWS services when performing cloud infrastructure operations. AWS refers to these API calls as Canonical API calls.
+AWS SDKs, CLI, or IaC tools, unsurprisingly invoke network calls to AWS services when performing cloud infrastructure operations. AWS refers to these API calls as _canonical requests_.
 
 ![Cloud Computing Overview](/images/can_req/can_req.png)
 
