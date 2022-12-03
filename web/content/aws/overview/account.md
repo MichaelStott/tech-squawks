@@ -5,8 +5,8 @@ weight: 1
 ---
 
 An _AWS Account_ acts as a container for AWS cloud resources. It can be beneficial to create separate accounts to organize 
-and isolate resources. For example, cloud engineers may create separate development, staging, and production accounts for their deployment pipeline. It is also not uncommon to create separate environments for different workload types, such as research developoment, consolidate billing, etc. In addition, accounts acts as a security boundary, as only users 
-with valid account credentials to access cloud resources. [^1]
+and isolate resources. For example, cloud engineers may create separate development, staging, and production accounts for their deployment pipeline. It is also not uncommon to create separate environments for different workload types, such as R&D, cloud billing, etc. In addition, accounts acts as a security boundary, as only users 
+with valid account credentials can access those particular cloud resources. [^1]
 
 An AWS account has the following unique identifiers[^2]:
 - _AWS Account Id_: 12 digit unique ID (i.e. _123456789012_)
