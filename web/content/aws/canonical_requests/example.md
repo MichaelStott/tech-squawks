@@ -1,7 +1,7 @@
 ---
 title: Canonical Request Demo
 draft: false
-weight: 4
+weight: 3
 ---
 
 The following provides code examples for performing canonical requests:
@@ -9,6 +9,9 @@ The following provides code examples for performing canonical requests:
 TODO: Convert this to Node/Python/Golang
 
 See this: https://docs.aws.amazon.com/general/latest/gr/signature-v4-examples.html 
+
+https://docs.aws.amazon.com/general/latest/gr/sigv4-signed-request-examples.html
+
 
 ```sh
 #!/bin/bash
