@@ -7,4 +7,4 @@ weight: 5
 
 # Canonical Requests
 
-Invoking HTTP AWS API calls.
+Invoking AWS API calls.

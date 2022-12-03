@@ -12,7 +12,7 @@ While developers can directly leverage canonical requests to communicate with AW
 
 For additional security, AWS enforces that incoming AWS calls are signed with valid credentials. This ensures the AWS can verify the identity of the client, protect the API request data in transit, and mitigate potential relay attacks. AWS offers two versions of signing, V2 and V4, with the majority of AWS services supporting the latest V4 signing method.
 
-## Request Structure
+#### Request Structure
 
 Canonical requests are of the following structure:
 
