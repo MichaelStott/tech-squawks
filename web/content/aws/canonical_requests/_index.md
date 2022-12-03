@@ -1,11 +1,10 @@
 ---
 title: Canonical Requests
-draft: true
+draft: false
 chapter: true
-
 weight: 5
 ---
 
 # Canonical Requests
 
-Manually invoking API calls to AWS.
+Invoking AWS API calls.
