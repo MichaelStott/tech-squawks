@@ -1,8 +1,19 @@
 import binascii
 import datetime 
 import hashlib
+import hmac
 import requests
+from boto3 import Session
 
+session = Session()
+credentials = session.get_credentials()
+current_credentials = credentials.get_frozen_credentials()
+
+# TODO: FETCH THIS DYNAMICALLY. DO NOT HARDCODE THIS.
+AWS_ACCESS_KEY_ID = current_credentials.access_key
+AWS_SECRET_ACCESS_KEY = current_credentials.secret_key
+
+SIGNING_ALGORITHM = "AWS4-HMAC-SHA256"
 AMAZON_TARGET = "AmazonSSM.GetParameter"
 CONTENT_TYPE = "application/x-amz-json-1.1"
 PARAMETER_NAME = "SlawekTestParam"
@@ -23,8 +34,19 @@ def compute_sha256_hash(input: str):
     # Performed seperately here to better illustrate process.
     return m.digest()
 
-def sign(input: str, key: str):
-    pass
+def sign(key: str, input: str,):
+    m = hmac.HMAC(bytes(key, "ascii"), digestmod=hashlib.sha512)
+    return m.digest() 
+
+def get_signature_key(key, datestamp, region, service_name):
+    kdate = sign("AWS4" + key, datestamp)
+    kregion = sign(kdate, region)
+    kservice = sign(kregion, service_name)
+    ksigning = sign(kservice, "aws4_reqquest")
+    return ksigning
+
+def get_credential_scope(date_stamp: str):
+    return "{}/{}/{}/aws4_request".format(date_stamp, REGION, SERVICE)
 
 def get_endpoint():
     return "https://{}/".format(HOST)
@@ -39,9 +61,13 @@ if __name__ == "__main__":
     now = datetime.datetime.now()
     amazon_timestamp = now.strftime("%Y%m%dT%H%M%SZ")
     req_timestamp = now.strftime("%Y%m%d")
-    print(amazon_timestamp)
-    print(req_timestamp)
+    print("amzn_time: " + amazon_timestamp)
+    print("req_time: " + req_timestamp)
 
+    request_paramters = '{"Name":"' + PARAMETER_NAME + '","WithDecryption":true}'
+
+    scope = get_credential_scope(req_timestamp)
+    print ("scope: " + scope)
     # Perform AWS API call
     headers = {
         "Accept-Encoding": "identity",
@@ -50,9 +76,6 @@ if __name__ == "__main__":
         "X-Amz-Target": AMAZON_TARGET,
         "Authorization": ""
     }
-    resp = requests.get(endpoint, headers=headers)
+    resp = requests.get(endpoint, headers=headers, data=request_paramters)
 
     print(resp.status_code)
-
-
-
