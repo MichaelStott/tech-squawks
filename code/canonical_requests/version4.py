@@ -27,24 +27,24 @@ CANONICAL_URI = "/"
 CANONICAL_QUERY_STRING = ""
 
 def hex_encode(input: str):
-    return str(binascii.hexlify(bytes(input,"ascii")))
+    return str(binascii.hexlify(bytes(input,"utf-8")))
 
 def hex_encode(input: bytes):
     return str(binascii.hexlify(input))
 
 def compute_sha256_hash(input: str):
     m = hashlib.sha256()
-    m.update(bytes(input, "ascii"))
+    m.update(bytes(input, "utf-8"))
     # Note: hexdigest can be used to produce the hex encoded hash. 
     # Performed seperately here to better illustrate process.
     return m.digest()
 
 def sign(key: str, input: str):
-    m = hmac.HMAC(bytes(key, "ascii"), msg=input.encode("utf-8"), digestmod=hashlib.sha256)
+    m = hmac.HMAC(bytes(key, "utf-8"), msg=input.encode("utf-8"), digestmod=hashlib.sha256)
     return m.digest() 
 
 def get_signature_key(key, datestamp, region, service_name):
-    kdate = sign(str(hex_encode(bytes("AWS4" + str(key), "ascii"))), str(datestamp))
+    kdate = sign(str(hex_encode(bytes("AWS4" + str(key), "utf-8"))), str(datestamp))
     kregion = sign(str(kdate), region)
     kservice = sign(str(kregion), service_name)
     ksigning = sign(str(kservice), "aws4_request")
@@ -84,6 +84,7 @@ if __name__ == "__main__":
 
     request_paramters = '{"Name":"' + PARAMETER_NAME + '","WithDecryption":true}'
     payload_hash = compute_sha256_hash(request_paramters)
+    
     headers = get_canonical_headers(amazon_timestamp)
     canoniocal_request = get_canonical_requests(headers, payload_hash)
     credential_scope = get_credential_scope(req_timestamp)
