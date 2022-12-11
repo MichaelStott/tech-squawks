@@ -1,106 +1,122 @@
 ---
 title: Canonical Request Demo
-draft: true
+draft: false
 weight: 3
 ---
 
-The following provides code examples for performing canonical requests:
+The following code snippets demonstrate sending canonical rqeuests to AWS. For interested readers, the AWS SDKs can provide
+further concrete examples that handle this in a more general fashion.
 
-TODO: Convert this to Node/Python/Golang
+```py
+# canonical_requests\version4
 
-See this: https://docs.aws.amazon.com/general/latest/gr/signature-v4-examples.html 
+import binascii
+import datetime 
+import hashlib
+import hmac
+import requests
+from boto3 import Session
 
-https://docs.aws.amazon.com/general/latest/gr/sigv4-signed-request-examples.html
+session = Session()
+credentials = session.get_credentials()
+current_credentials = credentials.get_frozen_credentials()
 
+AWS_ACCESS_KEY_ID = current_credentials.access_key
+AWS_SECRET_ACCESS_KEY = current_credentials.secret_key
 
-```sh
-#!/bin/bash
+METHOD = "POST"
+SIGNING_ALGORITHM = "AWS4-HMAC-SHA256"
+AMAZON_TARGET = "AmazonSSM.GetParameter"
+CONTENT_TYPE = "application/x-amz-json-1.1"
+PARAMETER_NAME = "SlawekTestParam"
+SERVICE = "ssm"
+HOST = "ssm.us-west-2.amazonaws.com"
+REGION = "us-west-2"
 
-# Source: https://docs.aws.amazon.com/general/latest/gr/sigv4-signed-request-examples.html
+SIGNED_HEADERS = "content-type;host;x-amz-date;x-amz-target"
 
-[[ -n "${AWS_ACCESS_KEY_ID}" ]]     || { echo "AWS_ACCESS_KEY_ID required" >&2; exit 1; }
-[[ -n "${AWS_SECRET_ACCESS_KEY}" ]] || { echo "AWS_SECRET_ACCESS_KEY required" >&2; exit 1; }
+CANONICAL_URI = "/"
+CANONICAL_QUERY_STRING = ""
 
-readonly parameterName="SlawekTestParam"
+def hex_encode(input: str):
+    return str(binascii.hexlify(bytes(input,"utf-8")))
 
-readonly method="POST"
-readonly service="ssm"
-readonly host="ssm.us-west-2.amazonaws.com"
-readonly region="us-west-2"
-readonly endpoint="https://${host}/"
-readonly contentType="application/x-amz-json-1.1"
-readonly amazonTarget="AmazonSSM.GetParameter"
-readonly requestParameters="$(printf '{"Name":"%s","WithDecryption":true}' "${parameterName}")"
-readonly amazonDate="$(date --utc +'%Y%m%dT%H%M%SZ')"
-readonly dateStamp="$(date --utc +'%Y%m%d')"
-# readonly amazonDate="20200429T093445Z"
-# readonly dateStamp="20200429"
+def hex_encode(input: bytes):
+    return str(binascii.hexlify(input))
 
-function sha256 {
-    echo -ne "$1" | openssl dgst -sha256 -hex
-}
+def compute_sha256_hash(input: str):
+    m = hashlib.sha256()
+    m.update(bytes(input, "utf-8"))
+    # Note: hexdigest can be used to produce the hex encoded hash. 
+    # Performed seperately here to better illustrate process.
+    return m.digest()
 
-function hex {
-    echo -ne "$1" | hexdump | sed -e 's/^[0-9a-f]*//' -e 's/ //g' | tr -d '\n'
-}
+def sign(key: str, input: str):
+    m = hmac.HMAC(bytes(key, "utf-8"), msg=input.encode("utf-8"), digestmod=hashlib.sha256)
+    return m.digest() 
 
-function sign {
-    local hexKey="$1"
-    local msg="$2"
+def get_signature_key(key, datestamp, region, service_name):
+    kdate = sign(str(hex_encode(bytes("AWS4" + str(key), "utf-8"))), str(datestamp))
+    kregion = sign(str(kdate), region)
+    kservice = sign(str(kregion), service_name)
+    ksigning = sign(str(kservice), "aws4_request")
+    return ksigning
 
-    echo -ne "${msg}" | openssl dgst -sha256 -mac hmac -macopt "hexkey:${hexKey}"
-}
+def get_credential_scope(date_stamp: str):
+    return "{}/{}/{}/aws4_request".format(date_stamp, REGION, SERVICE)
 
-function getSignatureKey {
-    local key="$1"
-    local dateStamp1="$2"
-    local regionName="$3"
-    local serviceName="$4"
-    local kDate kRegion kService kSigning
+def get_string_to_sign(amzn_date_stamp, scope, can_req):
+    return SIGNING_ALGORITHM + "\n" +\
+        str(amzn_date_stamp) + "\n" +\
+        scope + "\n" + str(compute_sha256_hash(can_req))
 
-    kDate="$(sign "$(hex "AWS4${key}")" "${dateStamp1}")"
-    kRegion="$(sign "${kDate}" "${regionName}")"
-    kService="$(sign "${kRegion}" "${serviceName}")"
-    kSigning="$(sign "${kService}" "aws4_request")"
+def get_endpoint():
+    return "https://{}/".format(HOST)
 
-    echo -ne "${kSigning}"
-}
+def get_canonical_headers(amzn_date):
+    headers = "content-type:" + CONTENT_TYPE + "\nhost:" + HOST + "\nx-amz-date:" + amzn_date + "\nx-amz-target:" + AMAZON_TARGET + "\n"
+    return headers
 
-# --- TASK 1: create canonical request ---
+def get_canonical_requests(canonical_headers: str, payload_hash):
+    return "\n".join([METHOD, CANONICAL_URI, CANONICAL_QUERY_STRING, canonical_headers, SIGNED_HEADERS, str(payload_hash)])
 
-readonly canonicalUri="/"
-readonly canonicalQueryString=""
-readonly canonicalHeaders="content-type:${contentType}\nhost:${host}\nx-amz-date:${amazonDate}\nx-amz-target:${amazonTarget}\n"
-readonly signedHeaders="content-type;host;x-amz-date;x-amz-target"
-readonly payloadHash="$(sha256 "${requestParameters}")"
+def get_authorization_header(scope, signature):
+    return SIGNING_ALGORITHM + " Credential=" + AWS_ACCESS_KEY_ID + "/" + scope + ", SignedHeaders=" + SIGNED_HEADERS + ", Signature=" + signature
 
-readonly canonicalRequest="${method}\n${canonicalUri}\n${canonicalQueryString}\n${canonicalHeaders}\n${signedHeaders}\n${payloadHash}"
+if __name__ == "__main__":
+    endpoint = get_endpoint()
+    print ("Target AWS Endpoint: " + endpoint)
 
-# --- TASK 2: create the string to sign ---
+    # Generate timestamp information
+    now = datetime.datetime.utcnow()
+    amazon_timestamp = now.strftime("%Y%m%dT%H%M%SZ")
+    req_timestamp = now.strftime("%Y%m%d")
+    print("amzn_time: " + amazon_timestamp)
+    print("req_time: " + req_timestamp)
 
-readonly algorithm="AWS4-HMAC-SHA256"
-readonly credentialScope="${dateStamp}/${region}/${service}/aws4_request"
+    request_paramters = '{"Name":"' + PARAMETER_NAME + '","WithDecryption":true}'
+    payload_hash = compute_sha256_hash(request_paramters)
+    
+    headers = get_canonical_headers(amazon_timestamp)
+    canoniocal_request = get_canonical_requests(headers, payload_hash)
+    credential_scope = get_credential_scope(req_timestamp)
 
-readonly stringToSign="${algorithm}\n${amazonDate}\n${credentialScope}\n$(sha256 "${canonicalRequest}")"
+    string_to_sign = get_string_to_sign(amazon_timestamp, credential_scope, canoniocal_request)
+    signature_key = get_signature_key(AWS_SECRET_ACCESS_KEY, req_timestamp, REGION, SERVICE)
+    signature = sign(str(signature_key), string_to_sign)
 
-# --- TASK 3: calculate the signature ---
+    auth_header = get_authorization_header(credential_scope, str(signature))
 
-readonly signingKey="$(getSignatureKey "${AWS_SECRET_ACCESS_KEY}" "${dateStamp}" "${region}" "${service}")"
+    # Perform AWS API call
+    headers = {
+        "Accept-Encoding": "identity",
+        "Content-Type": CONTENT_TYPE,
+        "X-Amz-Date": amazon_timestamp,
+        "X-Amz-Target": AMAZON_TARGET,
+        "Authorization": auth_header
+    }
+    resp = requests.post(endpoint, headers=headers, data=request_paramters)
 
-readonly signature="$(sign "${signingKey}" "${stringToSign}")"
+    print(resp.content)
 
-# --- TASK 4: add signing information to the request ---
-
-readonly authorizationHeader="${algorithm} Credential=${AWS_ACCESS_KEY_ID}/${credentialScope}, SignedHeaders=${signedHeaders}, Signature=${signature}"
-
-# --- SEND REQUEST ---
-
-curl --fail --silent \
-    "${endpoint}" \
-    --data "${requestParameters}" \
-    --header "Accept-Encoding: identity" \
-    --header "Content-Type: ${contentType}" \
-    --header "X-Amz-Date: ${amazonDate}" \
-    --header "X-Amz-Target: ${amazonTarget}" \
-    --header "Authorization: ${authorizationHeader}"
 ```
