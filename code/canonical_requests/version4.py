@@ -44,18 +44,18 @@ def sign(key: str, input: str):
     return m.digest() 
 
 def get_signature_key(key, datestamp, region, service_name):
-    kdate = sign("AWS4" + str(key), str(datestamp))
+    kdate = sign(str(hex_encode(bytes("AWS4" + str(key), "ascii"))), str(datestamp))
     kregion = sign(str(kdate), region)
     kservice = sign(str(kregion), service_name)
-    ksigning = sign(str(kservice), "aws4_reqquest")
+    ksigning = sign(str(kservice), "aws4_request")
     return ksigning
 
 def get_credential_scope(date_stamp: str):
     return "{}/{}/{}/aws4_request".format(date_stamp, REGION, SERVICE)
 
-def get_string_to_sign(date_stamp, scope, can_req):
+def get_string_to_sign(amzn_date_stamp, scope, can_req):
     return SIGNING_ALGORITHM + "\n" +\
-        str(date_stamp) + "\n" +\
+        str(amzn_date_stamp) + "\n" +\
         scope + "\n" + str(compute_sha256_hash(can_req))
 
 def get_endpoint():
@@ -65,15 +65,13 @@ def get_canonical_headers(amzn_date):
     headers = "content-type:" + CONTENT_TYPE + "\nhost:" + HOST + "\nx-amz-date:" + amzn_date + "\nx-amz-target:" + AMAZON_TARGET + "\n"
     return headers
 
-def get_canonical_requests(canonical_headers, payload_hash):
+def get_canonical_requests(canonical_headers: str, payload_hash):
     return "\n".join([METHOD, CANONICAL_URI, CANONICAL_QUERY_STRING, canonical_headers, SIGNED_HEADERS, str(payload_hash)])
 
 def get_authorization_header(scope, signature):
     return SIGNING_ALGORITHM + " Credential=" + AWS_ACCESS_KEY_ID + "/" + scope + ", SignedHeaders=" + SIGNED_HEADERS + ", Signature=" + signature
 
 if __name__ == "__main__":
-    hex_hash = hex_encode(compute_sha256_hash("hello world!"))
-    print ("Comoputed Hash: " + str(hex_hash))
     endpoint = get_endpoint()
     print ("Target AWS Endpoint: " + endpoint)
 
@@ -86,17 +84,16 @@ if __name__ == "__main__":
 
     request_paramters = '{"Name":"' + PARAMETER_NAME + '","WithDecryption":true}'
     payload_hash = compute_sha256_hash(request_paramters)
-    scope = get_credential_scope(req_timestamp)
     headers = get_canonical_headers(amazon_timestamp)
     canoniocal_request = get_canonical_requests(headers, payload_hash)
     credential_scope = get_credential_scope(req_timestamp)
 
-    string_to_sign = get_string_to_sign(req_timestamp, credential_scope, canoniocal_request)
+    string_to_sign = get_string_to_sign(amazon_timestamp, credential_scope, canoniocal_request)
     print(AWS_SECRET_ACCESS_KEY)
     signature_key = get_signature_key(AWS_SECRET_ACCESS_KEY, req_timestamp, REGION, SERVICE)
     signature = sign(str(signature_key), string_to_sign)
 
-    auth_header = get_authorization_header(scope, str(signature))
+    auth_header = get_authorization_header(credential_scope, str(signature))
 
     # Perform AWS API call
     headers = {
@@ -106,6 +103,6 @@ if __name__ == "__main__":
         "X-Amz-Target": AMAZON_TARGET,
         "Authorization": auth_header
     }
-    resp = requests.get(endpoint, headers=headers, data=request_paramters)
+    resp = requests.post(endpoint, headers=headers, data=request_paramters)
 
     print(resp.content)
