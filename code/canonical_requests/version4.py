@@ -76,7 +76,7 @@ if __name__ == "__main__":
     print ("Target AWS Endpoint: " + endpoint)
 
     # Generate timestamp information
-    now = datetime.datetime.now()
+    now = datetime.datetime.utcnow()
     amazon_timestamp = now.strftime("%Y%m%dT%H%M%SZ")
     req_timestamp = now.strftime("%Y%m%d")
     print("amzn_time: " + amazon_timestamp)
@@ -89,7 +89,6 @@ if __name__ == "__main__":
     credential_scope = get_credential_scope(req_timestamp)
 
     string_to_sign = get_string_to_sign(amazon_timestamp, credential_scope, canoniocal_request)
-    print(AWS_SECRET_ACCESS_KEY)
     signature_key = get_signature_key(AWS_SECRET_ACCESS_KEY, req_timestamp, REGION, SERVICE)
     signature = sign(str(signature_key), string_to_sign)
 
