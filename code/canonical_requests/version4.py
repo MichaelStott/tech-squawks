@@ -91,7 +91,7 @@ if __name__ == "__main__":
     signature_key = get_signature_key(AWS_SECRET_ACCESS_KEY, req_timestamp, REGION, SERVICE)
     signature = sign(str(signature_key), string_to_sign)
 
-    auth_header = get_authorization_header(credential_scope, str(signature)).encode("utf-8")
+    auth_header = get_authorization_header(credential_scope, str(signature))
 
     # Perform AWS API call
     headers = {
