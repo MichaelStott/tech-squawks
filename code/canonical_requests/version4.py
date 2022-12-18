@@ -27,28 +27,27 @@ CANONICAL_URI = "/"
 CANONICAL_QUERY_STRING = ""
 
 def hex_encode(input: str):
-    return str(binascii.hexlify(bytes(input,"utf-8")))
+    result = binascii.hexlify(input.encode("utf-8"))
+    return result
 
 def hex_encode(input: bytes):
-    return str(binascii.hexlify(input))
+    result =  binascii.hexlify(input)
+    return result
 
 def compute_sha256_hash(input: str):
     m = hashlib.sha256()
-    m.update(bytes(input, "utf-8"))
-    # Note: hexdigest can be used to produce the hex encoded hash. 
-    # Performed seperately here to better illustrate process.
-    return m.digest()
-
-def sign(key: str, input: str):
-    m = hmac.HMAC(bytes(key, "utf-8"), digestmod=hashlib.sha256)
     m.update(input.encode("utf-8"))
-    return m.digest() 
+    result =  m.hexdigest()
+    return result
+
+def sign(key, msg):
+    return hmac.new(key , msg.encode('utf-8'), hashlib.sha256).digest()
 
 def get_signature_key(key: str, datestamp: str, region: str, service_name: str):
-    kdate = sign(str(hex_encode(bytes("AWS4" + str(key), "utf-8"))), datestamp)
-    kregion = sign(str(kdate), region)
-    kservice = sign(str(kregion), service_name)
-    ksigning = sign(str(kservice), "aws4_request")
+    kdate = sign(("AWS4" + key).encode("utf-8"), datestamp)
+    kregion = sign(kdate, region)
+    kservice = sign(kregion, service_name)
+    ksigning = sign(kservice, "aws4_request")
     return ksigning
 
 def get_credential_scope(date_stamp: str):
@@ -89,7 +88,7 @@ if __name__ == "__main__":
 
     string_to_sign = get_string_to_sign(amazon_timestamp, credential_scope, canoniocal_request)
     signature_key = get_signature_key(AWS_SECRET_ACCESS_KEY, req_timestamp, REGION, SERVICE)
-    signature = sign(str(signature_key), string_to_sign)
+    signature = hmac.new(signature_key, (string_to_sign).encode('utf-8'), hashlib.sha256).hexdigest()
 
     auth_header = get_authorization_header(credential_scope, str(signature))
 
@@ -104,3 +103,4 @@ if __name__ == "__main__":
     resp = requests.post(endpoint, headers=headers, data=request_paramters)
 
     print(resp.content)
+
