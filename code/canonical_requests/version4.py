@@ -1,15 +1,3 @@
----
-title: Canonical Request Demo
-draft: false
-weight: 3
----
-
-The following code snippets demonstrate sending canonical rqeuests to AWS. For interested readers, the AWS SDKs can provide
-further concrete examples that handle this in a more general fashion.
-
-```py
-# canonical_requests\version4.py
-
 import binascii
 import datetime 
 import hashlib
@@ -116,5 +104,3 @@ if __name__ == "__main__":
 
     print(resp.content)
 
-
-```
