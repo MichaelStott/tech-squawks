@@ -16,23 +16,16 @@ METHOD = "POST"
 SIGNING_ALGORITHM = "AWS4-HMAC-SHA256"
 AMAZON_TARGET = "AmazonSSM.GetParameter"
 CONTENT_TYPE = "application/x-amz-json-1.1"
-PARAMETER_NAME = "SlawekTestParam"
+PARAMETER_NAME = "TechSquawkParam"
 SERVICE = "ssm"
 HOST = "ssm.us-west-2.amazonaws.com"
 REGION = "us-west-2"
 
+# Headers listed in alphabetical order
 SIGNED_HEADERS = "content-type;host;x-amz-date;x-amz-target"
 
 CANONICAL_URI = "/"
 CANONICAL_QUERY_STRING = ""
-
-def hex_encode(input: str):
-    result = binascii.hexlify(input.encode("utf-8"))
-    return result
-
-def hex_encode(input: bytes):
-    result =  binascii.hexlify(input)
-    return result
 
 def compute_sha256_hash(input: str):
     m = hashlib.sha256()
@@ -40,10 +33,10 @@ def compute_sha256_hash(input: str):
     result =  m.hexdigest()
     return result
 
-def sign(key, msg):
+def sign(key: str, msg: str):
     return hmac.new(key , msg.encode('utf-8'), hashlib.sha256).digest()
 
-def get_signature_key(key: str, datestamp: str, region: str, service_name: str):
+def get_aws4_signature_key(key: str, datestamp: str, region: str, service_name: str):
     kdate = sign(("AWS4" + key).encode("utf-8"), datestamp)
     kregion = sign(kdate, region)
     kservice = sign(kregion, service_name)
@@ -54,27 +47,20 @@ def get_credential_scope(date_stamp: str):
     return "{}/{}/{}/aws4_request".format(date_stamp, REGION, SERVICE)
 
 def get_string_to_sign(amzn_date_stamp: str, scope: str, can_req: str):
-    return SIGNING_ALGORITHM + "\n" +\
-        amzn_date_stamp + "\n" +\
-        scope + "\n" + str(compute_sha256_hash(can_req))
-
-def get_endpoint():
-    return "https://{}/".format(HOST)
+    return "\n".join([SIGNING_ALGORITHM, amzn_date_stamp, scope, compute_sha256_hash(can_req)])
 
 def get_canonical_headers(amzn_date: str):
-    headers = "content-type:" + CONTENT_TYPE + "\nhost:" + HOST + "\nx-amz-date:" + amzn_date + "\nx-amz-target:" + AMAZON_TARGET + "\n"
-    return headers
+    return "\n".join(["content-type:{}".format(CONTENT_TYPE), "host:{}".format(HOST), "x-amz-date:{}".format(amzn_date), "x-amz-target:{}\n".format(AMAZON_TARGET)])
 
 def get_canonical_requests(canonical_headers: str, payload_hash: str):
     return "\n".join([METHOD, CANONICAL_URI, CANONICAL_QUERY_STRING, canonical_headers, SIGNED_HEADERS, payload_hash])
 
 def get_authorization_header(scope: str, signature: str):
-    return SIGNING_ALGORITHM + " Credential=" + AWS_ACCESS_KEY_ID + "/" + scope + ", SignedHeaders=" + SIGNED_HEADERS + ", Signature=" + signature
+    return "{} Credential={}/{}, SignedHeaders={}, Signature={}".format(SIGNING_ALGORITHM, AWS_ACCESS_KEY_ID, scope, SIGNED_HEADERS, signature)
 
 if __name__ == "__main__":
-    endpoint = get_endpoint()
+    endpoint = "https://{}/".format(HOST)
 
-    # Generate timestamp information
     now = datetime.datetime.utcnow()
     amazon_timestamp = now.strftime("%Y%m%dT%H%M%SZ")
     req_timestamp = now.strftime("%Y%m%d")
@@ -87,7 +73,7 @@ if __name__ == "__main__":
     credential_scope = get_credential_scope(req_timestamp)
 
     string_to_sign = get_string_to_sign(amazon_timestamp, credential_scope, canoniocal_request)
-    signature_key = get_signature_key(AWS_SECRET_ACCESS_KEY, req_timestamp, REGION, SERVICE)
+    signature_key = get_aws4_signature_key(AWS_SECRET_ACCESS_KEY, req_timestamp, REGION, SERVICE)
     signature = hmac.new(signature_key, (string_to_sign).encode('utf-8'), hashlib.sha256).hexdigest()
 
     auth_header = get_authorization_header(credential_scope, str(signature))

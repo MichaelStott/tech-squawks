@@ -4,7 +4,7 @@ draft: false
 weight: 1
 ---
 
-IAM, which stands for Identity Access Management, is an AWS service used to manage access to resources through the AWS API. As previously covered in the AWS overview, resource is a broad term that refers to any infrastructure or entity within AWS. It is used to manage user and service permissions and access within an AWS account.
+IAM, which stands for Identity Access Management, is an AWS service used to manage access to resources through the AWS API. As previously covered in the AWS overview, resource is a broad term that refers to any infrastructure or entity within AWS. IAM is used to manage user and service permissions and access within an AWS account.
 
 ## Access Overview
 
