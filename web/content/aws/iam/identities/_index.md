@@ -1,8 +1,9 @@
----
-title: Identities
+ ---
+title: Identity
 draft: false
 weight: 2
 ---
+
 
 Identity information serves to represent the end user of AWS services. There are three idienties in AWS IAM service, users, groups and roles respectively.
 
