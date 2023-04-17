@@ -9,3 +9,17 @@ disableSearch = true
 collapsibleMenu = true
 themeVariant = [ "light" ]
 
+[[menu.shortcuts]]
+name = "<i class='fab fa-fw fa-github'></i> Tech Squawks Repository"
+identifier = "repo"
+url = "https://github.com/MichaelStott/tech-squawks"
+weight = 10
+
+[[menu.shortcuts]]
+name = "<i class='fas fa-fw fa-bug'></i> Report an Issue"
+identifier = "issues"
+url = "https://github.com/MichaelStott/tech-squawks/issues/new"
+weight = 20
+
+
+
