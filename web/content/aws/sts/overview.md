@@ -1,5 +1,5 @@
 ---
-title: Introduction
+title: Overview
 draft: false
 weight: 1
 ---
@@ -23,6 +23,8 @@ $ aws sts get-session-token
     }
 }
 ```
+
+[//]: # (This should be moved to the AWS account overview)
 
 ## Global and Regional Endpoints
 
@@ -49,7 +51,7 @@ Repeated calls from the `eu-central-1` server demonstrate this latency decrease 
 ![STS Endpoint Latency](/images/sts/sts_endpoint_latency.png)
 
 {{% notice info %}}
-Generally, global AWS services have corresponding regional endpoints to reduce latency. Develoeprs should ensure their 
+Generally, global AWS services have corresponding regional endpoints to reduce latency. Developers should ensure their 
 applications target the appropriate regional endpoint when possible.
 {{% /notice %}}
 

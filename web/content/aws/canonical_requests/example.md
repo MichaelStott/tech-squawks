@@ -1,5 +1,5 @@
 ---
-title: Canonical Request Demo
+title: Demo
 draft: false
 weight: 3
 ---
