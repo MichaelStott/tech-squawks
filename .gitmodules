@@ -1,4 +1,1 @@
 
-[submodule "web/themes"]
-	path = web/themes
-	url = https://github.com/McShelby/hugo-theme-relearn.git
