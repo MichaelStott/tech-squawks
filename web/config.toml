@@ -2,7 +2,7 @@ baseURL = "http://www.techsquawks.com/"
 languageCode = "en-us"
 title = "Tech Squawks"
 themesdir = "themes"
-theme = "hugo-theme-relearner"
+theme = "hugo-theme-relearn"
 
 [params]
   showVisitedLinks = true
