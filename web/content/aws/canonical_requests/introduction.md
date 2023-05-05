@@ -4,13 +4,13 @@ draft: false
 weight: 1
 ---
 
-AWS SDKs, CLI, or IaC tools all invoke network calls to AWS services when performing cloud infrastructure operations. AWS refers to these API calls as _canonical requests_.
+AWS cloud services are available to users through global or regional API endpoints. Whether users invoke these services via the AWS CLI, SDKs, or Infrastructure as Code (IaC) tools, each method ultimately results in sending HTTP requests to the desired endpoint. These raw HTTP API requests are reffered to as _canonical requests_.
 
-![Cloud Computing Overview](/images/can_req/can_req.png)
+AWS API requests include a _signature_ generated with a credential key pair (AWS access key ID and secret key). This signature is leveraged by AWS to validate the identity of the client, protect the API request data in transit, and mitigate potential relay attacks.
 
-While developers can directly leverage canonical requests to communicate with AWS, it is preferable, and often more convenient, to utilize the AWS-provided CLI and SDKs whenever possible when invoking AWS APIs. Direct canonoical calls to AWS should be utilized in cases where either existing language support does not exist or where fine-grained API control is required.  
+![Cloud Computing Overview](/images/can_req/can_req2.png)
 
-For additional security, AWS enforces that incoming AWS calls are signed with valid credentials. This ensures the AWS can verify the identity of the client, protect the API request data in transit, and mitigate potential relay attacks. AWS offers two versions of signing, V2 and V4, with the majority of AWS services supporting the latest V4 signing method.
+While it is possible to directly create and sign canonical requests to communicate with AWS services, it is often more preferable to utilize the AWS-provided CLI and SDKs. Direct canonoical calls to AWS are primarily reccomended in cases when using the available AWS SDKs or CLI is not possible (i.e. using an unsupported programming language) or where fine-grained API control is required.
 
 #### Request Structure
 
