@@ -86,6 +86,7 @@ if __name__ == "__main__":
         "X-Amz-Target": AMAZON_TARGET,
         "Authorization": auth_header
     }
+    
     resp = requests.post(endpoint, headers=headers, data=request_paramters)
 
     print(resp.content)

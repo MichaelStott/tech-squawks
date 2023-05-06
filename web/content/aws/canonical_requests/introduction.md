@@ -16,21 +16,16 @@ While it is possible to directly create and sign canonical requests to communica
 
 Canonical requests are of the following structure:
 
-```
- CanonicalRequest =
-  HTTPRequestMethod + '\n' +
-  CanonicalURI + '\n' +
-  CanonicalQueryString + '\n' +
-  CanonicalHeaders + '\n' +
-  SignedHeaders + '\n' +
-  HexEncode(Hash(RequestPayload))
+```sh
+$ curl -X $METHOD -H "Content-Type: $X_Amz_Date" -H "X-Amz-Target: $X_AMX_TARGET" -H "Authorization: $Authorization" $URL --data $PAYLOAD
 ```
 
-The individual fields are defined below:
-- HTTPRequestMethod: The HTTP operation
-- CanonicalURI: Absolute path of the target resouce, including the base service domain.
-- CanonicalQueryString: URI-encoded query parameters
-- CanonicalHeaders: List of all the HTTP headers included with the signed requests.
-- SignedHeaders: Alphabetically sorted, semicolon-separated list of lowercase request header names
-- RequestPayload: Payload of the target request. This is hashed and hex encoded for additional security.
-
+| HTTP Section | Description | Example |
+| --- | ----------- | ----- |
+|  Method | HTTP method of request being invoked | GET, POST, PUT, PATCH, DELETE |
+| URL | The AWS Service URL | ssm.us-west-2.amazonaws.com |
+| Content-Type | Requested content type | application/x-amz-json-1.1 |
+| X-Amz-Date | UTC timestamp using [ISO 8601 format](https://www.iso.org/iso-8601-date-and-time-format.html), exluding milliseconds (YYYYMMDDTHHMMSSZ) | 20230506T203620Z |
+| X-Amz-Target | Target AWS service | AmazonSSM.GetParameter |
+| Authorization | Authorization header consisting of the name of the signing algorithm, credentials, alphabetically sorted request headers, and signature. | AWS4-HMAC-SHA256 Credential=..., SignedHeaders=content-type;host;x-amz-date;x-amz-target, Signature=... |
+| Payload | Hased JSON payload of the API request | {"Name": "SSMParameterName","WithDecryption": true} |
