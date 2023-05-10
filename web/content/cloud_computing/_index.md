@@ -2,7 +2,7 @@
 title: Cloud Computing
 draft: false
 chapter: true
-weight: 1
+weight: 2
 ---
 
 # Cloud Computing

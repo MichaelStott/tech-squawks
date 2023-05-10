@@ -1,7 +1,7 @@
 +++
 archetype = "chapter"
 title = "AWS"
-weight = 2
+weight = 3
 +++
 
 Amazon Web Services
