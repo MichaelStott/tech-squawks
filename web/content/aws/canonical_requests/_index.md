@@ -7,4 +7,4 @@ weight: 5
 
 # Canonical Requests
 
-Invoking AWS API calls.
+Structuring and signing AWS API calls

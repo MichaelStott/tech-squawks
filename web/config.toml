@@ -5,6 +5,7 @@ themesdir = "themes"
 theme = "hugo-theme-relearn"
 
 [params]
+  alwaysopen = false
   showVisitedLinks = true
   collapsibleMenu = true
   disableBreadcrumb = false

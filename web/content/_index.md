@@ -1,7 +1,5 @@
 ---
 title: "Welcome!"
-date: 2021-01-23T16:49:34-05:00
-
 weight: 1
 ---
 
@@ -166,7 +164,7 @@ to support local execution, using technologies such as [LocalStack](https://loca
 
 ### Study Aid
 
-While any specific certification preparation is beyond the scope of this site, flashcards are included at the end of each section for additional study and review. Cheatsheats for certain topics are also included for easy reference.
+While any specific certification preparation is beyond the scope of this website, flashcards are included at the end of each section for additional study and review. Cheatsheats for certain topics are also included for easy reference.
 
 ### Prerequisites
 

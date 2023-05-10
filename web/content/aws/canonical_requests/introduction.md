@@ -4,33 +4,41 @@ draft: false
 weight: 1
 ---
 
-AWS SDKs, CLI, or IaC tools all invoke network calls to AWS services when performing cloud infrastructure operations. AWS refers to these API calls as _canonical requests_.
+AWS cloud services are available through public API endpoints. Whether these are invoked via the AWS CLI, SDKs, or Infrastructure as Code (IaC) tools, each approach ultimately results in generating and sending HTTP requests to a desired service endpoint. These underlying HTTP requests are reffered to as _canonical requests_.
 
-![Cloud Computing Overview](/images/can_req/can_req.png)
+AWS canonical requests include a _signature_ generated with valid credentials, consisting of an access key ID and secret key, and the request parameters. This signature enables AWS to validate the identity of the client, protect the API request data in transit, and mitigate potential relay attacks.
 
-While developers can directly leverage canonical requests to communicate with AWS, it is preferable, and often more convenient, to utilize the AWS-provided CLI and SDKs whenever possible when invoking AWS APIs. Direct canonoical calls to AWS should be utilized in cases where either existing language support does not exist or where fine-grained API control is required.  
+![Cloud Computing Overview](/images/can_req/can_req2.png)
 
-For additional security, AWS enforces that incoming AWS calls are signed with valid credentials. This ensures the AWS can verify the identity of the client, protect the API request data in transit, and mitigate potential relay attacks. AWS offers two versions of signing, V2 and V4, with the majority of AWS services supporting the latest V4 signing method.
+While it is possible for developers to directly create, sign, and transmit canonical requests to AWS, it is often preferable to utilize the AWS-provided CLI and SDKs. Direct canonoical calls to AWS are primarily reccomended in cases when developing in an unsupported programming language or where fine-grained API control is required.
 
 #### Request Structure
 
-Canonical requests are of the following structure:
+Canonical requests consist of the following properties:
 
+| Property | Description | Example |
+| --- | ----------- | ----- |
+|  Method | HTTP method of request being invoked | GET, POST, PUT, PATCH, DELETE |
+| URL | The AWS Service URL | ssm.us-west-2.amazonaws.com |
+| Content-Type | Requested content type | application/x-amz-json-1.1 |
+| X-Amz-Date | UTC timestamp using [ISO 8601 format](https://www.iso.org/iso-8601-date-and-time-format.html), exluding milliseconds (YYYYMMDDTHHMMSSZ) | 20230506T203620Z |
+| X-Amz-Target | Target AWS API call | AmazonSSM.GetParameter |
+| Signing Algorithm | The signing algorithm used to generate the signature | AWS4-HMAC-SHA256 |
+| Access Key ID | The access key ID of the credentials used to generate the signature | AKIAZGHDAQ498VRWTOBYQ |
+| Region | The target AWS region | us-west-1 |
+| Signed Headers | Alphabetically sorted headers used in request | content-type;host;x-amz-date;x-amz-target |
+| Service | The target AWS service name | ssm |
+| Signing Version | Indicates the version of the signing algorithm used when generating the signature | aws4_request |
+| Signature | Signature generated from request parameters and access credentials | N/A |
+| Hashed Payload | Encoded JSON payload of the API request | N/A |
+
+The following [curl](https://curl.se/) command illustrates how these properties are used. Signature generation and payload encoding will be covered in subsequent sections.
+
+```sh
+$ curl -X $METHOD $URL \
+    --header "Content-Type: $CONTENT_TYPE" \
+    --header "X-Amz-Date: $X_AMZ_DATE" \
+    --header "X-Amz-Target: $X_AMZ_TARGET" \
+    --header "Authoziation: $SIGNING_ALGORITHM Credential=$ACCESS_KEY_ID/$REGION/$SERVICE/$SIGNING_VERSION, SignedHeaders=$SIGNED_HEADERS, Signature=$SIGNATURE" \
+    --data $HASHED_PAYLOAD
 ```
- CanonicalRequest =
-  HTTPRequestMethod + '\n' +
-  CanonicalURI + '\n' +
-  CanonicalQueryString + '\n' +
-  CanonicalHeaders + '\n' +
-  SignedHeaders + '\n' +
-  HexEncode(Hash(RequestPayload))
-```
-
-The individual fields are defined below:
-- HTTPRequestMethod: The HTTP operation
-- CanonicalURI: Absolute path of the target resouce, including the base service domain.
-- CanonicalQueryString: URI-encoded query parameters
-- CanonicalHeaders: List of all the HTTP headers included with the signed requests.
-- SignedHeaders: Alphabetically sorted, semicolon-separated list of lowercase request header names
-- RequestPayload: Payload of the target request. This is hashed and hex encoded for additional security.
-
