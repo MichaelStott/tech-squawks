@@ -16,6 +16,8 @@ Below provides a general procedure for producing a version 4 signature [^2]:
 2. Derive a signing key from your AWS secret access key. Then use the signing key, and the string from the previous step, to create a signature.
 3. Add the resulting signature ot the HTTP request in a header or as a query string parameter
 
+{{< tabs groupId="code" >}}
+{{% tab name="Typescript" %}}
 ```py
 def sign(key: str, msg: str):
     return hmac.new(key , msg.encode('utf-8'), hashlib.sha256).digest()
@@ -27,6 +29,47 @@ def get_aws4_signature_key(key: str, datestamp: str, region: str, service_name: 
     ksigning = sign(kservice, "aws4_request")
     return ksigning
 ```
+{{% /tab %}}
+{{% tab name="Javascript" %}}
+```py
+def sign(key: str, msg: str):
+    return hmac.new(key , msg.encode('utf-8'), hashlib.sha256).digest()
+
+def get_aws4_signature_key(key: str, datestamp: str, region: str, service_name: str):
+    kdate = sign(("AWS4" + key).encode("utf-8"), datestamp)
+    kregion = sign(kdate, region)
+    kservice = sign(kregion, service_name)
+    ksigning = sign(kservice, "aws4_request")
+    return ksigning
+```
+{{% /tab %}}
+{{% tab name="Python" %}}
+```py
+def sign(key: str, msg: str):
+    return hmac.new(key , msg.encode('utf-8'), hashlib.sha256).digest()
+
+def get_aws4_signature_key(key: str, datestamp: str, region: str, service_name: str):
+    kdate = sign(("AWS4" + key).encode("utf-8"), datestamp)
+    kregion = sign(kdate, region)
+    kservice = sign(kregion, service_name)
+    ksigning = sign(kservice, "aws4_request")
+    return ksigning
+```
+{{% /tab %}}
+{{% tab name="Go" %}}
+```py
+def sign(key: str, msg: str):
+    return hmac.new(key , msg.encode('utf-8'), hashlib.sha256).digest()
+
+def get_aws4_signature_key(key: str, datestamp: str, region: str, service_name: str):
+    kdate = sign(("AWS4" + key).encode("utf-8"), datestamp)
+    kregion = sign(kdate, region)
+    kservice = sign(kregion, service_name)
+    ksigning = sign(kservice, "aws4_request")
+    return ksigning
+```
+{{% /tab %}}
+{{< /tabs >}}
 
 [^1]: https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html
 

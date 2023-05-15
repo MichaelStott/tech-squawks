@@ -1,5 +1,5 @@
 ---
-title: Demo
+title: Example
 draft: false
 weight: 3
 ---
