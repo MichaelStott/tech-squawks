@@ -6,3 +6,5 @@ web/public/
 code/**/*.zip
 
 .vscode/*
+
+*/__pycache__/*

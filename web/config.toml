@@ -11,7 +11,7 @@ theme = "hugo-theme-relearn"
   disableBreadcrumb = false
   disableInlineCopyToClipBoard = true
   disableNextPrev = false
-  disableLandingPageButton = true
+  disableLandingPageButton = false
   titleSeparator = "::"
   themeVariant = [ "blue", "relearn-dark" ]
 
