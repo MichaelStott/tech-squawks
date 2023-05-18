@@ -5,6 +5,8 @@ web/public/
 # Ignore all packaged handler lambdas
 code/**/*.zip
 
-.vscode/*
+# all python project virtualenv
+**/py/.env/**
 
-*/__pycache__/*
+# vscode specific files
+.vscode/*
