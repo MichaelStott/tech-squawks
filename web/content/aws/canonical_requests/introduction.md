@@ -4,13 +4,13 @@ draft: false
 weight: 1
 ---
 
-AWS cloud services are available through public API endpoints. Whether invoked via the AWS CLI, SDKs, or Infrastructure as Code (IaC) tools, each approach ultimately results in sending HTTP requests to a desired service endpoint. These underlying HTTP requests are reffered to as _canonical requests_.
+AWS cloud services are available through public API endpoints. Whether invoked via the AWS CLI, SDKs, or Infrastructure as Code (IaC) tools, each approach ultimately results in sending HTTP requests to AWS service endpoints. These underlying HTTP requests are reffered to as _canonical requests_.
 
-AWS canonical requests include a _signature_ generated with request paramaeters and user credentials, consisting of an _Access Key ID_, for determining the user, and _Secret Key_, for gnerating the signature hash. This signature enables AWS to validate the identity of the client, protect the API request data in transit, and mitigate potential relay attacks.
+AWS canonical requests include a _signature_ generated with request paramaeters and user credentials, consisting of an _Access Key ID_, for determining the user, and _Secret Key_, for generating the signature hash. This signature enables AWS to validate the identity of the client, protect the API request data in transit, and mitigate potential relay attacks.
 
 ![Cloud Computing Overview](/images/can_req/can_req2.png)
 
-While developers may directly create, sign, and transmit canonical requests to AWS, it is often preferable to utilize the AWS-provided CLI and SDKs. Direct canonoical calls to AWS are primarily reccomended in cases when developing in an unsupported programming language or where fine-grained API control is required.
+While developers may directly create, sign, and transmit canonical requests to AWS, it is often preferable to utilize the AWS-provided CLI and SDKs. Direct canonoical calls to AWS are primarily reccomended in cases when developing in unsupported programming languages or where fine-grained API control is required.
 
 #### Request Structure
 

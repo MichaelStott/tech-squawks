@@ -6,7 +6,7 @@ web/public/
 code/**/*.zip
 
 # all python project virtualenv
-**/py/.env/**
+**/py/.env
 
 # vscode specific files
 .vscode/*
