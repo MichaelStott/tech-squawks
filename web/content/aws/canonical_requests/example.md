@@ -9,6 +9,16 @@ further concrete examples that handle this in a more general fashion.
 
 {{< tabs groupId="code" >}}
 {{% tab name="Typescript" %}}
+Not yet available.
+
+![Not Found (yet)](/parrots/parrotnotfound.gif)
+{{% /tab %}}
+{{% tab name="Javascript" %}}
+Not yet available.
+
+![Not Found (yet)](/parrots/parrotnotfound.gif)
+{{% /tab %}}
+{{% tab name="Python" %}}
 ```py
 # can_req/py/request.py
 
@@ -83,43 +93,9 @@ if __name__ == "__main__":
 
 ```
 {{% /tab %}}
-{{% tab name="Javascript" %}}
-```py
-def sign(key: str, msg: str):
-    return hmac.new(key , msg.encode('utf-8'), hashlib.sha256).digest()
-
-def get_aws4_signature_key(key: str, datestamp: str, region: str, service_name: str):
-    kdate = sign(("AWS4" + key).encode("utf-8"), datestamp)
-    kregion = sign(kdate, region)
-    kservice = sign(kregion, service_name)
-    ksigning = sign(kservice, "aws4_request")
-    return ksigning
-```
-{{% /tab %}}
-{{% tab name="Python" %}}
-```py
-def sign(key: str, msg: str):
-    return hmac.new(key , msg.encode('utf-8'), hashlib.sha256).digest()
-
-def get_aws4_signature_key(key: str, datestamp: str, region: str, service_name: str):
-    kdate = sign(("AWS4" + key).encode("utf-8"), datestamp)
-    kregion = sign(kdate, region)
-    kservice = sign(kregion, service_name)
-    ksigning = sign(kservice, "aws4_request")
-    return ksigning
-```
-{{% /tab %}}
 {{% tab name="Go" %}}
-```py
-def sign(key: str, msg: str):
-    return hmac.new(key , msg.encode('utf-8'), hashlib.sha256).digest()
+Not yet available.
 
-def get_aws4_signature_key(key: str, datestamp: str, region: str, service_name: str):
-    kdate = sign(("AWS4" + key).encode("utf-8"), datestamp)
-    kregion = sign(kdate, region)
-    kservice = sign(kregion, service_name)
-    ksigning = sign(kservice, "aws4_request")
-    return ksigning
-```
+![Not Found (yet)](/parrots/parrotnotfound.gif)
 {{% /tab %}}
 {{< /tabs >}}

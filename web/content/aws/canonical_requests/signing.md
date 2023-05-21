@@ -6,13 +6,15 @@ weight: 2
 
 All canonical requests include a hash value generated from the API parameters and account credentials. When AWS recieves an API request, it generates the same hash from the provided API parameters and compares it to the original request. If the request hash and the AWS-generated hash do not match, the request is denied. The process of generating this request hash is known as _signing_.[^1]
 
-There are two versions of AWS signing, version 4 and version 2, with version 2 actively being deprecated at the time of writing. While an overview of version 4 signatures is explored, those interested in signing version 2 signatures may find more information [here](https://docs.aws.amazon.com/general/latest/gr/signature-version-2.html).
+{{% notice info %}}
+There are two versions of AWS signing, version 4 and version 2, with version 2 actively being deprecated at the time of writing. As such, only version 4 is explored here.
+{{% /notice %}}
 
 #### Version 4 Signing
 
- The version 4 signing process consists of the following steps and components:
+ The version 4 signing process consists of the following steps and components[^2]:
 
-1. Creating the _credential scope_: This value restricts the request to the target service and region and is of the following format: ```TIMESTAMP/REGION/SERVICE/SIGNING_VERSION``` where the timestamp is of form _YYYYMMDD_.
+1. Creating the _credential scope_: This value restricts the request to the target service and region and is of the following format: ```TIMESTAMP/REGION/SERVICE/SIGNING_VERSION``` where the timestamp value is of form _YYYYMMDD_.
 
 2. Generate the target string to sign: This consists of the signing algorithm used to produce the signature (AWS4-HMAC-SHA256), the Amzaon-formatted request timestamp (i.e. YYYYMMDDHHMMSSZ), the previously produced credential scope, and a hash of the canonical requests string, all separated by newline characters:
 {{< tabs groupId="pseudo" >}}
@@ -49,10 +51,20 @@ signature = hexEncode(hash(signatureKey, signatureString))
 
 ##### Demo
 
-Below provides a concrete example for generating a version 4 signature from an arbitrary string [^2]:
+Below provides a concrete example for generating a version 4 signature from an arbitrary string:
 
 {{< tabs groupId="code" >}}
 {{% tab name="Typescript" %}}
+Not yet available.
+
+![Not Found (yet)](/parrots/parrotnotfound.gif)
+{{% /tab %}}
+{{% tab name="Javascript" %}}
+Not yet available.
+
+![Not Found (yet)](/parrots/parrotnotfound.gif)
+{{% /tab %}}
+{{% tab name="Python" %}}
 ```py
 # can_req/py/signing.py
 
@@ -132,44 +144,10 @@ if __name__ == "__main__":
     print(signature)
 ```
 {{% /tab %}}
-{{% tab name="Javascript" %}}
-```py
-def sign(key: str, msg: str):
-    return hmac.new(key , msg.encode('utf-8'), hashlib.sha256).digest()
-
-def get_aws4_signature_key(key: str, datestamp: str, region: str, service_name: str):
-    kdate = sign(("AWS4" + key).encode("utf-8"), datestamp)
-    kregion = sign(kdate, region)
-    kservice = sign(kregion, service_name)
-    ksigning = sign(kservice, "aws4_request")
-    return ksigning
-```
-{{% /tab %}}
-{{% tab name="Python" %}}
-```py
-def sign(key: str, msg: str):
-    return hmac.new(key , msg.encode('utf-8'), hashlib.sha256).digest()
-
-def get_aws4_signature_key(key: str, datestamp: str, region: str, service_name: str):
-    kdate = sign(("AWS4" + key).encode("utf-8"), datestamp)
-    kregion = sign(kdate, region)
-    kservice = sign(kregion, service_name)
-    ksigning = sign(kservice, "aws4_request")
-    return ksigning
-```
-{{% /tab %}}
 {{% tab name="Go" %}}
-```py
-def sign(key: str, msg: str):
-    return hmac.new(key , msg.encode('utf-8'), hashlib.sha256).digest()
+Not yet available.
 
-def get_aws4_signature_key(key: str, datestamp: str, region: str, service_name: str):
-    kdate = sign(("AWS4" + key).encode("utf-8"), datestamp)
-    kregion = sign(kdate, region)
-    kservice = sign(kregion, service_name)
-    ksigning = sign(kservice, "aws4_request")
-    return ksigning
-```
+![Not Found (yet)](/parrots/parrotnotfound.gif)
 {{% /tab %}}
 {{< /tabs >}}
 
