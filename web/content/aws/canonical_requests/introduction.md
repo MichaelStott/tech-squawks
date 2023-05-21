@@ -4,17 +4,47 @@ draft: false
 weight: 1
 ---
 
-AWS cloud services are available through public API endpoints. Whether these are invoked via the AWS CLI, SDKs, or Infrastructure as Code (IaC) tools, each approach ultimately results in generating and sending HTTP requests to a desired service endpoint. These underlying HTTP requests are reffered to as _canonical requests_.
+AWS cloud services are available through public API endpoints. Whether invoked via the AWS CLI, SDKs, or Infrastructure as Code (IaC) tools, each approach ultimately results in sending HTTP requests to AWS service endpoints. These underlying HTTP requests are reffered to as _canonical requests_.
 
-AWS canonical requests include a _signature_ generated with valid credentials, consisting of an access key ID and secret key, and the request parameters. This signature enables AWS to validate the identity of the client, protect the API request data in transit, and mitigate potential relay attacks.
+AWS canonical requests include a _signature_ generated with request paramaeters and user credentials, consisting of an _Access Key ID_, for determining the user, and _Secret Key_, for generating the signature hash. This signature enables AWS to validate the identity of the client, protect the API request data in transit, and mitigate potential relay attacks.
 
 ![Cloud Computing Overview](/images/can_req/can_req2.png)
 
-While it is possible for developers to directly create, sign, and transmit canonical requests to AWS, it is often preferable to utilize the AWS-provided CLI and SDKs. Direct canonoical calls to AWS are primarily reccomended in cases when developing in an unsupported programming language or where fine-grained API control is required.
+While developers may directly create, sign, and transmit canonical requests to AWS, it is often preferable to utilize the AWS-provided CLI and SDKs. Direct canonoical calls to AWS are primarily reccomended in cases when developing in unsupported programming languages or where fine-grained API control is required.
 
 #### Request Structure
 
-Canonical requests consist of the following properties:
+<!--- Include AWS breakdown here, with below as a further breakdown-->
+Canonical requests are composed of the following component:[^1]
+```
+CanonicalRequest =
+    HTTPRequestMethod + '\n' +
+    CanonicalURI + '\n' +
+    CanonicalQueryString + '\n' +
+    CanonicalHeaders + '\n' +
+    SignedHeaders + '\n' +
+    HexEncode(Hash(RequestPayload))
+```
+
+The indiidual components are defined below:
+- HTTPRequestMethod: The HTTP operation
+- CanonicalURI: Absolute path of the target resouce, including the base service domain.
+- CanonicalQueryString: URI-encoded query parameters
+- CanonicalHeaders: List of all the HTTP headers included with the signed requests.
+- SignedHeaders: Alphabetically sorted, semicolon-separated list of lowercase request header names
+- RequestPayload: Payload of the target request. This is hashed and hex encoded for additional security.
+
+<!--
+The below curl example shows a more concrete example of invoking a canoincal requests using these fields:
+
+```sh
+$ curl -X $METHOD $URL \
+    --header "Content-Type: $CONTENT_TYPE" \
+    --header "X-Amz-Date: $X_AMZ_DATE" \
+    --header "X-Amz-Target: $X_AMZ_TARGET" \
+    --header "Authoziation: $SIGNING_ALGORITHM Credential=$ACCESS_KEY_ID/$REGION/$SERVICE/$SIGNING_VERSION, SignedHeaders=$SIGNED_HEADERS, Signature=$SIGNATURE" \
+    --data $HASHED_PAYLOAD
+```
 
 | Property | Description | Example |
 | --- | ----------- | ----- |
@@ -33,12 +63,5 @@ Canonical requests consist of the following properties:
 | Hashed Payload | Encoded JSON payload of the API request | N/A |
 
 The following [curl](https://curl.se/) command illustrates how these properties are used. Signature generation and payload encoding will be covered in subsequent sections.
-
-```sh
-$ curl -X $METHOD $URL \
-    --header "Content-Type: $CONTENT_TYPE" \
-    --header "X-Amz-Date: $X_AMZ_DATE" \
-    --header "X-Amz-Target: $X_AMZ_TARGET" \
-    --header "Authoziation: $SIGNING_ALGORITHM Credential=$ACCESS_KEY_ID/$REGION/$SERVICE/$SIGNING_VERSION, SignedHeaders=$SIGNED_HEADERS, Signature=$SIGNATURE" \
-    --data $HASHED_PAYLOAD
-```
+-->
+[^1]: https://docs.aws.amazon.com/IAM/latest/UserGuide/create-signed-request.html

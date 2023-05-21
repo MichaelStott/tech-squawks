@@ -1,27 +1,3 @@
----
-title: Requests
-draft: false
-weight: 3
----
-
-The following code snippets demonstrate sending canonical rqeuests to AWS. For interested readers, the AWS SDKs can provide
-further concrete examples that handle this in a more general fashion.
-
-{{< tabs groupId="code" >}}
-{{% tab name="Typescript" %}}
-Not yet available.
-
-![Not Found (yet)](/parrots/parrotnotfound.gif)
-{{% /tab %}}
-{{% tab name="Javascript" %}}
-Not yet available.
-
-![Not Found (yet)](/parrots/parrotnotfound.gif)
-{{% /tab %}}
-{{% tab name="Python" %}}
-```py
-# can_req/py/request.py
-
 from signing import *
 
 import requests
@@ -90,12 +66,3 @@ if __name__ == "__main__":
     resp = requests.post(endpoint, headers=headers, data=request_paramters)
 
     print(resp.content)
-
-```
-{{% /tab %}}
-{{% tab name="Go" %}}
-Not yet available.
-
-![Not Found (yet)](/parrots/parrotnotfound.gif)
-{{% /tab %}}
-{{< /tabs >}}
