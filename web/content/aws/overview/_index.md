@@ -8,4 +8,4 @@ weight = 2
 
 # Overview
 
-Introduction to common AWS terms and concepts.
+This section will cover general AWS terms and concepts, in addition to covering the AWS cloud service categories and offerings.
