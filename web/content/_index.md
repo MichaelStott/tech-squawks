@@ -5,11 +5,11 @@ weight: 1
 
 # Howdy!
 
-Welcome to Tech Squawks, a website for learning cloud computing technologies and concepts, using popular programming languages such as Typescript, Javascript, Python, or Go. This site is a work in progress, so check back frequently for new tutorials and updates!
+Welcome to Tech Squawks, a website for learning cloud computing technologies and concepts, using popular programming languages such as Typescript, Javascript, Python, or Go. This website is a work in progress, so check back frequently for new tutorials and updates!
 
 ### Hands-On Learning
 
-Cloud computing documentation often provides lengthy descriptions of cloud services or architecture without providing concrete examples. The goal of this website is to offer a more hands-on approach to learning cloud development by providing code examples demonstrating key concepts and design patterns.
+Cloud computing documentation often provides lengthy descriptions of cloud services or architecture without providing concrete examples. The goal of this website is to offer a more hands-on approach to learning these concepts by providing concrete code examples.
 
 For instance, the below examples illustrate deploying a serverless AWS app in multiple languages:
 
