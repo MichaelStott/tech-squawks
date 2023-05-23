@@ -4,8 +4,7 @@ draft: false
 weight: 1
 ---
 
-An _AWS Account_ functions as a container for organizing and isolating cloud resources. For example, deployment environments, such as development, staging, and production, often utilize distinct AWS accounts. In addition, accounts act as a security boundary, as only users 
-with valid account credentials can access those particular cloud resources. [^1]
+After initially signing up for AWS, a default _root account_ is created. AWS _accounts_ function as containers for organizing and isolating cloud resources. For example, deployment environments, such as development, staging, and production, often utilize distinct AWS accounts. In addition, accounts act as a security boundary, ensuring only authorized users can access particular cloud resources. [^1]
 
 ![Regions and Availability Zones](/images/aws/aws_accounts.png)
 
@@ -27,7 +26,7 @@ aws sts get-caller-identity --query Account --output text
 {{% /tab %}}
 {{< /tabs >}}
 
-The command `aws sts get-caller-identity` fetches the active user information leveraged by the CLI, which includes the user ID, the account ID, and the user access resource number (ARN). The `--query` flag allows to filter only the account ID field [^3]. `--output` specifies the desired format (yaml, josn, text, etc.) [^4] 
+The command `aws sts get-caller-identity` fetches the active user information leveraged by the CLI, which includes the user ID, the account ID, and the user access resource number (ARN). The `--query` flag enables users to target a particular field to output in the response and `--output` specifies the desired format (yaml, josn, text, etc.) [^3] [^4] 
 
 The simplest way to fetch the canonical ID is via the Simple Storage Service (S3) API CLI command.
 {{< tabs groupId="CLI" >}}
