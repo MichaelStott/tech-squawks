@@ -13,7 +13,7 @@ theme = "hugo-theme-relearn"
   disableNextPrev = false
   disableLandingPageButton = false
   titleSeparator = "::"
-  themeVariant = [ "blue", "relearn-dark" ]
+  themeVariant = [ "light", "dark" ]
 
 [[menu.shortcuts]]
 name = "<i class='fab fa-fw fa-github'></i> Tech Squawks Repository"

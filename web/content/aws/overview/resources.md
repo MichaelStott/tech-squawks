@@ -27,7 +27,9 @@ Certain resources may omit either or both the region, account-id from the ARN.
 
 For instance, the following fetches the ARN of the active AWS user associated with the local developers AWS credentials.
 
-**CLI**
+{{< tabs groupId="CLI" >}}
+{{% tab name="CLI" %}}
+**Command**
 ```sh
 aws sts get-caller-identity --query Arn --output text --region us-east1
 ```
@@ -35,6 +37,8 @@ aws sts get-caller-identity --query Arn --output text --region us-east1
 ```
 arn:aws:iam::[account-number]:user/[username]
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 For the above output, `iam` refers to the AWS Identity Access Management service. This is followed by the account number which owns 
 the user entity and the IAM resource is of type `user`.
@@ -45,10 +49,12 @@ can be used to distinguish and group resources.
 
 For instance, to add a tag to your active user.
 
-**CLI**
+{{< tabs groupId="CLI" >}}
+{{% tab name="CLI" %}}
+**Command**
 ```sh
 export USERNAME=$(aws iam get-user --query  User.UserName)
-aws iam tag-user --user-name $USERNAME --tags '{"Key": "Tagged", "Value": "True"}'
+aws iam tag-user --user-name $USERNAME --tags '{"Tag": "Your it!"}'
 aws iam list-user-tags --user-name $USERNAME
 ```
 **Output**
@@ -56,11 +62,12 @@ aws iam list-user-tags --user-name $USERNAME
 {
     "Tags": [
         {
-            "Key": "Tagged",
-            "Value": "True"
+            "Tag": "Your it!"
         }
     ]
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 [^1]: https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html
