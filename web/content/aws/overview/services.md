@@ -4,7 +4,7 @@ draft: false
 weight: 5
 ---
 
-AWS cloud resources are available through _services_, APIs accessible through the _AWS console_ or programtically. As an introduction, common service categories and offerings are briefly explored here.
+AWS cloud resources are available through _services_, APIs accessible through the _AWS console_ or programtically. As an introduction, common service categories and offerings are briefly explored here.[^1]
 
 {{% notice info %}}
 Service offerings and pricing may differ between regions. This should be taken into account when designing cloud applications. A complete listing of AWS services by region is available [here](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/)
@@ -12,19 +12,19 @@ Service offerings and pricing may differ between regions. This should be taken i
 
 #### Compute
 
-_Compute services_ enable users to run and host programs and applications. 
+_Compute services_ enable users to run and host programs and applications.[^2]
 
 | Name | Logo | Description |
 | ------:|:------:|:----------- |
-| EC2 | {{< figure src="/images/aws/ec2_logo.png" width="48">}} | Elastic Cloud Compute. Provisioning and managing of virtual and private physical servers |
+| EC2 | {{< figure src="/images/aws/ec2_logo.png" width="48">}} | Elastic Cloud Compute: Provisioning and managing of virtual and private physical servers |
+| ECS |  {{< figure src="/images/aws/ecs_logo.png" width="48">}} | Elastic Container Service: Executing containerized applications on custom infrastructure |
+| EKS |  {{< figure src="/images/aws/eks_logo.png" width="48">}} | Elastic Kubernetes Service: Managed Kubernetes clusters |
 | Lambda |  {{< figure src="/images/aws/lambda_logo.png" width="48">}} | Code execution in ephemeral environments without need for provisioning/managing underlying infrastructure |
-| ECS |  {{< figure src="/images/aws/ecs_logo.png" width="48">}} | Elastic Container Service. Executing containerized applications in the cloud |
-| EKS |  {{< figure src="/images/aws/eks_logo.png" width="48">}} | Elastic Kubernetes Service. Managed Kubernetes clusters |
 
 #### Storage
 
-AWS offers various storage offerings of the following types[^3]:
-- Object Storage: Stores objects, composed of data and user metadata, with an associate unique identifier.
+AWS offers various data _storage_ services of the following types:
+- Object Storage: Stores objects, composed of data and user metadata.
 - Block Storage: Data is stored within a block of memory, similar to hard disk storage.
 - File Storage: Storage provided via a file system.
 
@@ -36,25 +36,27 @@ AWS offers various storage offerings of the following types[^3]:
 
 #### Database
 
-While databases can be configured by leveraging both compute and storage services, AWS offers managed database solutions to facilitate proviioning, managing, and monitoring such systems. These offerings include the following database types:
-- Caches - Intended to store frequently accessed values for increased performance.
-- Relational - Tabular row data, similar to data stored in spreadsheets. Data typically well-defined.
-- NoSQL - Data stored in documents (key-value pairs) that may not necessarily have a well-defined schema.
-- Time Series - Data is indexed in such a manner so that is easy to query and analyze within a given date range.
-- Columnar - Similar to relational databases, columnar stores tabular data by column rather than row. While computationally more expensive, this can enable fast querying of large datasets.
+While databases can be configured by leveraging both compute and storage services, AWS offers _database_ services to facilitate proviioning, managing, and monitoring such systems. These offerings include the following database types:
+- In-Memory: Intended to store frequently accessed values for increased read-performance.
+- Relational: Tabular row data, similar to data stored in spreadsheets. Data typically well-defined.
+- NoSQL: Data stored in documents (key-value pairs) that may not necessarily have a well-defined schema.
+- Time Series: Data is indexed in such a manner so that is easy to query and analyze within a given date range.
 
 | Name | Logo | Description |
 | ------:|:------:|:----------- |
-| Elasticache | {{< figure src="/images/aws/elasticache_logo.png" width="32">}} | Managed caching services |
-| RDS | {{< figure src="/images/aws/rds_logo.png" width="32">}} | Relational Database Service |
+| Elasticache | {{< figure src="/images/aws/elasticache_logo.png" width="32">}} | Managed Redis and Memcached databases |
+| RDS | {{< figure src="/images/aws/rds_logo.png" width="32">}} | Relational Database Service: For provisioning relational databases (MySQL, Postgres, etc.) |
 | DynamoDB| {{< figure src="/images/aws/dynamodb_logo.png" width="32">}} | Document-based storage |
 | DocumentDB | {{< figure src="/images/aws/documentdb_logo.png" width="32">}} | MonoDB-esque NoSQL database |
 | Timestream | {{< figure src="/images/aws/timestream_logo.png" width="32">}} | Enables querying for data within a certain date range. |
-| Redshift | {{< figure src="/images/aws/redshift_logo.png" width="32">}} | Data warehouse solution that provides columnar stoarge |
+
+{{% notice info %}}
+While listed under the analytics category, AWS offers Redshift, a Postgres-esque columnar database, for querying larger datasets. It is intended as a data warehousing solution rather than a general-use database. 
+{{% /notice %}}
 
 #### Networking & Content Delivery
 
-AWS allows users/cloud-engineers to define networking rules. 
+_Networking & Content Delivery_ services allow cloud developers to define virtual networks, firewall rules, and CDNs to improve latency.
 
 | Name | Logo | Description |
 | ------:|:------:|:----------- |
@@ -62,9 +64,9 @@ AWS allows users/cloud-engineers to define networking rules.
 | Cloudfront|  {{< figure src="/images/aws/cloudfront_logo.png" width="32">}} | Managed CDN network for content delivery in different regions of the globe |
 | Route53 |  {{< figure src="/images/aws/route53_logo.png" width="32">}} | Amazon's DNS service |
 
-#### Security, Identity, and Compliance
+#### Security, Identity, & Compliance
 
-AWS offers multiple services for securing access to both AWS account resources and customer hosted applications.
+_Security, Identity, & Compliance_ services assist with securing and auditing access to both AWS account resources and cloud applications.
 
 | Name | Logo | Description |
 | ------:|:------:|:----------- |
@@ -74,7 +76,7 @@ AWS offers multiple services for securing access to both AWS account resources a
 
 ## Management and Governance
 
-Services responsible for providing visibility into finacial, application, and user activity. 
+_Management and Governance_ services are responsible for providing visibility into finacial, application, and user activity in the AWS cloud.
 
 | Name | Logo | Description |
 | ------:|:------:|:----------- |

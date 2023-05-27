@@ -55,24 +55,52 @@ $ sudo ./aws/install
 {{< /tabs >}}
 
 2. To confirm that your CLI has been successfully installed, run the following in your shell/terminal to output the CLI version:
+{{< tabs groupId="CLI" >}}
+{{% tab name="CLI" %}}
+**Command**
 ```sh
 aws --version
 ```
+**Output**
+```
+aws-cli/2.5.8 Python/3.9.11 Windows/10 exe/AMD64 prompt/off
+```
+{{% /tab %}}
+{{< /tabs >}}
 
 3. Run the following and enter the credentials downloaded from the previous section when prompted. This will enable the
 CLI to authenitcate with AWS and perform API calls.
+{{< tabs groupId="CLI" >}}
+{{% tab name="CLI" %}}
+**Command**
 ```sh
 aws configure
 ```
+**Interactive Prompt**
 ```
 AWS Access Key ID [None]: access-key-value-here
 AWS Secret Access Key [None]: secret-key-value-here
 Default region name [None]: us-east-1
 Default output format [None]:
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 4. Run the following to ensure the CLI is properly configured, which will return the active user and account information.
+{{< tabs groupId="CLI" >}}
+{{% tab name="CLI" %}}
+**Command**
 ```sh
 aws sts get-caller-identity
 ```
+**Output**
+```
+{
+    "UserId": "BIDAYGZ7AN44NDI6LOIG4",
+    "Account": "012345678910",
+    "Arn": "arn:aws:iam::012345678910:user/username"
+}
+```
+{{% /tab %}}
+{{< /tabs >}}
 
