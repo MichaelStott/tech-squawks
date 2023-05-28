@@ -4,7 +4,7 @@ draft: false
 weight: 5
 ---
 
-AWS cloud resources are available through _services_, APIs accessible through the _AWS console_ or programtically. As an introduction, common service categories and offerings are briefly explored here.[^1]
+AWS cloud resources are available through _services_, APIs accessible through the _AWS console_ or programtically. As an introduction, common service categories and offerings are briefly explored here.[^1] [^2]
 
 {{% notice info %}}
 Service offerings and pricing may differ between regions. This should be taken into account when designing cloud applications. A complete listing of AWS services by region is available [here](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/)
@@ -12,7 +12,7 @@ Service offerings and pricing may differ between regions. This should be taken i
 
 #### Compute
 
-_Compute services_ enable users to run and host programs and applications.[^2]
+_Compute services_ enable users to run and host programs and applications.
 
 | Name | Logo | Description |
 | ------:|:------:|:----------- |
@@ -25,7 +25,7 @@ _Compute services_ enable users to run and host programs and applications.[^2]
 
 AWS offers various data _storage_ services of the following types:
 - Object Storage: Stores objects, composed of data and user metadata.
-- Block Storage: Data is stored within a block of memory, similar to hard disk storage.
+- Block Storage: Data is stored within a block of memory[^3]
 - File Storage: Storage provided via a file system.
 
 | Name | Logo | Description |
@@ -44,14 +44,14 @@ While databases can be configured by leveraging both compute and storage service
 
 | Name | Logo | Description |
 | ------:|:------:|:----------- |
-| Elasticache | {{< figure src="/images/aws/elasticache_logo.png" width="32">}} | Managed Redis and Memcached databases |
-| RDS | {{< figure src="/images/aws/rds_logo.png" width="32">}} | Relational Database Service: For provisioning relational databases (MySQL, Postgres, etc.) |
-| DynamoDB| {{< figure src="/images/aws/dynamodb_logo.png" width="32">}} | Document-based storage |
-| DocumentDB | {{< figure src="/images/aws/documentdb_logo.png" width="32">}} | MonoDB-esque NoSQL database |
+| Elasticache | {{< figure src="/images/aws/elasticache_logo.png" width="32">}} | Managed Redis and Memcached in-memory databases |
+| RDS | {{< figure src="/images/aws/rds_logo.png" width="32">}} | Relational Database Service: For provisioning relational database systems (MySQL, Postgres, etc.) |
+| DynamoDB| {{< figure src="/images/aws/dynamodb_logo.png" width="32">}} | Key-value NoSQL database |
+| DocumentDB | {{< figure src="/images/aws/documentdb_logo.png" width="32">}} | MongoDB-esque NoSQL database |
 | Timestream | {{< figure src="/images/aws/timestream_logo.png" width="32">}} | Enables querying for data within a certain date range. |
 
 {{% notice info %}}
-While listed under the analytics category, AWS offers Redshift, a Postgres-esque columnar database, for querying larger datasets. It is intended as a data warehousing solution rather than a general-use database. 
+While listed under the _analytics_ category, AWS offers Redshift, a Postgres-esque columnar database, for querying larger datasets. It is intended as a data warehousing solution rather than a general-use database. 
 {{% /notice %}}
 
 #### Networking & Content Delivery
@@ -70,9 +70,9 @@ _Security, Identity, & Compliance_ services assist with securing and auditing ac
 
 | Name | Logo | Description |
 | ------:|:------:|:----------- |
-| IAM | {{< figure src="/images/aws/iam_logo.png" width="32">}} | Ensures authorized access to AWS cloud resources |
-| Cognito | {{< figure src="/images/aws/cognito_logo.png" width="32">}} | Provides identity and login managmenet for cloud applications |
-| Secret Manager | {{< figure src="/images/aws/secretmanager_logo.png" width="32">}} | Manages storage and access of private application values |
+| IAM | {{< figure src="/images/aws/iam_logo.png" width="48">}} | Ensures authorized access to AWS cloud resources |
+| Cognito | {{< figure src="/images/aws/cognito_logo.png" width="48">}} | Provides identity and login managmenet for cloud applications |
+| Secret Manager | {{< figure src="/images/aws/secretmanager_logo.png" width="48">}} | Manages storage and access of private application values (i.e. database credentials, private application keys, etc.)|
 
 ## Management and Governance
 
@@ -80,11 +80,11 @@ _Management and Governance_ services are responsible for providing visibility in
 
 | Name | Logo | Description |
 | ------:|:------:|:----------- |
-| Cloudwatch|  {{< figure src="/images/aws/cloudfront_logo.png" width="32">}} | Provides application and service logging |
+| Cloudwatch|  {{< figure src="/images/aws/cloudfront_logo.png" width="32">}} | Application and service logging |
 | Cloudtrail |  {{< figure src="/images/aws/route53_logo.png" width="32">}} | Audit trail of cloud account activities |
 
 [^1]: https://aws.amazon.com/products
-[^2]: https://docs.aws.amazon.com/whitepapers/latest/aws-overview/compute-services.html
+[^2]: https://docs.aws.amazon.com/whitepapers/latest/aws-overview
 [^3]: https://www.ibm.com/cloud/learn/block-storage
 
 

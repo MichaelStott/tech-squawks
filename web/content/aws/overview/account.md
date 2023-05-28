@@ -4,13 +4,13 @@ draft: false
 weight: 1
 ---
 
-After initially signing up for AWS, a default _root account_ is created. AWS _accounts_ function as containers for organizing and isolating cloud resources. For example, deployment environments, such as development, staging, and production, often utilize distinct AWS accounts. In addition, accounts act as a security boundary, ensuring only authorized users can access particular cloud resources. [^1]
+After initially signing up for AWS, a default _root account_ is created. AWS _accounts_ function as containers for organizing and isolating cloud resources. For example, deployment environments, such as development, staging, and production, often utilize distinct AWS accounts. In addition, accounts act as a security boundary, ensuring only authorized users and systems can access particular cloud resources. [^1]
 
 ![Regions and Availability Zones](/images/aws/aws_accounts.png)
 
-An AWS account has the following unique identifiers[^2]:
-- _AWS Account Id_: 12 digit unique ID (i.e. _123456789012_)
-- _Canonical User Id_: Obfuscated form of the account ID (i.e. _79a59df900b949e55d96a1e698fbacedfd6e09d98eacf8f8d5218e7cd47ef2be_), used to identify an account when granting cross-account access to cloud resources.
+An AWS account has the following unique identifiers:[^2]
+- _AWS Account ID_: 12 digit unique ID
+- _Canonical User ID_: Obfuscated form of the account ID. Used to identify an account when granting cross-account access to cloud resources.
 
 The active account ID can be fetched from the Security Token Service (STS) with the following CLI command:
 {{< tabs groupId="CLI" >}}

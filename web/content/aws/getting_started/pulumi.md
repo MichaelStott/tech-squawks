@@ -56,6 +56,22 @@ The `pulumi preview` command will list which cloud resources will be generated b
 ```sh
 pulumi preview
 ```
+**Example Output**
+```
+Previewing update (dev)
+
+View Live: https://app.pulumi.com/username/test/dev/previews/5aa60450-112f-4394-99c7-233c13822001
+
+     Type                 Name       Plan
+ +   pulumi:pulumi:Stack  test-dev   create
+ +   └─ aws:s3:Bucket     my-bucket  create
+
+Outputs:
+    bucketName: output<string>
+
+Resources:
+    + 2 to create
+```
 {{% /tab %}}
 {{< /tabs >}}
 
@@ -64,7 +80,25 @@ pulumi preview
 {{% tab name="CLI" %}}
 **Command**
 ```sh
-pulumi up
+pulumi up -f
+```
+**Example Output**
+```
+Updating (dev)
+
+View Live: https://app.pulumi.com/username/test/dev/updates/1
+
+     Type                 Name       Status
+ +   pulumi:pulumi:Stack  test-dev   created
+ +   └─ aws:s3:Bucket     my-bucket  created
+
+Outputs:
+    bucketName: "my-bucket-9f5953e"
+
+Resources:
+    + 2 created
+
+Duration: 6s
 ```
 {{% /tab %}}
 {{< /tabs >}}
@@ -74,7 +108,25 @@ pulumi up
 {{% tab name="CLI" %}}
 **Command**
 ```sh
-pulumi down
+pulumi down -f
+```
+**Example Output**
+```
+Destroying (dev)
+
+View Live: https://app.pulumi.com/username/test/dev/updates/2
+
+     Type                 Name       Status
+ -   pulumi:pulumi:Stack  test-dev   deleted
+ -   └─ aws:s3:Bucket     my-bucket  deleted
+
+Outputs:
+  - bucketName: "my-bucket-fb2b85f"
+
+Resources:
+    - 2 deleted
+
+Duration: 4s
 ```
 {{% /tab %}}
 {{< /tabs >}}
