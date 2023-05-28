@@ -6,7 +6,7 @@ weight: 2
 
 ### Regions
 
-An _AWS region_ is a geographic region that contains interconnected AWS data centers used for provisioning cloud resources. You can get a list of available regions for your AWS account by running the following commnad:
+An _AWS region_ is a geographic area that contains interconnected AWS data centers used for provisioning cloud resources. Available regions can be listed with the following CLI command:
 
 {{< tabs groupId="CLI" >}}
 {{% tab name="CLI" %}}
@@ -26,12 +26,12 @@ aws ec2 describe-regions --all-regions --query  Regions[*].RegionName
 {{% /tab %}}
 {{< /tabs >}}
 
-Each region is isolated from one another for additional fault tolerance and stability.[^1] Cloud service offerings
-may also differ between AWS regions.
+Regions are isolated from one another for additional fault tolerance and stability.[^1] AWS cloud service offerings
+may differ between regions. Therefore, cloud engineers should verify that any required cloud services are available in the desired regions before beginning development.
 
 ### Availability Zones
 
-An _availabiilty zone_ (abreviated as _AZ_) is one or more discrete AWS data centers that have redundant connectivity, networking, and power within a given AWS region. AZs within a given region are interconnected through low-latency networking and resource/data replciation.[^2]. Cloud applications deployed across multiple AZs have increased fault tolerance.[^2]
+An _availabiilty zone_ (commonly abreviated as _AZ_) is one or more discrete AWS data centers that have redundant connectivity, networking, and power within a given AWS region. AZs are interconnected through low-latency networking and resource/data replciation.[^2]. It is considered best practice to deploy cloud applications across multiple AZs for increased fault tolerance, in the event that one or more AZs experience technical outages.[^2]
 
 ![Regions and Availability Zones](/images/aws/regions.png)
 

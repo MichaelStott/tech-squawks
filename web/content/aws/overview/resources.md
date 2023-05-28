@@ -35,7 +35,7 @@ aws sts get-caller-identity --query Arn --output text --region us-east1
 ```
 **Output**
 ```
-arn:aws:iam::[account-number]:user/[username]
+arn:aws:iam::012345678910:user/username
 ```
 {{% /tab %}}
 {{< /tabs >}}
@@ -54,7 +54,7 @@ For instance, to add a tag to your active user.
 **Command**
 ```sh
 export USERNAME=$(aws iam get-user --query  User.UserName)
-aws iam tag-user --user-name $USERNAME --tags '{"Tag": "Your it!"}'
+aws iam tag-user --user-name $USERNAME --tags '{"Tag": "You are it!"}'
 aws iam list-user-tags --user-name $USERNAME
 ```
 **Output**
@@ -62,7 +62,7 @@ aws iam list-user-tags --user-name $USERNAME
 {
     "Tags": [
         {
-            "Tag": "Your it!"
+            "Tag": "You are it!"
         }
     ]
 }
