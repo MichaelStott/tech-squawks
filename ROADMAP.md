@@ -7,12 +7,13 @@ The following topics are planned in the order they are listed. No fixed date for
 - [x] Developer Setup
 - [ ] Cloud Computing (🚧 In-Progress)
 - [ ] AWS Overview (🚧 In-Progress)
-- [x] STS
-- [ ] IAM (🚧 In-Progress)
-- [ ] S3 (🚧 In-Progress)
-- [ ] EC2 (🚧 In-Progress)
-- [ ] ELB (🚧 In-Progress)
-- [ ] VPC (🚧 In-Progress)
+- [ ] Canonical Requests (🚧 In-Progress)
+- [ ] STS
+- [ ] IAM
+- [ ] S3
+- [ ] EC2
+- [ ] ELB
+- [ ] VPC
 - [ ] KMS
 - [ ] Route53
 - [ ] CloudWatch
