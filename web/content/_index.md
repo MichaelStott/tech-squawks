@@ -3,7 +3,7 @@ title: "Welcome!"
 weight: 1
 ---
 
-# Howdy!
+# Welcome!
 
 Welcome to Tech Squawks, a website for learning cloud computing technologies and concepts, using popular programming languages such as Typescript, Javascript, Python, or Go. This website is a work in progress, so check back frequently for new tutorials and updates!
 

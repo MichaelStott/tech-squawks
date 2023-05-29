@@ -31,7 +31,7 @@ It may be beneficial to save a screenshot of the QR code image. In the event tha
 MFA can then be easily reconfigured on a separate device.
 {{% /notice %}}
 
-### Create Admin User
+### Create Administrator User
 
 1. Within the IAM menu, go to the users tab and press the "Add Users"
 

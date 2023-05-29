@@ -1,18 +1,27 @@
 ## Roadmap
 
-The following topics are planned in the order they are listed. No fixed date for these topics exists as of yet.
+The following topics are planned in the order they are listed. No fixed date for these topics exists. Current ordering is subject to change and updataes to existing sections(or the additions of new ones) may occur.
 
-### AWS
+### Cloud Computing (🚧 In-Progress)
+
+- [x] Introduction
+- [ ] Benefits
+- [ ] Classifications
+- [ ] Virtualization
+- [ ] Cloud Native 
+
+### AWS (🚧 In-Progress)
 
 - [x] Developer Setup
 - [ ] Cloud Computing (🚧 In-Progress)
 - [ ] AWS Overview (🚧 In-Progress)
-- [x] STS
-- [ ] IAM (🚧 In-Progress)
-- [ ] S3 (🚧 In-Progress)
-- [ ] EC2 (🚧 In-Progress)
-- [ ] ELB (🚧 In-Progress)
-- [ ] VPC (🚧 In-Progress)
+- [ ] Canonical Requests (🚧 In-Progress)
+- [ ] STS
+- [ ] IAM
+- [ ] S3
+- [ ] EC2
+- [ ] ELB
+- [ ] VPC
 - [ ] KMS
 - [ ] Route53
 - [ ] CloudWatch
@@ -30,6 +39,12 @@ The following topics are planned in the order they are listed. No fixed date for
 
 ### GCP
 
+TBD
+
 ### Docker
 
+TBD
+
 ### Kubernetes
+
+TBD
