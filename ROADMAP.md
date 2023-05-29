@@ -1,6 +1,6 @@
 ## Roadmap
 
-The following topics are planned in the order they are listed. No fixed date for these topics exists. Current rdering is subject to change and updataes to existing sections(or the additions of new ones) may occur.
+The following topics are planned in the order they are listed. No fixed date for these topics exists. Current ordering is subject to change and updataes to existing sections(or the additions of new ones) may occur.
 
 ### Cloud Computing (🚧 In-Progress)
 

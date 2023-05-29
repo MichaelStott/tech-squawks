@@ -4,7 +4,7 @@ draft: false
 weight: 2
 ---
 
-When working in cloud environments, it is useful to be able to define and statefully manage infrastructure. Pulumi is an _Infrastructure as Code (IAC)_ utility that allows developers to programatically create, update, and delete cloud resources using popular programming languages such as Typescript, Javascript, Python, and Go.
+When working in cloud environments, it is useful to be able to define and statefully manage infrastructure. Pulumi is an _Infrastructure as Code (IAC)_ utility that allows developers to programatically create, update, and delete cloud resources using programming languages such as Typescript, Javascript, Python, and Go.
 
 ## Setup
 
@@ -24,7 +24,7 @@ v3.39.1
 {{% /tab %}}
 {{< /tabs >}}
 
-3. Within an empty directory, execute one of the following based on your preffered programming language to create a Pulumi project.
+3. Within an empty directory, execute one of the following to create a Pulumi project for the target programming language.
 {{< tabs >}}
 {{% tab name="Typescript" %}}
 ```sh
@@ -75,7 +75,7 @@ Resources:
 {{% /tab %}}
 {{< /tabs >}}
 
-5. To validate that you are able to deploy to AWS, run the following. If unsuccessful, it may be due to incorectly configured AWS credentials. 
+5. To verify deployments are working as expected, execute the following:
 {{< tabs groupId="CLI" >}}
 {{% tab name="CLI" %}}
 **Command**
@@ -103,7 +103,7 @@ Duration: 6s
 {{% /tab %}}
 {{< /tabs >}}
 
-6. Once the above is successful, run the following to delete any provisioned resources.
+6. Once the above runs successfully, run the following to delete any provisioned resources.
 {{< tabs groupId="CLI" >}}
 {{% tab name="CLI" %}}
 **Command**

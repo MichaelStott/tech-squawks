@@ -6,14 +6,13 @@ chapter: false
 weight: 4
 ---
 
-The AWS CLI is used to interact with AWS resources and services through a local terminal or shell. It leverages local 
-credentials on the developers machine to successfully perform API calls.
+AWS provides a CLI tool for facilitating the invocation of cloud APIs, leveraging a user's local credentials.
 
-The following instructions target *version 2* of the AWS CLI. See these [instructions](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv1.html) if you would prefer *version 1*. Note that these versions are not backwards compatible, so commands may differ between the two.
+The following instructions target *version 2* of the AWS CLI. For *version 1*, see these [instructions](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv1.html). Note that these versions are not backwards compatible.
 
 ### Instructions 
-
-1. Download and install the CLI for your development environment's OS:
+S
+1. Download and install the CLI for the desired operating system:
 {{< tabs groupId="os" >}}
 {{% tab name="Windows" %}}
 
@@ -54,7 +53,7 @@ $ sudo ./aws/install
 {{% /tab %}}
 {{< /tabs >}}
 
-2. To confirm that your CLI has been successfully installed, run the following in your shell/terminal to output the CLI version:
+2. Run the following too confirm that the CLI has been successfully installed:
 {{< tabs groupId="CLI" >}}
 {{% tab name="CLI" %}}
 **Command**
@@ -69,7 +68,7 @@ aws-cli/2.5.8 Python/3.9.11 Windows/10 exe/AMD64 prompt/off
 {{< /tabs >}}
 
 3. Run the following and enter the credentials downloaded from the previous section when prompted. This will enable the
-CLI to authenitcate with AWS and perform API calls.
+CLI to authenitcate with AWS services.
 {{< tabs groupId="CLI" >}}
 {{% tab name="CLI" %}}
 **Command**
@@ -103,4 +102,3 @@ aws sts get-caller-identity
 ```
 {{% /tab %}}
 {{< /tabs >}}
-
