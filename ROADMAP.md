@@ -1,8 +1,16 @@
 ## Roadmap
 
-The following topics are planned in the order they are listed. No fixed date for these topics exists as of yet.
+The following topics are planned in the order they are listed. No fixed date for these topics exists. Current rdering is subject to change and updataes to existing sections(or the additions of new ones) may occur.
 
-### AWS
+### Cloud Computing (🚧 In-Progress)
+
+- [x] Introduction
+- [ ] Benefits
+- [ ] Classifications
+- [ ] Virtualization
+- [ ] Cloud Native 
+
+### AWS (🚧 In-Progress)
 
 - [x] Developer Setup
 - [ ] Cloud Computing (🚧 In-Progress)
@@ -31,6 +39,12 @@ The following topics are planned in the order they are listed. No fixed date for
 
 ### GCP
 
+TBD
+
 ### Docker
 
+TBD
+
 ### Kubernetes
+
+TBD
