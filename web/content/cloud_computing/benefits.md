@@ -8,7 +8,7 @@ An increasing number of companies are either leveraging cloud computing or consi
 
 #### On-Demand 
 
-In traditional on-premise environments, if software engineers required additional infrastructure for hosting or scaling web services, a considerable amount of time was necessary to install and configure the hardware within an organization's private data center. Conversely, cloud resources can typically be provisioned anywhere between a few seconds to a few minutes through a web API call. This on-demand provisioning of resources enables more rapid experimentation and application development.
+In traditional on-premise environments, if software engineers required additional infrastructure for hosting or scaling web services, a considerable amount of time was necessary to install and configure the hardware within an organization's private data center. Conversely, cloud resources can typically be provisioned anywhere between a few seconds to a few minutes through a web API call. This on-demand provisioning of resources enables more rapid development and experimentation
 
 #### Cost-Effectivness 
 
@@ -20,8 +20,6 @@ Readers should note that the above is a broad generality and should always take 
 
 #### Scalability 
 
-Cloud provides have more computational resources available than most private data centers. Therefore, cloud services can be more readily scaled to account for increases or decreases in application load. A common example would be online retailers provisioning more servers on Black Friday to handle holiday traffic.  Conversely, resources can be scaled down to save on costs, such as outside of business hours when 
+Cloud provides have more computational resources available than most private data centers. Therefore, cloud services can be more readily scaled to account for increases or decreases in application load. A common example would be online retailers provisioning more servers on Black Friday to handle holiday traffic.  Conversely, resources can be scaled down to save on costs, such as outside business hours. 
 
-{{% notice info %}}
 There are two types of scaling, horizontal and vertical. _Horizontal scaling_ refers to adding or removing additional servers for your application to account for an increase in load in a distributed fashion. _Vertical scaling_ refers to increasing or decreasing the CPU, memory, or storage of the servers themselves.
-{{% /notice %}}
