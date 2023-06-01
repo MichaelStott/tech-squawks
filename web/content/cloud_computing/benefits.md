@@ -23,3 +23,5 @@ Readers should note that the above is a broad generality and should always take 
 Cloud provides have more computational resources available than most private data centers. Therefore, cloud services can be more readily scaled to account for increases or decreases in application load. A common example would be online retailers provisioning more servers on Black Friday to handle holiday traffic.  Conversely, resources can be scaled down to save on costs, such as outside business hours. 
 
 There are two types of scaling, horizontal and vertical. _Horizontal scaling_ refers to adding or removing additional servers for your application to account for an increase in load in a distributed fashion. _Vertical scaling_ refers to increasing or decreasing the CPU, memory, or storage of the servers themselves.
+
+![Scaling Example](/images/cc/scaling.png)  
