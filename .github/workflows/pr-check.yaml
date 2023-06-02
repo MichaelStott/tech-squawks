@@ -20,6 +20,7 @@ jobs:
   validate-pulumi-preview:
     needs: get-pulumi-projects
     runs-on: ubuntu-latest
+     if: ${{ needs.get-pulumi-projects.outputs.matrix != '[]' && needs.get-pulumi-projects.outputs.matrix != '' }}
     strategy:
       matrix: 
         project: ${{fromJson(needs.get-pulumi-projects.outputs.matrix)}}
