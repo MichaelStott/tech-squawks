@@ -15,14 +15,14 @@ In traditional on-premise environments, if software engineers required additiona
 Cloud computing can potentially be more economical than traditional on-premise hosting. Cloud resources can be provisioned with no up-front cost, instead utilizing a pay-as-you-go model. All hardware management is offloaded from organizations to the cloud provider. Additionally, because cloud providers purchase hardware in bulk, they are able to leverage economies of scale and pass those savings onto cloud customers.
 
 {{% notice info %}}
-Readers should note that the above is a broad generality and should always take into account the specifics of their organization when performing a cost-benefit analysis. For instance, Dropbox initially developed their SaaS platform using cloud technologies, notably AWS S3, before later [migrating to their own infrastructure](https://www.geekwire.com/2018/dropbox-saved-almost-75-million-two-years-building-tech-infrastructure), which increased product performance and cost-effectiveness. 
+Readers should note that the above is a broad generality and should always consider the specifics of their organization when performing a cost-benefit analysis. For instance, Dropbox initially developed their SaaS platform using cloud technologies, notably AWS S3, before later [migrating to their own infrastructure](https://www.geekwire.com/2018/dropbox-saved-almost-75-million-two-years-building-tech-infrastructure), which increased product performance and cost-effectiveness. 
 {{% /notice %}}
 
 #### Scalability 
 
-Cloud provides have more computational resources available than most private data centers. Therefore, cloud services can be more readily scaled to account for increases or decreases in application load. A common example would be online retailers provisioning more servers on Black Friday to handle holiday traffic.  Conversely, resources can be scaled down to save on costs, such as outside business hours. 
+Cloud providers have more computational resources available than most private data centers. Therefore, cloud services can be more readily scaled to account for increases or decreases in application load. A common example would be online retailers provisioning more servers for handling holiday traffic. Conversely, resources can be scaled down to save on costs, such as outside business hours. 
 
-There are two types of scaling, horizontal and vertical. _Horizontal scaling_ refers to adding or removing additional servers for your application to account for an increase in load in a distributed fashion. This type of scaling typically can be accomplished with minimal delay or application downtime.
+There are two types of scaling, horizontal and vertical. _Horizontal scaling_ refers to the addition or removal of servers to account for increased load in a distributed fashion. This type of scaling typically can be accomplished with minimal delay or application downtime.
 
 {{< figure src="/images/cc/horizontal_scaling.png" caption="_Figure 1: With horizontal scaling, additional resources may be provisioned to handle increases in system load._">}}
 
