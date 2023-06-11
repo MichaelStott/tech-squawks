@@ -29,11 +29,11 @@ function sign(key, msg) {
 }
 
 function signHex(key, msg) {
-    return crypto.createHmac('SHA256', key).update(msg).digest('base64')
+    return crypto.createHmac('SHA256', key).update(msg).digest('hex')
 }
 
 function computeSHA256SignatureHash(input) {
-    return crypto.createHash("SHA256").update(input).digest("hex")
+    return crypto.createHash("SHA256").update(input).digest("base64")
 }
 
 function getAWS4SignatureKey(key, reqTimestamp, region, service) {

@@ -61,7 +61,7 @@ if __name__ == "__main__":
     print("Amazon Timestamp: " + amazon_timestamp)
     print("Request Timestamp: " + req_timestamp)
 
-    # The scope/action permitted by the signed token
+    # The scope/action permitted by the signed credentials
     credential_scope = get_credential_scope(req_timestamp, region, service)
     print('Credential Scope: ' + credential_scope)
 
