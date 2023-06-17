@@ -1,4 +1,4 @@
-import datetime, hashlib, hmac, sys
+import base64, datetime, hashlib, hmac, sys
 
 SIGNING_ALGORITHM = "AWS4-HMAC-SHA256"
 
@@ -21,6 +21,7 @@ def get_credential_scope(req_timestamp: str, region: str, service: str) -> str:
 def sign(key: str, msg: str) -> bytes:
     """ Generate the HMAC-SHA256 hash of a target string using the provided secret key
     """
+    # dig = hmac.new(b'1234567890', msg=your_bytes_string, digestmod=hashlib.sha256).digest()
     return hmac.new(key , msg.encode('utf-8'), hashlib.sha256).digest()
 
 
@@ -67,7 +68,7 @@ if __name__ == "__main__":
 
     # Generate and print signed string 
     signature_key = get_aws4_signature_key(amazon_secret_key, req_timestamp, region, service)
-    print ("Signing Key: " + str(signature_key))
+    print ("Signing Key: " + base64.b64encode(signature_key).decode())
     string_to_sign = get_string_to_sign(amazon_timestamp, credential_scope, user_input)
     print ("String to sign: " + str(string_to_sign))
     signature = hmac.new(signature_key, string_to_sign, hashlib.sha256).hexdigest()

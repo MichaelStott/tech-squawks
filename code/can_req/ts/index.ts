@@ -6,7 +6,7 @@ function getTimestamps(): [string, string] {
     const now = new Date()
     const year = now.getUTCFullYear()
     const month = String(now.getUTCMonth()).padStart(2, '0')
-    const day = String(now.getUTCDate()).padStart(2, '0')
+    const day = String(now.getUTCDay()).padStart(2, '0')
     const hours = String(now.getUTCHours())
     const minutes = String(now.getUTCMinutes())
     const seconds = String(now.getUTCSeconds())
@@ -54,7 +54,7 @@ if (require.main === module) {
     // Get the required timestamp strings
     let [amzTimestamp, reqTimestamp] = getTimestamps()
     console.log("Amazon Timestamp: " + amzTimestamp)
-    console.log("Req Timestamp: " + reqTimestamp)
+    console.log("Requset Timestamp: " + reqTimestamp)
 
     // Get the scope of the request (the timestamp and the target service)
     const scope = getCredentialScope(reqTimestamp, region, service)
