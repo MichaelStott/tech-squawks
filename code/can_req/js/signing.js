@@ -5,7 +5,7 @@ const SIGNING_ALGORITHM = "AWS4-HMAC-SHA256"
 function getTimestamps() {
     const now = new Date()
     const year = now.getUTCFullYear()
-    const month = String(now.getUTCMonth()).padStart(2, '0')
+    const month = String(now.getUTCMonth() + 1).padStart(2, '0')
     const day = String(now.getUTCDate()).padStart(2, '0')
     const hours = String(now.getUTCHours())
     const minutes = String(now.getUTCMinutes())
@@ -72,3 +72,6 @@ if (require.main === module) {
     const signature = signHex(key, stringToSign)
     console.log("Signed String: " + signature)
 }
+
+
+module.exports = { getTimestamps, getCredentialScope, computeSHA256SignatureHash, getAWS4SignatureKey, getStringToSign, signHex }

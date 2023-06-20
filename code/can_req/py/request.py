@@ -39,18 +39,17 @@ if __name__ == "__main__":
 
     endpoint = "https://{}/".format(HOST)
     amazon_timestamp, req_timestamp = get_timestamps()
-    credential_scope = get_credential_scope(req_timestamp)
+    credential_scope = get_credential_scope(req_timestamp, REGION, SERVICE)
 
     request_paramters = '{"Name":"' + PARAMETER_NAME + '","WithDecryption":true}'
     payload_hash = compute_sha256_hash(request_paramters)
 
     headers = get_canonical_headers(amazon_timestamp)
     canoniocal_request = get_canonical_requests(headers, str(payload_hash))
-    credential_scope = get_credential_scope(req_timestamp)
 
     string_to_sign = get_string_to_sign(amazon_timestamp, credential_scope, canoniocal_request)
     signature_key = get_aws4_signature_key(amazon_secret_key, req_timestamp, REGION, SERVICE)
-    signature = hmac.new(signature_key, (string_to_sign).encode('utf-8'), hashlib.sha256).hexdigest()
+    signature = hmac.new(signature_key, str(string_to_sign).encode('utf-8'), hashlib.sha256).hexdigest()
 
     auth_header = get_authorization_header(credential_scope, signature, amazon_key_id)
 
