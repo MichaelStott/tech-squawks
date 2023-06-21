@@ -30,14 +30,14 @@ def compute_sha256_hash(input: str) -> str:
     """
     m = hashlib.sha256()
     m.update(input.encode("utf-8"))
-    result =  m.hexdigest()
+    result = m.hexdigest()
     return result
 
 
 def get_string_to_sign(amzn_date_stamp: str, scope: str, can_req: str) -> str:
     """ Get string to sign from request parameters
     """
-    return "\n".join([SIGNING_ALGORITHM, amzn_date_stamp, scope, compute_sha256_hash(can_req)]).encode("utf-8")
+    return "\n".join([SIGNING_ALGORITHM, amzn_date_stamp, scope, compute_sha256_hash(can_req)])
 
 
 def get_aws4_signature_key(key: str, datestamp: str, region: str, service_name: str) -> bytes:

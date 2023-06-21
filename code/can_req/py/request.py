@@ -17,17 +17,17 @@ CANONICAL_URI = "/"
 CANONICAL_QUERY_STRING = ""
 
 
-def get_canonical_headers(amzn_date: str):
+def get_canonical_headers(amzn_date: str) -> str:
     """ Get canonical headers in proper format
     """
     return "\n".join(["content-type:{}".format(CONTENT_TYPE), "host:{}".format(HOST), "x-amz-date:{}".format(amzn_date), "x-amz-target:{}\n".format(AMAZON_TARGET)])
 
-def get_canonical_requests(canonical_headers: str, payload_hash: str):
+def get_canonical_requests(canonical_headers: str, payload_hash: str) -> str:
     """ Generate canonical request from the provided headers and payload hash
     """
     return "\n".join([METHOD, CANONICAL_URI, CANONICAL_QUERY_STRING, canonical_headers, SIGNED_HEADERS, payload_hash])
 
-def get_authorization_header(scope: str, signature: str, amazon_key_id: str):
+def get_authorization_header(scope: str, signature: str, amazon_key_id: str) -> str:
     """ Get the authorization header used for verifying the authenticity of the request
     """
     return "{} Credential={}/{}, SignedHeaders={}, Signature={}".format(SIGNING_ALGORITHM, amazon_key_id, scope, SIGNED_HEADERS, signature)
@@ -49,7 +49,7 @@ if __name__ == "__main__":
 
     string_to_sign = get_string_to_sign(amazon_timestamp, credential_scope, canoniocal_request)
     signature_key = get_aws4_signature_key(amazon_secret_key, req_timestamp, REGION, SERVICE)
-    signature = hmac.new(signature_key, str(string_to_sign).encode('utf-8'), hashlib.sha256).hexdigest()
+    signature = hmac.new(signature_key, (string_to_sign).encode('utf-8'), hashlib.sha256).hexdigest()
 
     auth_header = get_authorization_header(credential_scope, signature, amazon_key_id)
 
