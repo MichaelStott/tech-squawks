@@ -1,7 +1,6 @@
 from signing import *
 
 import requests
-from boto3 import Session
 
 # Default API parameters provided here for convenience
 METHOD = "POST"
@@ -39,19 +38,28 @@ if __name__ == "__main__":
 
     endpoint = "https://{}/".format(HOST)
     amazon_timestamp, req_timestamp = get_timestamps()
-    credential_scope = get_credential_scope(req_timestamp, REGION, SERVICE)
+    print("Amazon Timestamp: " + amazon_timestamp)
+    print("Request Timestamp: " + req_timestamp)
 
+    credential_scope = get_credential_scope(req_timestamp, REGION, SERVICE)
+    print('Credential Scope: ' + credential_scope)
+          
     request_paramters = '{"Name":"' + PARAMETER_NAME + '","WithDecryption":true}'
     payload_hash = compute_sha256_hash(request_paramters)
+    print("Payload Hash: " + payload_hash)
 
     headers = get_canonical_headers(amazon_timestamp)
     canoniocal_request = get_canonical_requests(headers, str(payload_hash))
 
-    string_to_sign = get_string_to_sign(amazon_timestamp, credential_scope, canoniocal_request)
     signature_key = get_aws4_signature_key(amazon_secret_key, req_timestamp, REGION, SERVICE)
+    print("Signing Key: " + base64.b64encode(signature_key).decode())
+    string_to_sign = get_string_to_sign(amazon_timestamp, credential_scope, canoniocal_request)
+    print("String to Sign: " + string_to_sign)
     signature = hmac.new(signature_key, (string_to_sign).encode('utf-8'), hashlib.sha256).hexdigest()
+    print("Signature: " + signature)
 
     auth_header = get_authorization_header(credential_scope, signature, amazon_key_id)
+    print("Auth Header: " + auth_header)
 
     # Perform AWS API call
     headers = {

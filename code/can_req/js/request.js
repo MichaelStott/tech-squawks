@@ -14,7 +14,7 @@ const CANONICAL_URI = "/"
 const CANONICAL_QUERY_STRING = ""
 
 function getCanonicalHeaders(amzTimestamp) {
-    return ["content-type:" +  CONTENT_TYPE, "host:" + HOST, "x-amz-date:" + amzTimestamp, "x-amz-target:" + AMAZON_TARGET].join("\n")
+    return ["content-type:" +  CONTENT_TYPE, "host:" + HOST, "x-amz-date:" + amzTimestamp, "x-amz-target:" + AMAZON_TARGET + "\n"].join("\n")
 }
 
 function getCanonicalRequest(canonicalHeaders, payloadHash) {
@@ -42,13 +42,14 @@ if (require.main === module) {
 
     const requestParamters = `{"Name":"` + PARAMETER_NAME + `","WithDecryption":true}`
     const payloadHash = signing.computeSHA256SignatureHash(requestParamters)
+    console.log("Payload Hash: " + payloadHash)
     const headers = getCanonicalHeaders(amzTimestamp)
 
     const canonicalRequest = getCanonicalRequest(headers, payloadHash)
 
     //  Get the AWS v4 signing key
     const key = signing.getAWS4SignatureKey(secretKey, reqTimestamp, REGION, SERVICE)
-    console.log("Signing Key: " + key)
+    console.log("Signing Key: " + key.toString('base64'))
 
     // Prepare string value to sign from user input
     const stringToSign = signing.getStringToSign(amzTimestamp, scope, canonicalRequest)
@@ -56,16 +57,18 @@ if (require.main === module) {
 
     // Sign and output user string
     const signature = signing.signHex(key, stringToSign)
-    console.log("Signed String: " + signature)
+    console.log("Signature: " + signature)
 
     const authHeader = getAuthorizationHeader(scope, signature, amazonKeyId)
+    console.log("Auth Header: " + authHeader)
 
     const canReqHeaders = {
         "Accept-Encoding": "identity",
         "Content-Type": CONTENT_TYPE,
         "X-Amz-Date": amzTimestamp,
         "X-Amz-Target": AMAZON_TARGET,
-        "Authorization": authHeader
+        "Authorization": authHeader,
+        'Content-Length': requestParamters.length
     }
 
     //resp = requests.post(endpoint, headers=headers, data=request_paramters)
@@ -76,7 +79,13 @@ if (require.main === module) {
         method: 'POST',
         headers: canReqHeaders
     };
-    var req = https.request(options, function(res) { res.pipe(process.stdout) }).end(options.body || '').on("error", err => {
+    var req = https.request(options, function(res) { 
+        res.on('data', (d) => {
+            process.stdout.write(d)
+        })
+    })
+    req.write(requestParamters)
+    req.end(options.body || '').on("error", err => {
         console.log("Error: " + err.message);
     });
 }

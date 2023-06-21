@@ -21,7 +21,6 @@ def get_credential_scope(req_timestamp: str, region: str, service: str) -> str:
 def sign(key: str, msg: str) -> bytes:
     """ Generate the HMAC-SHA256 hash of a target string using the provided secret key
     """
-    # dig = hmac.new(b'1234567890', msg=your_bytes_string, digestmod=hashlib.sha256).digest()
     return hmac.new(key , msg.encode('utf-8'), hashlib.sha256).digest()
 
 
