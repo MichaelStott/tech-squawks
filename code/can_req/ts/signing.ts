@@ -2,45 +2,45 @@ import * as crypto from "crypto"
 
 const SIGNING_ALGORITHM = "AWS4-HMAC-SHA256"
 
-function getTimestamps(): [string, string] {
+export function getTimestamps(): [string, string] {
     const now = new Date()
     const year = now.getUTCFullYear()
-    const month = String(now.getUTCMonth()).padStart(2, '0')
-    const day = String(now.getUTCDay()).padStart(2, '0')
-    const hours = String(now.getUTCHours())
-    const minutes = String(now.getUTCMinutes())
-    const seconds = String(now.getUTCSeconds())
+    const month = String(now.getUTCMonth() + 1).padStart(2, '0')
+    const day = String(now.getUTCDate()).padStart(2, '0')
+    const hours = String(now.getUTCHours()).padStart(2, '0')
+    const minutes = String(now.getUTCMinutes()).padStart(2, '0')
+    const seconds = String(now.getUTCSeconds()).padStart(2, '0')
 
     const amzTimestamp = `${year}${month}${day}T${hours}${minutes}${seconds}Z`
     const reqTimestamp = `${year}${month}${day}`
     return [amzTimestamp, reqTimestamp]
 }
 
-function getCredentialScope(reqTimestamp: string, region: string, service: string): string {
+export function getCredentialScope(reqTimestamp: string, region: string, service: string): string {
     return `${reqTimestamp}/${region}/${service}/aws4_request`
 }
 
-function getStringToSign(amzTimestamp: string, scope: string, message: string): string {
+export function getStringToSign(amzTimestamp: string, scope: string, message: string): string {
     return [SIGNING_ALGORITHM, amzTimestamp, scope, computeSHA256SignatureHash(message)].join("\n")
 }
 
-function sign(key: string, message: string): string {
-    return crypto.createHmac('SHA256', key).update(message).digest('base64')
+export function sign(key: Buffer, message: Buffer): Buffer {
+    return crypto.createHmac('SHA256', key).update(message).digest()
 }
 
-function signHex(key: string, message: string): string {
-    return crypto.createHmac('SHA256', key).update(message).digest('base64')
+export function signHex(key: Buffer, message: Buffer): string {
+    return crypto.createHmac('SHA256', key).update(message).digest('hex')
 }
 
-function computeSHA256SignatureHash(input: string): string {
+export function computeSHA256SignatureHash(input: string): string {
     return crypto.createHash("SHA256").update(input).digest("hex")
 }
 
-function getAWS4SignatureKey(key: string, reqTimestamp: string, region: string, service: string): string {
-    const kDate = sign("AWS4" + key, reqTimestamp)
-    const kRegion = sign(kDate, region)
-    const kService = sign(kRegion, service)
-    const kSigning = sign(kService, "aws4_request")
+export function getAWS4SignatureKey(key: string, reqTimestamp: string, region: string, service: string): Buffer {
+    const kDate = sign(Buffer.from("AWS4" + key), Buffer.from(reqTimestamp))
+    const kRegion = sign(kDate, Buffer.from(region))
+    const kService = sign(kRegion, Buffer.from(service))
+    const kSigning = sign(kService, Buffer.from("aws4_request"))
     return kSigning
 }
 
@@ -69,6 +69,6 @@ if (require.main === module) {
     console.log("String to sign: `" + stringToSign + "`")
 
     // Sign and output user string
-    const signature = signHex(key, stringToSign)
+    const signature = signHex(key, Buffer.from(stringToSign))
     console.log("Signed String: " + signature)
 }

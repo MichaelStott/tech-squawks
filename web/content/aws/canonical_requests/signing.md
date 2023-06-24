@@ -220,7 +220,7 @@ if (require.main === module) {
 ```py
 # can_req/py/signing.py
 
-import datetime, hashlib, hmac, sys
+import base64, datetime, hashlib, hmac, sys
 
 SIGNING_ALGORITHM = "AWS4-HMAC-SHA256"
 
@@ -251,14 +251,14 @@ def compute_sha256_hash(input: str) -> str:
     """
     m = hashlib.sha256()
     m.update(input.encode("utf-8"))
-    result =  m.hexdigest()
+    result = m.hexdigest()
     return result
 
 
 def get_string_to_sign(amzn_date_stamp: str, scope: str, can_req: str) -> str:
     """ Get string to sign from request parameters
     """
-    return "\n".join([SIGNING_ALGORITHM, amzn_date_stamp, scope, compute_sha256_hash(can_req)]).encode("utf-8")
+    return "\n".join([SIGNING_ALGORITHM, amzn_date_stamp, scope, compute_sha256_hash(can_req)])
 
 
 def get_aws4_signature_key(key: str, datestamp: str, region: str, service_name: str) -> bytes:
@@ -289,7 +289,7 @@ if __name__ == "__main__":
 
     # Generate and print signed string 
     signature_key = get_aws4_signature_key(amazon_secret_key, req_timestamp, region, service)
-    print ("Signing Key: " + str(signature_key))
+    print ("Signing Key: " + base64.b64encode(signature_key).decode())
     string_to_sign = get_string_to_sign(amazon_timestamp, credential_scope, user_input)
     print ("String to sign: " + str(string_to_sign))
     signature = hmac.new(signature_key, string_to_sign, hashlib.sha256).hexdigest()
