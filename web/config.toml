@@ -6,7 +6,7 @@ theme = "hugo-theme-relearn"
 
 [params]
   alwaysopen = false
-  showVisitedLinks = true
+  showVisitedLinks = false
   collapsibleMenu = true
   disableBreadcrumb = false
   disableInlineCopyToClipBoard = true
