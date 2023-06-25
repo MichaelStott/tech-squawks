@@ -5,11 +5,11 @@ const SIGNING_ALGORITHM = "AWS4-HMAC-SHA256"
 function getTimestamps() {
     const now = new Date()
     const year = now.getUTCFullYear()
-    const month = String(now.getUTCMonth()).padStart(2, '0')
+    const month = String(now.getUTCMonth() + 1).padStart(2, '0')
     const day = String(now.getUTCDate()).padStart(2, '0')
-    const hours = String(now.getUTCHours())
-    const minutes = String(now.getUTCMinutes())
-    const seconds = String(now.getUTCSeconds())
+    const hours = String(now.getUTCHours()).padStart(2, '0')
+    const minutes = String(now.getUTCMinutes()).padStart(2, '0')
+    const seconds = String(now.getUTCSeconds()).padStart(2, '0')
 
     const amzTimestamp = `${year}${month}${day}T${hours}${minutes}${seconds}Z`
     const reqTimestamp = `${year}${month}${day}`
@@ -25,7 +25,7 @@ function getStringToSign(amzTimestamp, scope, message) {
 }
 
 function sign(key, msg) {
-    return crypto.createHmac('SHA256', key).update(msg).digest('base64')
+    return crypto.createHmac('SHA256', key).update(Buffer.from(msg, "utf-8")).digest()
 }
 
 function signHex(key, msg) {
@@ -33,11 +33,11 @@ function signHex(key, msg) {
 }
 
 function computeSHA256SignatureHash(input) {
-    return crypto.createHash("SHA256").update(input).digest("base64")
+    return crypto.createHash("SHA256").update(Buffer.from(input, "utf-8")).digest("hex")
 }
 
 function getAWS4SignatureKey(key, reqTimestamp, region, service) {
-    const kDate = sign("AWS4" + key, reqTimestamp)
+    const kDate = sign(Buffer.from("AWS4" + key, "utf-8"), reqTimestamp)
     const kRegion = sign(kDate, region)
     const kService = sign(kRegion, service)
     const kSigning = sign(kService, "aws4_request")
@@ -54,7 +54,7 @@ if (require.main === module) {
     // Get the required timestamp strings
     [amzTimestamp, reqTimestamp] = getTimestamps()
     console.log("Amazon Timestamp: " + amzTimestamp)
-    console.log("Req Timestamp: " + reqTimestamp)
+    console.log("Request Timestamp: " + reqTimestamp)
 
     // Get the scope of the request (the timestamp and the target service)
     const scope = getCredentialScope(reqTimestamp, region, service)
@@ -62,7 +62,7 @@ if (require.main === module) {
 
     //  Get the AWS v4 signing key
     const key = getAWS4SignatureKey(secretKey, reqTimestamp, region, service)
-    console.log("Signing Key: " + key)
+    console.log("Signing Key: " + key.toString('hex'))
 
     // Prepare string value to sign from user input
     const stringToSign = getStringToSign(amzTimestamp, scope, userInput)
@@ -72,3 +72,6 @@ if (require.main === module) {
     const signature = signHex(key, stringToSign)
     console.log("Signed String: " + signature)
 }
+
+
+module.exports = { getTimestamps, getCredentialScope, computeSHA256SignatureHash, getAWS4SignatureKey, getStringToSign, signHex }

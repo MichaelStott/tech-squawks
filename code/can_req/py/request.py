@@ -1,7 +1,6 @@
 from signing import *
 
 import requests
-from boto3 import Session
 
 # Default API parameters provided here for convenience
 METHOD = "POST"
@@ -17,17 +16,17 @@ CANONICAL_URI = "/"
 CANONICAL_QUERY_STRING = ""
 
 
-def get_canonical_headers(amzn_date: str):
+def get_canonical_headers(amzn_date: str) -> str:
     """ Get canonical headers in proper format
     """
     return "\n".join(["content-type:{}".format(CONTENT_TYPE), "host:{}".format(HOST), "x-amz-date:{}".format(amzn_date), "x-amz-target:{}\n".format(AMAZON_TARGET)])
 
-def get_canonical_requests(canonical_headers: str, payload_hash: str):
+def get_canonical_requests(canonical_headers: str, payload_hash: str) -> str:
     """ Generate canonical request from the provided headers and payload hash
     """
     return "\n".join([METHOD, CANONICAL_URI, CANONICAL_QUERY_STRING, canonical_headers, SIGNED_HEADERS, payload_hash])
 
-def get_authorization_header(scope: str, signature: str, amazon_key_id: str):
+def get_authorization_header(scope: str, signature: str, amazon_key_id: str) -> str:
     """ Get the authorization header used for verifying the authenticity of the request
     """
     return "{} Credential={}/{}, SignedHeaders={}, Signature={}".format(SIGNING_ALGORITHM, amazon_key_id, scope, SIGNED_HEADERS, signature)
@@ -39,20 +38,28 @@ if __name__ == "__main__":
 
     endpoint = "https://{}/".format(HOST)
     amazon_timestamp, req_timestamp = get_timestamps()
-    credential_scope = get_credential_scope(req_timestamp)
+    print("Amazon Timestamp: " + amazon_timestamp)
+    print("Request Timestamp: " + req_timestamp)
 
+    credential_scope = get_credential_scope(req_timestamp, REGION, SERVICE)
+    print('Credential Scope: ' + credential_scope)
+          
     request_paramters = '{"Name":"' + PARAMETER_NAME + '","WithDecryption":true}'
     payload_hash = compute_sha256_hash(request_paramters)
+    print("Payload Hash: " + payload_hash)
 
     headers = get_canonical_headers(amazon_timestamp)
     canoniocal_request = get_canonical_requests(headers, str(payload_hash))
-    credential_scope = get_credential_scope(req_timestamp)
 
-    string_to_sign = get_string_to_sign(amazon_timestamp, credential_scope, canoniocal_request)
     signature_key = get_aws4_signature_key(amazon_secret_key, req_timestamp, REGION, SERVICE)
+    print("Signing Key: " + base64.b64encode(signature_key).decode())
+    string_to_sign = get_string_to_sign(amazon_timestamp, credential_scope, canoniocal_request)
+    print("String to Sign: " + string_to_sign)
     signature = hmac.new(signature_key, (string_to_sign).encode('utf-8'), hashlib.sha256).hexdigest()
+    print("Signature: " + signature)
 
     auth_header = get_authorization_header(credential_scope, signature, amazon_key_id)
+    print("Auth Header: " + auth_header)
 
     # Perform AWS API call
     headers = {

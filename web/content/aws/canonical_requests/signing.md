@@ -220,7 +220,7 @@ if (require.main === module) {
 ```py
 # can_req/py/signing.py
 
-import datetime, hashlib, hmac, sys
+import base64, datetime, hashlib, hmac, sys
 
 SIGNING_ALGORITHM = "AWS4-HMAC-SHA256"
 
@@ -251,14 +251,14 @@ def compute_sha256_hash(input: str) -> str:
     """
     m = hashlib.sha256()
     m.update(input.encode("utf-8"))
-    result =  m.hexdigest()
+    result = m.hexdigest()
     return result
 
 
 def get_string_to_sign(amzn_date_stamp: str, scope: str, can_req: str) -> str:
     """ Get string to sign from request parameters
     """
-    return "\n".join([SIGNING_ALGORITHM, amzn_date_stamp, scope, compute_sha256_hash(can_req)]).encode("utf-8")
+    return "\n".join([SIGNING_ALGORITHM, amzn_date_stamp, scope, compute_sha256_hash(can_req)])
 
 
 def get_aws4_signature_key(key: str, datestamp: str, region: str, service_name: str) -> bytes:
@@ -289,7 +289,7 @@ if __name__ == "__main__":
 
     # Generate and print signed string 
     signature_key = get_aws4_signature_key(amazon_secret_key, req_timestamp, region, service)
-    print ("Signing Key: " + str(signature_key))
+    print ("Signing Key: " + base64.b64encode(signature_key).decode())
     string_to_sign = get_string_to_sign(amazon_timestamp, credential_scope, user_input)
     print ("String to sign: " + str(string_to_sign))
     signature = hmac.new(signature_key, string_to_sign, hashlib.sha256).hexdigest()
@@ -314,8 +314,8 @@ import (
 const SIGNING_ALGORITHM = "AWS4-HMAC-SHA256"
 
 func getTimestamps() (string, string) {
-	now := time.Now()
-	return now.Format("20060102150405Z"), now.Format("20060102")
+	now := time.Now().UTC()
+	return now.Format("20060102T150405Z"), now.Format("20060102")
 }
 
 func getCredentialScope(request_timestamp string, region string, service string) string {
@@ -331,17 +331,17 @@ func sign(key string, message string) string {
 func signHex(key string, message string) string {
 	mac := hmac.New(sha256.New, []byte(key))
 	mac.Write([]byte(message))
-	return string(mac.Sum(nil))
+	return fmt.Sprintf("%x", string(mac.Sum(nil)))
 }
 
 func computeSHA256Hash(input string) string {
-	mac := hmac.New(sha256.New, nil)
-	mac.Write([]byte(input))
-	return string(mac.Sum(nil))
+	hash := sha256.New()
+	hash.Write([]byte(input))
+	return fmt.Sprintf("%x", string(hash.Sum(nil)))
 }
 
-func getStringToSign(key string, amazon_timestamp string, can_req string) string {
-	components := [...]string{key, amazon_timestamp, can_req}
+func getStringToSign(amazon_timestamp string, scope string, can_req string) string {
+	components := [...]string{SIGNING_ALGORITHM, amazon_timestamp, scope, computeSHA256Hash(can_req)}
 	return strings.Join(components[:], "\n")
 }
 
@@ -353,7 +353,7 @@ func getAWS4SignatureKey(secret_key string, request_timestamp string, region str
 	return ksigning
 }
 
-func main() {
+func runDemo() {
 	// Get user input from command args
 	amazon_secret_key := os.Args[1]
 	region := os.Args[2]
@@ -371,11 +371,11 @@ func main() {
 
 	// Generate and print signed string
 	signature_key := getAWS4SignatureKey(amazon_secret_key, request_timestamp, region, service)
-	fmt.Printf("Signature Key: %s\n", signature_key)
+	fmt.Printf("Signing Key: %x\n", signature_key)
 	string_to_sign := getStringToSign(amazon_timestamp, credential_scope, user_input)
-	fmt.Printf("String to sign: %s\n", string_to_sign)
+	fmt.Printf("String to sign: `%s`\n", string_to_sign)
 	signature := signHex(signature_key, string_to_sign)
-	print("Signature: " + signature)
+	fmt.Printf("Signature: " + signature)
 }
 
 ```

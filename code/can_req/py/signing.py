@@ -21,7 +21,6 @@ def get_credential_scope(req_timestamp: str, region: str, service: str) -> str:
 def sign(key: str, msg: str) -> bytes:
     """ Generate the HMAC-SHA256 hash of a target string using the provided secret key
     """
-    # dig = hmac.new(b'1234567890', msg=your_bytes_string, digestmod=hashlib.sha256).digest()
     return hmac.new(key , msg.encode('utf-8'), hashlib.sha256).digest()
 
 
@@ -30,14 +29,14 @@ def compute_sha256_hash(input: str) -> str:
     """
     m = hashlib.sha256()
     m.update(input.encode("utf-8"))
-    result =  m.hexdigest()
+    result = m.hexdigest()
     return result
 
 
 def get_string_to_sign(amzn_date_stamp: str, scope: str, can_req: str) -> str:
     """ Get string to sign from request parameters
     """
-    return "\n".join([SIGNING_ALGORITHM, amzn_date_stamp, scope, compute_sha256_hash(can_req)]).encode("utf-8")
+    return "\n".join([SIGNING_ALGORITHM, amzn_date_stamp, scope, compute_sha256_hash(can_req)])
 
 
 def get_aws4_signature_key(key: str, datestamp: str, region: str, service_name: str) -> bytes:
