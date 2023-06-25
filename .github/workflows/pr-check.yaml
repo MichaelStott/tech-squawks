@@ -71,11 +71,15 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: 14.x
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: '0.111.3'
       - name: Set up Homebrew
         id: set-up-homebrew
         uses: Homebrew/actions/setup-homebrew@master
-      - name: Install Hugo CLI
-        run: brew install hugo@0.111.3
+      # - name: Install Hugo CLI
+      #   run: brew install hugo@0.111.3
       - name: Render Static Website
         run: (cd web; hugo)
   pulumi-prod-preview:
@@ -88,6 +92,10 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: 14.x
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: '0.111.3'
       - name: Set up Homebrew
         id: set-up-homebrew
         uses: Homebrew/actions/setup-homebrew@master
@@ -95,8 +103,8 @@ jobs:
         run: npm i embedme
       - name: Embed code examples
         run: npx embedme  --source-root code  web/content/**/*.md --silent
-      - name: Install Hugo CLI
-        run: brew install hugo@0.111.3
+      # - name: Install Hugo CLI
+      #   run: brew install hugo@0.111.3
       - name: Render Static Website
         run: (cd web; hugo)
       - name: Configure AWS Credentials
