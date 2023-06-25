@@ -7,4 +7,4 @@ weight: 5
 
 # Canonical Requests
 
-This section covers manually generating and signing HTTP requests sent to AWS services. While it is ideal for developers to offload this process to the AWS SDKs, AWS CLI, or IaC tooling (i.e. Pulumi), such knowledge can be invaluable when troubleshooting errors and ground one's understanding of AWS services as a whole.
+This section covers manually generating and signing HTTP requests sent to AWS services. While it is ideal for developers to offload this process to the AWS SDKs, AWS CLI, or IaC tooling (i.e. Pulumi), such knowledge can be invaluable when troubleshooting errors and provide a grounded understanding of how AWS API requests are processed.

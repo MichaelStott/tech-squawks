@@ -11,7 +11,7 @@ AWS provides a CLI tool for facilitating the invocation of cloud APIs, leveragin
 The following instructions target *version 2* of the AWS CLI. For *version 1*, see these [instructions](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv1.html). Note that these versions are not backwards compatible.
 
 ### Instructions 
-S
+
 1. Download and install the CLI for the desired operating system:
 {{< tabs groupId="os" >}}
 {{% tab name="Windows" %}}

@@ -50,7 +50,6 @@ func main() {
 
 	requestParamters := `{"Name":"` + PARAMETER_NAME + `","WithDecryption":true}`
 	payloadHash := computeSHA256Hash(requestParamters)
-	fmt.Printf("Payload Hash: %x\n", payloadHash)
 
 	headers := getCanonicalHeaders(amazon_timestamp)
 	canonical_request := getCanonicalRequest(headers, payloadHash)
@@ -58,7 +57,6 @@ func main() {
 	signature_key := getAWS4SignatureKey(amazon_secret_key, request_timestamp, REGION, SERVICE)
 	fmt.Printf("Signing Key: %x\n", signature_key)
 	string_to_sign := getStringToSign(amazon_timestamp, scope, canonical_request)
-	fmt.Printf("String to sign: `%s`\n", string_to_sign)
 
 	// Sign and output user string
 	signature := signHex(signature_key, string_to_sign)

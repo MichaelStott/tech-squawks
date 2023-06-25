@@ -66,7 +66,7 @@ if (require.main === module) {
 
     // Prepare string value to sign from user input
     const stringToSign = getStringToSign(amzTimestamp, scope, userInput)
-    console.log("String to sign: `" + stringToSign + "`")
+    console.log("String to sign: " + JSON.stringify(stringToSign))
 
     // Sign and output user string
     const signature = signHex(key, stringToSign)

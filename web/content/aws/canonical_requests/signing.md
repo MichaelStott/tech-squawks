@@ -4,15 +4,15 @@ draft: false
 weight: 2
 ---
 
-All canonical requests include a hash value generated from the API parameters and account credentials. When AWS recieves an API request, it generates the same hash from the provided API parameters and compares it to the original request. If the request hash and the AWS-generated hash do not match, the request is denied. The process of generating this request hash is known as _signing_.[^1]
+All canonical requests include a hash value generated from the API parameters and account credentials. When AWS receives an API request, it generates the same hash from the provided API parameters and compares it to the original request to validate the identity of the caller. If the request hash and the AWS-generated hash do not match, the request is denied. The process of generating this request hash is known as _signing_.[^1]
 
 {{% notice info %}}
-There are two versions of AWS signing, version 4 and version 2, with version 2 actively being deprecated at the time of writing. As such, only version 4 is explored here.
+There are two versions of AWS signing, version 4 and version 2, with version 2 being deprecated at the time of writing. As such, only version 4 is explored here.
 {{% /notice %}}
 
 #### Version 4 Signing
 
- The version 4 signing process consists of the following steps and components[^2]:
+The version 4 signing process consists of the following steps and components[^2]:
 
 1. Creating the _credential scope_: This value restricts the request to the target service and region and is of the following format: `TIMESTAMP/REGION/SERVICE/SIGNING_VERSION` where the timestamp value is of form _YYYYMMDD_.
 
@@ -28,7 +28,7 @@ SHA256(CANONICAL_REQUEST_STRING)
 {{% /tab %}}
 {{< /tabs >}}
 
-3. Create the signature key: The _signature key_, used to sign the request string, is derived from the AWS secret key, Amazon-formatted request timestamp, region, and service. The folling pseudocode illustrates this process:
+3. Create the signature key: The _signature key_, used to sign the request string, is derived from the AWS secret key, Amazon-formatted request timestamp, region, and service. The following pseudocode illustrates this process:
 {{< tabs groupId="pseudo" >}}
 {{% tab name="pseudocode" %}}
 ```
@@ -55,6 +55,11 @@ Below provides a concrete example for generating a version 4 signature from an a
 
 {{< tabs groupId="code" >}}
 {{% tab name="Typescript" %}}
+**Execution**
+```
+ts-node signing.ts $AWS_SECRET_KEY us-west-1 ssm "Hello World!"
+```
+**Code**
 ```ts
 // can_req/ts/index.ts
 
@@ -136,6 +141,11 @@ if (require.main === module) {
 ```
 {{% /tab %}}
 {{% tab name="Javascript" %}}
+**Execution**
+```
+node signing.js $AWS_SECRET_KEY us-west-1 ssm "Hello World!"
+```
+**Code**
 ```js
 // can_req/js/index.js
 
@@ -217,10 +227,15 @@ if (require.main === module) {
 ```
 {{% /tab %}}
 {{% tab name="Python" %}}
+**Execution**
+```
+python3 signing.py $AWS_SECRET_KEY us-west-1 ssm "Hello World!"
+```
+**Code**
 ```py
 # can_req/py/signing.py
 
-import base64, datetime, hashlib, hmac, sys
+import base64, datetime, hashlib, hmac, json, sys
 
 SIGNING_ALGORITHM = "AWS4-HMAC-SHA256"
 
@@ -291,12 +306,17 @@ if __name__ == "__main__":
     signature_key = get_aws4_signature_key(amazon_secret_key, req_timestamp, region, service)
     print ("Signing Key: " + base64.b64encode(signature_key).decode())
     string_to_sign = get_string_to_sign(amazon_timestamp, credential_scope, user_input)
-    print ("String to sign: " + str(string_to_sign))
-    signature = hmac.new(signature_key, string_to_sign, hashlib.sha256).hexdigest()
-    print("Signature: " + signature)
+    print ("String to sign: " + json.dumps(string_to_sign))
+    signature = hmac.new(signature_key, string_to_sign.encode('utf-8'), hashlib.sha256).hexdigest()
+    print("Signed String: " + signature)
 ```
 {{% /tab %}}
 {{% tab name="Go" %}}
+**Execution**
+```
+go run signingDriver.go signing.go $AWS_SECRET_KEY us-west-1 ssm "Hello World!"
+```
+**Code**
 ```go
 // can_req\go\signing.go
 
@@ -305,6 +325,7 @@ package main
 import (
 	hmac "crypto/hmac"
 	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 	"os"
 	"strings"
@@ -373,15 +394,25 @@ func runDemo() {
 	signature_key := getAWS4SignatureKey(amazon_secret_key, request_timestamp, region, service)
 	fmt.Printf("Signing Key: %x\n", signature_key)
 	string_to_sign := getStringToSign(amazon_timestamp, credential_scope, user_input)
-	fmt.Printf("String to sign: `%s`\n", string_to_sign)
+	string_to_sign_formatted, _ := json.Marshal(string_to_sign)
+	fmt.Printf("String to sign: `%s`\n", string_to_sign_formatted)
 	signature := signHex(signature_key, string_to_sign)
-	fmt.Printf("Signature: " + signature)
+	fmt.Printf("Signed String: " + signature)
 }
 
 ```
 {{% /tab %}}
 {{< /tabs >}}
 
+**Output**
+```
+Amazon Timestamp: 20230625T174754Z
+Requset Timestamp: 20230625
+Credential Scope: 20230625/us-west-1/ssm/aws4_request
+Signing Key: 843b458b4664ec9c54e42274a490b2c7cb2802cc104dcba2ad2df8fe71c008ff
+String to sign: "AWS4-HMAC-SHA256\n20230625T174754Z\n20230625/us-west-1/ssm/aws4_request\n7f83b1657ff1fc53b92dc18148a1d65dfc2d4b1fa3d677284addd200126d9069"
+Signed String: cc1a8368f317707c89b33e8f627f722819ed4d28341fef7b56720103b5d3fe79
+```
 [^1]: https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html
 
 [^2]: https://docs.aws.amazon.com/general/latest/gr/sigv4_signing.html

@@ -4,11 +4,15 @@ draft: false
 weight: 3
 ---
 
-The following code snippets demonstrate sending canonical rqeuests to AWS. For interested readers, the AWS SDKs can provide
-further concrete examples that handle this in a more general fashion.
+The following code examples demonstrate how to generate and send canonical requests. For those interested, the AWS SDKs can provide further concrete examples for handling canonical requests in a more general and performant manner.
 
 {{< tabs groupId="code" >}}
 {{% tab name="Typescript" %}}
+**Execution**
+```
+ts-node request.ts $AWS_ACCESS_KEY_ID $AWS_SECRET_KEY
+```
+**Code**
 ```ts
 // can_req/ts/request.ts
 
@@ -55,18 +59,13 @@ if (require.main === module) {
 
     const requestParamters = `{"Name":"` + PARAMETER_NAME + `","WithDecryption":true}`
     const payloadHash = signing.computeSHA256SignatureHash(requestParamters)
-    console.log("Payload Hash: " + payloadHash)
-    const headers = getCanonicalHeaders(amzTimestamp)
 
+    const headers = getCanonicalHeaders(amzTimestamp)
     const canonicalRequest = getCanonicalRequest(headers, payloadHash)
 
     //  Get the AWS v4 signing key
     const key = signing.getAWS4SignatureKey(secretKey, reqTimestamp, REGION, SERVICE)
-    //console.log("Signing Key: " + key.toString('base64'))
-
-    // Prepare string value to sign from user input
     const stringToSign = signing.getStringToSign(amzTimestamp, scope, canonicalRequest)
-    console.log("String to sign: `" + stringToSign + "`")
 
     // Sign and output user string
     const signature = signing.signHex(key, Buffer.from(stringToSign))
@@ -103,6 +102,11 @@ if (require.main === module) {
 ```
 {{% /tab %}}
 {{% tab name="Javascript" %}}
+**Execution**
+```
+node request.js $AWS_ACCESS_KEY_ID $AWS_SECRET_KEY
+```
+**Code**
 ```js
 // can_req/js/request.js
 
@@ -159,7 +163,6 @@ if (require.main === module) {
 
     // Prepare string value to sign from user input
     const stringToSign = signing.getStringToSign(amzTimestamp, scope, canonicalRequest)
-    console.log("String to sign: `" + stringToSign + "`")
 
     // Sign and output user string
     const signature = signing.signHex(key, stringToSign)
@@ -198,6 +201,11 @@ if (require.main === module) {
 ```
 {{% /tab %}}
 {{% tab name="Python" %}}
+**Execution**
+```
+python3 request.py $AWS_ACCESS_KEY_ID $AWS_SECRET_KEY
+```
+**Code**
 ```py
 # can_req/py/request.py
 
@@ -249,7 +257,6 @@ if __name__ == "__main__":
           
     request_paramters = '{"Name":"' + PARAMETER_NAME + '","WithDecryption":true}'
     payload_hash = compute_sha256_hash(request_paramters)
-    print("Payload Hash: " + payload_hash)
 
     headers = get_canonical_headers(amazon_timestamp)
     canoniocal_request = get_canonical_requests(headers, str(payload_hash))
@@ -257,7 +264,6 @@ if __name__ == "__main__":
     signature_key = get_aws4_signature_key(amazon_secret_key, req_timestamp, REGION, SERVICE)
     print("Signing Key: " + base64.b64encode(signature_key).decode())
     string_to_sign = get_string_to_sign(amazon_timestamp, credential_scope, canoniocal_request)
-    print("String to Sign: " + string_to_sign)
     signature = hmac.new(signature_key, (string_to_sign).encode('utf-8'), hashlib.sha256).hexdigest()
     print("Signature: " + signature)
 
@@ -280,6 +286,11 @@ if __name__ == "__main__":
 ```
 {{% /tab %}}
 {{% tab name="Go" %}}
+**Execution**
+```
+go run request.go signing.go $AWS_ACCESS_KEY_ID $AWS_SECRET_KEY
+```
+**Code**
 ```go
 // can_req/go/request.go
 
@@ -335,7 +346,6 @@ func main() {
 
 	requestParamters := `{"Name":"` + PARAMETER_NAME + `","WithDecryption":true}`
 	payloadHash := computeSHA256Hash(requestParamters)
-	fmt.Printf("Payload Hash: %x\n", payloadHash)
 
 	headers := getCanonicalHeaders(amazon_timestamp)
 	canonical_request := getCanonicalRequest(headers, payloadHash)
@@ -343,7 +353,6 @@ func main() {
 	signature_key := getAWS4SignatureKey(amazon_secret_key, request_timestamp, REGION, SERVICE)
 	fmt.Printf("Signing Key: %x\n", signature_key)
 	string_to_sign := getStringToSign(amazon_timestamp, scope, canonical_request)
-	fmt.Printf("String to sign: `%s`\n", string_to_sign)
 
 	// Sign and output user string
 	signature := signHex(signature_key, string_to_sign)
@@ -383,3 +392,13 @@ func main() {
 ```
 {{% /tab %}}
 {{< /tabs >}}
+**Output**
+```
+Amazon Timestamp: 20230625T182331Z
+Req Timestamp: 20230625
+Credential Scope: 20230625/us-west-2/ssm/aws4_request
+Signature: 5a5ebdb8797f0568c19f2ea45d70bc77309ae11eff9a69990202871db3cdbcde
+Auth Header: AWS4-HMAC-SHA256 Credential=BKDZY123A2Z4DV37XABC/20230625/us-west-2/ssm/aws4_request, SignedHeaders=content-type;host;x-amz-date;x-amz-target, Signature=5a5ebdb8797f0568c19f2ea45d70bc77309ae11eff9a69990202871db3cdbcde
+
+{"__type":"ParameterNotFound"}
+```
