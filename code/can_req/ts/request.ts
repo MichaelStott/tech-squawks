@@ -29,7 +29,6 @@ if (require.main === module) {
     // Get user input
     const amazonKeyId = process.argv[2];
     const secretKey = process.argv[3];
-    //const endpoint = `https://${HOST}/`;
 
     // Get the required timestamp strings
     let [amzTimestamp, reqTimestamp] = signing.getTimestamps()
@@ -71,7 +70,6 @@ if (require.main === module) {
         'Content-Length': requestParamters.length
     }
 
-    //resp = requests.post(endpoint, headers=headers, data=request_paramters)
     var options = {
         hostname: HOST,
         path: "/",

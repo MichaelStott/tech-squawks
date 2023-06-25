@@ -43,7 +43,6 @@ if (require.main === module) {
     // Get user input
     const amazonKeyId = process.argv[2];
     const secretKey = process.argv[3];
-    //const endpoint = `https://${HOST}/`;
 
     // Get the required timestamp strings
     let [amzTimestamp, reqTimestamp] = signing.getTimestamps()
@@ -85,7 +84,6 @@ if (require.main === module) {
         'Content-Length': requestParamters.length
     }
 
-    //resp = requests.post(endpoint, headers=headers, data=request_paramters)
     var options = {
         hostname: HOST,
         path: "/",
@@ -139,27 +137,25 @@ if (require.main === module) {
     // Get user input
     const amazonKeyId = process.argv[2];
     const secretKey = process.argv[3];
-    //const endpoint = `https://${HOST}/`;
 
     // Get the required timestamp strings
     [amzTimestamp, reqTimestamp] = signing.getTimestamps()
     console.log("Amazon Timestamp: " + amzTimestamp)
-    console.log("Req Timestamp: " + reqTimestamp)
+    console.log("Request Timestamp: " + reqTimestamp)
 
-     // Get the scope of the request (the timestamp and the target service)
+    // Get the scope of the request (the timestamp and the target service)
     const scope = signing.getCredentialScope(reqTimestamp, REGION, SERVICE)
     console.log("Credential Scope: " + scope)
 
     const requestParamters = `{"Name":"` + PARAMETER_NAME + `","WithDecryption":true}`
     const payloadHash = signing.computeSHA256SignatureHash(requestParamters)
-    console.log("Payload Hash: " + payloadHash)
-    const headers = getCanonicalHeaders(amzTimestamp)
 
+    const headers = getCanonicalHeaders(amzTimestamp)
     const canonicalRequest = getCanonicalRequest(headers, payloadHash)
 
     //  Get the AWS v4 signing key
     const key = signing.getAWS4SignatureKey(secretKey, reqTimestamp, REGION, SERVICE)
-    console.log("Signing Key: " + key.toString('base64'))
+    console.log("Signing Key: " + key.toString('hex'))
 
     // Prepare string value to sign from user input
     const stringToSign = signing.getStringToSign(amzTimestamp, scope, canonicalRequest)
@@ -181,7 +177,6 @@ if (require.main === module) {
         'Content-Length': requestParamters.length
     }
 
-    //resp = requests.post(endpoint, headers=headers, data=request_paramters)
     var options = {
         hostname: HOST,
         path: "/",

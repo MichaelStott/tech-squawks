@@ -54,7 +54,7 @@ if (require.main === module) {
     // Get the required timestamp strings
     [amzTimestamp, reqTimestamp] = getTimestamps()
     console.log("Amazon Timestamp: " + amzTimestamp)
-    console.log("Req Timestamp: " + reqTimestamp)
+    console.log("Request Timestamp: " + reqTimestamp)
 
     // Get the scope of the request (the timestamp and the target service)
     const scope = getCredentialScope(reqTimestamp, region, service)
@@ -62,7 +62,7 @@ if (require.main === module) {
 
     //  Get the AWS v4 signing key
     const key = getAWS4SignatureKey(secretKey, reqTimestamp, region, service)
-    console.log("Signing Key: " + key)
+    console.log("Signing Key: " + key.toString('hex'))
 
     // Prepare string value to sign from user input
     const stringToSign = getStringToSign(amzTimestamp, scope, userInput)
