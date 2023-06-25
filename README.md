@@ -8,7 +8,7 @@ Cloud computing tutorials in programming languages such as Node (Typescript/Java
 
 ## About
 
-The aim of this [website](https://www.techsquawks.com/) is to present cloud-computing concepts using small, self-contained code examples. To achieve this, 
+The aim of this [website](https://www.techsquawks.com/) is to effectively demonstrate cloud-computing concepts using small, self-contained code examples. To achieve this, 
 cloud infrastructure and services are managed with Pulumi, which allows cloud resources to be defined using programming languages such as Typescript, Javascript, Python, and Go 
 
 Flashcards will be included at the end of each section (once content is finalized) to help reinforce key concepts.
