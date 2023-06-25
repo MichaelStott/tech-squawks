@@ -3,6 +3,7 @@ package main
 import (
 	hmac "crypto/hmac"
 	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 	"os"
 	"strings"
@@ -71,7 +72,8 @@ func runDemo() {
 	signature_key := getAWS4SignatureKey(amazon_secret_key, request_timestamp, region, service)
 	fmt.Printf("Signing Key: %x\n", signature_key)
 	string_to_sign := getStringToSign(amazon_timestamp, credential_scope, user_input)
-	fmt.Printf("String to sign: `%s`\n", string_to_sign)
+	string_to_sign_formatted, _ := json.Marshal(string_to_sign)
+	fmt.Printf("String to sign: `%s`\n", string_to_sign_formatted)
 	signature := signHex(signature_key, string_to_sign)
-	fmt.Printf("Signature: " + signature)
+	fmt.Printf("Signed String: " + signature)
 }

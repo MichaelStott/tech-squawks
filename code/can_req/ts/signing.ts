@@ -62,11 +62,11 @@ if (require.main === module) {
 
     //  Get the AWS v4 signing key
     const key = getAWS4SignatureKey(secretKey, reqTimestamp, region, service)
-    console.log("Signing Key: " + key)
+    console.log("Signing Key: " + key.toString('hex'))
 
     // Prepare string value to sign from user input
     const stringToSign = getStringToSign(amzTimestamp, scope, userInput)
-    console.log("String to sign: `" + stringToSign + "`")
+    console.log("String to sign: " + JSON.stringify(stringToSign))
 
     // Sign and output user string
     const signature = signHex(key, Buffer.from(stringToSign))

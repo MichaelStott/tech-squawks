@@ -4,7 +4,7 @@ draft: false
 weight: 3
 ---
 
-The following code snippets demonstrate sending canonical rqeuests to AWS. For interested readers, the AWS SDKs can provide
+The following code snippets demonstrate sending canonical requests to AWS. For interested readers, the AWS SDKs can provide
 further concrete examples that handle this in a more general fashion.
 
 {{< tabs groupId="code" >}}

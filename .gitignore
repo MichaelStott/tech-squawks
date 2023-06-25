@@ -2,6 +2,9 @@ bin/
 node_modules/
 web/public/
 
+# Ignore files produced by draw.io app
+diagrams/.$*
+
 # Ignore all packaged handler lambdas
 code/**/*.zip
 

@@ -1,4 +1,4 @@
-import base64, datetime, hashlib, hmac, sys
+import base64, datetime, hashlib, hmac, json, sys
 
 SIGNING_ALGORITHM = "AWS4-HMAC-SHA256"
 
@@ -69,6 +69,6 @@ if __name__ == "__main__":
     signature_key = get_aws4_signature_key(amazon_secret_key, req_timestamp, region, service)
     print ("Signing Key: " + base64.b64encode(signature_key).decode())
     string_to_sign = get_string_to_sign(amazon_timestamp, credential_scope, user_input)
-    print ("String to sign: " + str(string_to_sign))
-    signature = hmac.new(signature_key, string_to_sign, hashlib.sha256).hexdigest()
-    print("Signature: " + signature)
+    print ("String to sign: " + json.dumps(string_to_sign))
+    signature = hmac.new(signature_key, string_to_sign.encode('utf-8'), hashlib.sha256).hexdigest()
+    print("Signed String: " + signature)
