@@ -51,7 +51,6 @@ if (require.main === module) {
 
     // Prepare string value to sign from user input
     const stringToSign = signing.getStringToSign(amzTimestamp, scope, canonicalRequest)
-    console.log("String to sign: `" + stringToSign + "`")
 
     // Sign and output user string
     const signature = signing.signHex(key, stringToSign)

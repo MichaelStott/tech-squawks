@@ -46,7 +46,6 @@ if __name__ == "__main__":
           
     request_paramters = '{"Name":"' + PARAMETER_NAME + '","WithDecryption":true}'
     payload_hash = compute_sha256_hash(request_paramters)
-    print("Payload Hash: " + payload_hash)
 
     headers = get_canonical_headers(amazon_timestamp)
     canoniocal_request = get_canonical_requests(headers, str(payload_hash))
@@ -54,7 +53,6 @@ if __name__ == "__main__":
     signature_key = get_aws4_signature_key(amazon_secret_key, req_timestamp, REGION, SERVICE)
     print("Signing Key: " + base64.b64encode(signature_key).decode())
     string_to_sign = get_string_to_sign(amazon_timestamp, credential_scope, canoniocal_request)
-    print("String to Sign: " + string_to_sign)
     signature = hmac.new(signature_key, (string_to_sign).encode('utf-8'), hashlib.sha256).hexdigest()
     print("Signature: " + signature)
 

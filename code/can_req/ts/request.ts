@@ -41,18 +41,13 @@ if (require.main === module) {
 
     const requestParamters = `{"Name":"` + PARAMETER_NAME + `","WithDecryption":true}`
     const payloadHash = signing.computeSHA256SignatureHash(requestParamters)
-    console.log("Payload Hash: " + payloadHash)
-    const headers = getCanonicalHeaders(amzTimestamp)
 
+    const headers = getCanonicalHeaders(amzTimestamp)
     const canonicalRequest = getCanonicalRequest(headers, payloadHash)
 
     //  Get the AWS v4 signing key
     const key = signing.getAWS4SignatureKey(secretKey, reqTimestamp, REGION, SERVICE)
-    //console.log("Signing Key: " + key.toString('base64'))
-
-    // Prepare string value to sign from user input
     const stringToSign = signing.getStringToSign(amzTimestamp, scope, canonicalRequest)
-    console.log("String to sign: `" + stringToSign + "`")
 
     // Sign and output user string
     const signature = signing.signHex(key, Buffer.from(stringToSign))
