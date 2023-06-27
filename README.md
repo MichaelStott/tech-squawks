@@ -41,10 +41,3 @@ $ pulumi up
 
 The CI/CD pipeline should automatically detect new or modified projects and
 ensure that `pulumi preview` runs successfully.
-
-## Deployment
-
-```
-$ pulumi stack select dev
-$ pulumi up
-```
