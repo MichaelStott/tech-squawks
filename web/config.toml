@@ -6,6 +6,7 @@ theme = "hugo-theme-relearn"
 
 [params]
   alwaysopen = false
+  editUrl = 'https://github.com/MichaelStott/tech-squawks/tree/main/web/content/'
   showVisitedLinks = false
   collapsibleMenu = true
   disableBreadcrumb = false
