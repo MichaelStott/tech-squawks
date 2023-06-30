@@ -6,7 +6,7 @@ theme = "hugo-theme-relearn"
 
 [params]
   alwaysopen = false
-  showVisitedLinks = true
+  showVisitedLinks = false
   collapsibleMenu = true
   disableBreadcrumb = false
   disableInlineCopyToClipBoard = true
@@ -24,7 +24,7 @@ weight = 10
 [[menu.shortcuts]]
 name = "<i class='fas fa-fw fa-bug'></i> Report an Issue"
 identifier = "issues"
-url = "https://github.com/MichaelStott/tech-squawks/issues/new"
+url = "https://github.com/MichaelStott/tech-squawks/issues/new/choose"
 weight = 20
 
 [outputs]
