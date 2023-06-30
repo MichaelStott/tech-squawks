@@ -28,6 +28,6 @@ url = "https://github.com/MichaelStott/tech-squawks/issues/new"
 weight = 20
 
 [outputs]
-  home = ["HTML", "RSS", "PRINT", "SEARCH"]
+  home = ["HTML", "RSS", "PRINT", "SEARCH", "SEARCHPAGE"]
   section = ["HTML", "RSS", "PRINT"]
   page = ["HTML", "RSS", "PRINT"]
