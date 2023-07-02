@@ -55,6 +55,7 @@ Below provides a concrete example for generating a version 4 signature from an a
 
 {{< tabs groupId="code" >}}
 {{% tab name="Typescript" %}}
+
 **Execution**
 ```
 ts-node signing.ts $AWS_SECRET_KEY us-west-1 ssm "Hello World!"
@@ -139,6 +140,8 @@ if (require.main === module) {
 }
 
 ```
+{{% button href="https://github.com/MichaelStott/tech-squawks/tree/main/code/homepage/ts" icon="code" %}}Repository{{% /button %}}
+{{% button href="https://github.com/MichaelStott/tech-squawks/issues/new/choose" icon="bug" %}}Report Issue{{% /button %}}
 {{% /tab %}}
 {{% tab name="Javascript" %}}
 **Execution**

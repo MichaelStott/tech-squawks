@@ -1,9 +1,12 @@
 {
-    "name": "serverless-parrot-js",
-    "main": "index.js",
-    "dependencies": {
-        "@pulumi/pulumi": "^3.0.0",
-        "@pulumi/aws": "^4.0.0",
-        "@pulumi/awsx": "^0.30.0"
-    }
+  "name": "serverless-parrot-js",
+  "main": "index.js",
+  "dependencies": {
+    "@pulumi/aws": "^0.13.0",
+    "@pulumi/awsx": "^1.0.2",
+    "@pulumi/pulumi": "^3.74.0"
+  },
+  "devDependencies": {
+    "prettier": "2.8.8"
+  }
 }

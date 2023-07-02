@@ -1,11 +1,11 @@
 {
-    "name": "example",
-    "devDependencies": {
-        "@types/node": "^8.0.0"
-    },
-    "dependencies": {
-        "@pulumi/pulumi": "^1.0.0",
-        "@pulumi/aws": "^1.0.0",
-        "@pulumi/awsx": "^0.18.10"
-    }
+  "name": "example",
+  "devDependencies": {
+    "@types/node": "^20.3.3"
+  },
+  "dependencies": {
+    "@pulumi/pulumi": "^3.74.0",
+    "@pulumi/aws": "^5.41.0",
+    "@pulumi/awsx": "^1.0.2"
+  }
 }
