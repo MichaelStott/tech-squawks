@@ -1,24 +1,21 @@
 const signing = require(`./signing.js`);
 const https = require("https");
 
-const METHOD = "POST";
+const METHOD = "GET";
 const SIGNING_ALGORITHM = "AWS4-HMAC-SHA256";
-const AMAZON_TARGET = "AmazonSSM.GetParameter";
 const CONTENT_TYPE = "application/x-amz-json-1.1";
-const PARAMETER_NAME = "TechSquawkParam";
-const SERVICE = "ssm";
-const HOST = "ssm.us-west-2.amazonaws.com";
-const REGION = "us-west-2";
-const SIGNED_HEADERS = "content-type;host;x-amz-date;x-amz-target";
+const SERVICE = "iam";
+const HOST = "iam.amazonaws.com";
+const REGION = "us-east-1";
+const SIGNED_HEADERS = "content-type;host;x-amz-date";
 const CANONICAL_URI = "/";
-const CANONICAL_QUERY_STRING = "";
+const CANONICAL_QUERY_STRING = "Action=ListUsers&Version=2010-05-08";
 
 function getCanonicalHeaders(amzTimestamp) {
   return [
     "content-type:" + CONTENT_TYPE,
     "host:" + HOST,
-    "x-amz-date:" + amzTimestamp,
-    "x-amz-target:" + AMAZON_TARGET + "\n",
+    "x-amz-date:" + amzTimestamp + "\n",
   ].join("\n");
 }
 
@@ -51,8 +48,7 @@ if (require.main === module) {
   const scope = signing.getCredentialScope(reqTimestamp, REGION, SERVICE);
   console.log("Credential Scope: " + scope);
 
-  const requestParamters =
-    `{"Name":"` + PARAMETER_NAME + `","WithDecryption":true}`;
+  const requestParamters = ``;
   const payloadHash = signing.computeSHA256SignatureHash(requestParamters);
 
   const headers = getCanonicalHeaders(amzTimestamp);
@@ -85,16 +81,15 @@ if (require.main === module) {
     "Accept-Encoding": "identity",
     "Content-Type": CONTENT_TYPE,
     "X-Amz-Date": amzTimestamp,
-    "X-Amz-Target": AMAZON_TARGET,
     Authorization: authHeader,
     "Content-Length": requestParamters.length,
   };
 
   var options = {
     hostname: HOST,
-    path: "/",
+    path: "/?" + CANONICAL_QUERY_STRING,
     port: 443,
-    method: "POST",
+    method: METHOD,
     headers: canReqHeaders,
   };
   var req = https.request(options, function (res) {

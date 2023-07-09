@@ -60,7 +60,7 @@ if __name__ == "__main__":
     credential_scope = get_credential_scope(req_timestamp, REGION, SERVICE)
     print("Credential Scope: " + credential_scope)
 
-    # API  parameters should be listed here when applicable.
+    # API parameters should be listed here when applicable.
     request_paramters = ""
     payload_hash = compute_sha256_hash(request_paramters)
 
