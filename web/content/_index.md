@@ -20,7 +20,7 @@ For instance, the below example demonstrates developing and deploying a serverle
 ```ts
 // homepage/ts/index.ts
 
-mport * as aws from "@pulumi/aws";
+import * as aws from "@pulumi/aws";
 import * as awsx from "@pulumi/awsx";
 
 const payload =
@@ -64,7 +64,7 @@ export const url = api.url;
 ```js
 // homepage/js/index.js
 
-use strict";
+"use strict";
 const aws = require("@pulumi/aws");
 const awsx = require("@pulumi/awsx");
 

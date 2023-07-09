@@ -4,46 +4,70 @@ draft: true
 {{< tabs groupId="code" >}}
 {{< tab name="Typescript" >}}
 {{< tabs >}}
-{{% tab name="index.ts" %}}
+{{% tab name="Execution" %}}
+```
+ts-node signing.ts $AWS_SECRET_KEY us-west-1 ssm "Hello World!"
+```
+{{% /tab %}}
+{{< /tabs >}}
+{{< tabs >}}
+{{% tab name="signing.ts" %}}
 ```ts
 ```
 {{% /tab %}}
 {{< /tabs >}}
-{{% button href="https://app.pulumi.com/new?template=https://github.com/MichaelStott/tech-squawks/tree/main/code/homepage/ts" icon="rocket" %}}Deploy{{% /button %}}
-{{% button href="https://github.com/MichaelStott/tech-squawks/tree/main/code/homepage/ts" icon="code" %}}Repository{{% /button %}}
+{{% button href="https://github.com/MichaelStott/tech-squawks/tree/main/code/can_req/ts" icon="code" %}}Repository{{% /button %}}
 {{% button href="https://github.com/MichaelStott/tech-squawks/issues/new/choose" icon="bug" %}}Report Issue{{% /button %}}
 {{< /tab >}}
 {{< tab name="Javascript" >}}
 {{< tabs >}}
-{{% tab name="index.js" %}}
+{{% tab name="Execution" %}}
+```
+node signing.js $AWS_SECRET_KEY us-west-1 ssm "Hello World!"
+```
+{{% /tab %}}
+{{< /tabs >}}
+{{< tabs >}}
+{{% tab name="signing.js" %}}
 ```js
 ```
 {{% /tab %}}
 {{< /tabs >}}
-{{% button href="https://app.pulumi.com/new?template=https://github.com/MichaelStott/tech-squawks/tree/main/code/homepage/js" icon="rocket" %}}Deploy{{% /button %}}
-{{% button href="https://github.com/MichaelStott/tech-squawks/tree/main/code/homepage/js" icon="code" %}}Repository{{% /button %}}
+{{% button href="https://github.com/MichaelStott/tech-squawks/tree/main/code/can_req/js" icon="code" %}}Repository{{% /button %}}
 {{% button href="https://github.com/MichaelStott/tech-squawks/issues/new/choose" icon="bug" %}}Report Issue{{% /button %}}
 {{< /tab >}}
 {{< tab name="Python" >}}
 {{< tabs >}}
-{{% tab name="__main__.py" %}}
+{{% tab name="Execution" %}}
+```
+python3 signing.py $AWS_SECRET_KEY us-west-1 ssm "Hello World!"
+```
+{{% /tab %}}
+{{< /tabs >}}
+{{< tabs >}}
+{{% tab name="signing.py" %}}
 ```py
 ```
-{{% /tab }}
+{{% /tab %}}
 {{< /tabs >}}
-{{% button href="https://app.pulumi.com/new?template=https://github.com/MichaelStott/tech-squawks/tree/main/code/homepage/py" icon="rocket" %}}Deploy{{% /button %}}
-{{% button href="https://github.com/MichaelStott/tech-squawks/tree/main/code/homepage/py" icon="code" %}}Repository{{% /button %}}
+{{% button href="https://github.com/MichaelStott/tech-squawks/tree/main/code/can_req/py" icon="code" %}}Repository{{% /button %}}
 {{% button href="https://github.com/MichaelStott/tech-squawks/issues/new/choose" icon="bug" %}}Report Issue{{% /button %}}
 {{< /tab >}}
 {{< tab name="Go" >}}
 {{< tabs >}}
-{{% tab name="main.go" %}}
+{{% tab name="Execution" %}}
+```
+go run signingDriver.go signing.go $AWS_SECRET_KEY us-west-1 ssm "Hello World!"
+```
+{{% /tab %}}
+{{< /tabs >}}
+{{< tabs >}}
+{{% tab name="signing.go" %}}
 ```go
 ```
 {{% /tab %}}
 {{< /tabs >}}
-{{% button href="https://app.pulumi.com/new?template=https://github.com/MichaelStott/tech-squawks/tree/main/code/homepage/go" icon="rocket" %}}Deploy{{% /button %}}
-{{% button href="https://github.com/MichaelStott/tech-squawks/tree/main/code/homepage/go" icon="code" %}}Repository{{% /button %}}
+{{% button href="https://github.com/MichaelStott/tech-squawks/tree/main/code/can_req/go" icon="code" %}}Repository{{% /button %}}
 {{% button href="https://github.com/MichaelStott/tech-squawks/issues/new/choose" icon="bug" %}}Report Issue{{% /button %}}
 {{< /tab >}}
 {{< /tabs >}}

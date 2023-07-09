@@ -16,87 +16,113 @@ ts-node request.ts $AWS_ACCESS_KEY_ID $AWS_SECRET_KEY
 ```ts
 // can_req/ts/request.ts
 
-import * as signing from './signing';
-import * as https from 'https';
+mport * as signing from "./signing";
+import * as https from "https";
 
-const METHOD = "POST"
-const SIGNING_ALGORITHM = "AWS4-HMAC-SHA256"
-const AMAZON_TARGET = "AmazonSSM.GetParameter"
-const CONTENT_TYPE = "application/x-amz-json-1.1"
-const PARAMETER_NAME = "TechSquawkParam"
-const SERVICE = "ssm"
-const HOST = "ssm.us-west-2.amazonaws.com"
-const REGION = "us-west-2"
-const SIGNED_HEADERS = "content-type;host;x-amz-date;x-amz-target"
-const CANONICAL_URI = "/"
-const CANONICAL_QUERY_STRING = ""
+const METHOD = "POST";
+const SIGNING_ALGORITHM = "AWS4-HMAC-SHA256";
+const AMAZON_TARGET = "AmazonSSM.GetParameter";
+const CONTENT_TYPE = "application/x-amz-json-1.1";
+const PARAMETER_NAME = "TechSquawkParam";
+const SERVICE = "ssm";
+const HOST = "ssm.us-west-2.amazonaws.com";
+const REGION = "us-west-2";
+const SIGNED_HEADERS = "content-type;host;x-amz-date;x-amz-target";
+const CANONICAL_URI = "/";
+const CANONICAL_QUERY_STRING = "";
 
 function getCanonicalHeaders(amzTimestamp: string) {
-    return ["content-type:" +  CONTENT_TYPE, "host:" + HOST, "x-amz-date:" + amzTimestamp, "x-amz-target:" + AMAZON_TARGET + "\n"].join("\n")
+  return [
+    "content-type:" + CONTENT_TYPE,
+    "host:" + HOST,
+    "x-amz-date:" + amzTimestamp,
+    "x-amz-target:" + AMAZON_TARGET + "\n",
+  ].join("\n");
 }
 
 function getCanonicalRequest(canonicalHeaders: string, payloadHash: string) {
-    return [METHOD, CANONICAL_URI, CANONICAL_QUERY_STRING, canonicalHeaders, SIGNED_HEADERS, payloadHash].join("\n")
+  return [
+    METHOD,
+    CANONICAL_URI,
+    CANONICAL_QUERY_STRING,
+    canonicalHeaders,
+    SIGNED_HEADERS,
+    payloadHash,
+  ].join("\n");
 }
 
-function getAuthorizationHeader(scope:string , signature: string, amazonKeyId: string) {
-    return `${SIGNING_ALGORITHM} Credential=${amazonKeyId}/${scope}, SignedHeaders=${SIGNED_HEADERS}, Signature=${signature}`
+function getAuthorizationHeader(
+  scope: string,
+  signature: string,
+  amazonKeyId: string
+) {
+  return `${SIGNING_ALGORITHM} Credential=${amazonKeyId}/${scope}, SignedHeaders=${SIGNED_HEADERS}, Signature=${signature}`;
 }
 
 if (require.main === module) {
-    // Get user input
-    const amazonKeyId = process.argv[2];
-    const secretKey = process.argv[3];
+  // Get user input
+  const amazonKeyId = process.argv[2];
+  const secretKey = process.argv[3];
 
-    // Get the required timestamp strings
-    let [amzTimestamp, reqTimestamp] = signing.getTimestamps()
-    console.log("Amazon Timestamp: " + amzTimestamp)
-    console.log("Req Timestamp: " + reqTimestamp)
+  // Get the required timestamp strings
+  let [amzTimestamp, reqTimestamp] = signing.getTimestamps();
+  console.log("Amazon Timestamp: " + amzTimestamp);
+  console.log("Req Timestamp: " + reqTimestamp);
 
-     // Get the scope of the request (the timestamp and the target service)
-    const scope = signing.getCredentialScope(reqTimestamp, REGION, SERVICE)
-    console.log("Credential Scope: " + scope)
+  // Get the scope of the request (the timestamp and the target service)
+  const scope = signing.getCredentialScope(reqTimestamp, REGION, SERVICE);
+  console.log("Credential Scope: " + scope);
 
-    const requestParamters = `{"Name":"` + PARAMETER_NAME + `","WithDecryption":true}`
-    const payloadHash = signing.computeSHA256SignatureHash(requestParamters)
+  const requestParamters =
+    `{"Name":"` + PARAMETER_NAME + `","WithDecryption":true}`;
+  const payloadHash = signing.computeSHA256SignatureHash(requestParamters);
 
-    const headers = getCanonicalHeaders(amzTimestamp)
-    const canonicalRequest = getCanonicalRequest(headers, payloadHash)
+  const headers = getCanonicalHeaders(amzTimestamp);
+  const canonicalRequest = getCanonicalRequest(headers, payloadHash);
 
-    //  Get the AWS v4 signing key
-    const key = signing.getAWS4SignatureKey(secretKey, reqTimestamp, REGION, SERVICE)
-    const stringToSign = signing.getStringToSign(amzTimestamp, scope, canonicalRequest)
+  //  Get the AWS v4 signing key
+  const key = signing.getAWS4SignatureKey(
+    secretKey,
+    reqTimestamp,
+    REGION,
+    SERVICE
+  );
+  const stringToSign = signing.getStringToSign(
+    amzTimestamp,
+    scope,
+    canonicalRequest
+  );
 
-    // Sign and output user string
-    const signature = signing.signHex(key, Buffer.from(stringToSign))
-    console.log("Signature: " + signature)
+  // Sign and output user string
+  const signature = signing.signHex(key, Buffer.from(stringToSign));
+  console.log("Signature: " + signature);
 
-    const authHeader = getAuthorizationHeader(scope, signature, amazonKeyId)
-    console.log("Auth Header: " + authHeader)
+  const authHeader = getAuthorizationHeader(scope, signature, amazonKeyId);
+  console.log("Auth Header: " + authHeader);
 
-    const canReqHeaders = {
-        "Accept-Encoding": "identity",
-        "Content-Type": CONTENT_TYPE,
-        "X-Amz-Date": amzTimestamp,
-        "X-Amz-Target": AMAZON_TARGET,
-        "Authorization": authHeader,
-        'Content-Length': requestParamters.length
-    }
+  const canReqHeaders = {
+    "Accept-Encoding": "identity",
+    "Content-Type": CONTENT_TYPE,
+    "X-Amz-Date": amzTimestamp,
+    "X-Amz-Target": AMAZON_TARGET,
+    Authorization: authHeader,
+    "Content-Length": requestParamters.length,
+  };
 
-    var options = {
-        hostname: HOST,
-        path: "/",
-        port: 443,
-        method: 'POST',
-        headers: canReqHeaders
-    };
-    var req = https.request(options, function(res) { 
-        res.on('data', (d) => {
-            process.stdout.write(d)
-        })
-    })
-    req.write(requestParamters)
-    req.end()
+  var options = {
+    hostname: HOST,
+    path: "/",
+    port: 443,
+    method: "POST",
+    headers: canReqHeaders,
+  };
+  var req = https.request(options, function (res) {
+    res.on("data", (d) => {
+      process.stdout.write(d);
+    });
+  });
+  req.write(requestParamters);
+  req.end();
 }
 
 ```
@@ -110,92 +136,114 @@ node request.js $AWS_ACCESS_KEY_ID $AWS_SECRET_KEY
 ```js
 // can_req/js/request.js
 
-const signing = require(`./signing.js`);
-const https = require('https');
+onst signing = require(`./signing.js`);
+const https = require("https");
 
-const METHOD = "POST"
-const SIGNING_ALGORITHM = "AWS4-HMAC-SHA256"
-const AMAZON_TARGET = "AmazonSSM.GetParameter"
-const CONTENT_TYPE = "application/x-amz-json-1.1"
-const PARAMETER_NAME = "TechSquawkParam"
-const SERVICE = "ssm"
-const HOST = "ssm.us-west-2.amazonaws.com"
-const REGION = "us-west-2"
-const SIGNED_HEADERS = "content-type;host;x-amz-date;x-amz-target"
-const CANONICAL_URI = "/"
-const CANONICAL_QUERY_STRING = ""
+const METHOD = "POST";
+const SIGNING_ALGORITHM = "AWS4-HMAC-SHA256";
+const AMAZON_TARGET = "AmazonSSM.GetParameter";
+const CONTENT_TYPE = "application/x-amz-json-1.1";
+const PARAMETER_NAME = "TechSquawkParam";
+const SERVICE = "ssm";
+const HOST = "ssm.us-west-2.amazonaws.com";
+const REGION = "us-west-2";
+const SIGNED_HEADERS = "content-type;host;x-amz-date;x-amz-target";
+const CANONICAL_URI = "/";
+const CANONICAL_QUERY_STRING = "";
 
 function getCanonicalHeaders(amzTimestamp) {
-    return ["content-type:" +  CONTENT_TYPE, "host:" + HOST, "x-amz-date:" + amzTimestamp, "x-amz-target:" + AMAZON_TARGET + "\n"].join("\n")
+  return [
+    "content-type:" + CONTENT_TYPE,
+    "host:" + HOST,
+    "x-amz-date:" + amzTimestamp,
+    "x-amz-target:" + AMAZON_TARGET + "\n",
+  ].join("\n");
 }
 
 function getCanonicalRequest(canonicalHeaders, payloadHash) {
-    return [METHOD, CANONICAL_URI, CANONICAL_QUERY_STRING, canonicalHeaders, SIGNED_HEADERS, payloadHash].join("\n")
+  return [
+    METHOD,
+    CANONICAL_URI,
+    CANONICAL_QUERY_STRING,
+    canonicalHeaders,
+    SIGNED_HEADERS,
+    payloadHash,
+  ].join("\n");
 }
 
 function getAuthorizationHeader(scope, signature, amazonKeyId) {
-    return `${SIGNING_ALGORITHM} Credential=${amazonKeyId}/${scope}, SignedHeaders=${SIGNED_HEADERS}, Signature=${signature}`
+  return `${SIGNING_ALGORITHM} Credential=${amazonKeyId}/${scope}, SignedHeaders=${SIGNED_HEADERS}, Signature=${signature}`;
 }
 
 if (require.main === module) {
-    // Get user input
-    const amazonKeyId = process.argv[2];
-    const secretKey = process.argv[3];
+  // Get user input
+  const amazonKeyId = process.argv[2];
+  const secretKey = process.argv[3];
 
-    // Get the required timestamp strings
-    [amzTimestamp, reqTimestamp] = signing.getTimestamps()
-    console.log("Amazon Timestamp: " + amzTimestamp)
-    console.log("Request Timestamp: " + reqTimestamp)
+  // Get the required timestamp strings
+  [amzTimestamp, reqTimestamp] = signing.getTimestamps();
+  console.log("Amazon Timestamp: " + amzTimestamp);
+  console.log("Request Timestamp: " + reqTimestamp);
 
-    // Get the scope of the request (the timestamp and the target service)
-    const scope = signing.getCredentialScope(reqTimestamp, REGION, SERVICE)
-    console.log("Credential Scope: " + scope)
+  // Get the scope of the request (the timestamp and the target service)
+  const scope = signing.getCredentialScope(reqTimestamp, REGION, SERVICE);
+  console.log("Credential Scope: " + scope);
 
-    const requestParamters = `{"Name":"` + PARAMETER_NAME + `","WithDecryption":true}`
-    const payloadHash = signing.computeSHA256SignatureHash(requestParamters)
+  const requestParamters =
+    `{"Name":"` + PARAMETER_NAME + `","WithDecryption":true}`;
+  const payloadHash = signing.computeSHA256SignatureHash(requestParamters);
 
-    const headers = getCanonicalHeaders(amzTimestamp)
-    const canonicalRequest = getCanonicalRequest(headers, payloadHash)
+  const headers = getCanonicalHeaders(amzTimestamp);
+  const canonicalRequest = getCanonicalRequest(headers, payloadHash);
 
-    //  Get the AWS v4 signing key
-    const key = signing.getAWS4SignatureKey(secretKey, reqTimestamp, REGION, SERVICE)
-    console.log("Signing Key: " + key.toString('hex'))
+  //  Get the AWS v4 signing key
+  const key = signing.getAWS4SignatureKey(
+    secretKey,
+    reqTimestamp,
+    REGION,
+    SERVICE
+  );
+  console.log("Signing Key: " + key.toString("hex"));
 
-    // Prepare string value to sign from user input
-    const stringToSign = signing.getStringToSign(amzTimestamp, scope, canonicalRequest)
+  // Prepare string value to sign from user input
+  const stringToSign = signing.getStringToSign(
+    amzTimestamp,
+    scope,
+    canonicalRequest
+  );
 
-    // Sign and output user string
-    const signature = signing.signHex(key, stringToSign)
-    console.log("Signature: " + signature)
+  // Sign and output user string
+  const signature = signing.signHex(key, stringToSign);
+  console.log("Signature: " + signature);
 
-    const authHeader = getAuthorizationHeader(scope, signature, amazonKeyId)
-    console.log("Auth Header: " + authHeader)
+  const authHeader = getAuthorizationHeader(scope, signature, amazonKeyId);
+  console.log("Auth Header: " + authHeader);
 
-    const canReqHeaders = {
-        "Accept-Encoding": "identity",
-        "Content-Type": CONTENT_TYPE,
-        "X-Amz-Date": amzTimestamp,
-        "X-Amz-Target": AMAZON_TARGET,
-        "Authorization": authHeader,
-        'Content-Length': requestParamters.length
-    }
+  const canReqHeaders = {
+    "Accept-Encoding": "identity",
+    "Content-Type": CONTENT_TYPE,
+    "X-Amz-Date": amzTimestamp,
+    "X-Amz-Target": AMAZON_TARGET,
+    Authorization: authHeader,
+    "Content-Length": requestParamters.length,
+  };
 
-    var options = {
-        hostname: HOST,
-        path: "/",
-        port: 443,
-        method: 'POST',
-        headers: canReqHeaders
-    };
-    var req = https.request(options, function(res) { 
-        res.on('data', (d) => {
-            process.stdout.write(d)
-        })
-    })
-    req.write(requestParamters)
-    req.end(options.body || '').on("error", err => {
-        console.log("Error: " + err.message);
+  var options = {
+    hostname: HOST,
+    path: "/",
+    port: 443,
+    method: "POST",
+    headers: canReqHeaders,
+  };
+  var req = https.request(options, function (res) {
+    res.on("data", (d) => {
+      process.stdout.write(d);
     });
+  });
+  req.write(requestParamters);
+  req.end(options.body || "").on("error", (err) => {
+    console.log("Error: " + err.message);
+  });
 }
 
 ```
@@ -228,19 +276,37 @@ CANONICAL_QUERY_STRING = ""
 
 
 def get_canonical_headers(amzn_date: str) -> str:
-    """ Get canonical headers in proper format
-    """
-    return "\n".join(["content-type:{}".format(CONTENT_TYPE), "host:{}".format(HOST), "x-amz-date:{}".format(amzn_date), "x-amz-target:{}\n".format(AMAZON_TARGET)])
+    """Get canonical headers in proper format"""
+    return "\n".join(
+        [
+            "content-type:{}".format(CONTENT_TYPE),
+            "host:{}".format(HOST),
+            "x-amz-date:{}".format(amzn_date),
+            "x-amz-target:{}\n".format(AMAZON_TARGET),
+        ]
+    )
+
 
 def get_canonical_requests(canonical_headers: str, payload_hash: str) -> str:
-    """ Generate canonical request from the provided headers and payload hash
-    """
-    return "\n".join([METHOD, CANONICAL_URI, CANONICAL_QUERY_STRING, canonical_headers, SIGNED_HEADERS, payload_hash])
+    """Generate canonical request from the provided headers and payload hash"""
+    return "\n".join(
+        [
+            METHOD,
+            CANONICAL_URI,
+            CANONICAL_QUERY_STRING,
+            canonical_headers,
+            SIGNED_HEADERS,
+            payload_hash,
+        ]
+    )
+
 
 def get_authorization_header(scope: str, signature: str, amazon_key_id: str) -> str:
-    """ Get the authorization header used for verifying the authenticity of the request
-    """
-    return "{} Credential={}/{}, SignedHeaders={}, Signature={}".format(SIGNING_ALGORITHM, amazon_key_id, scope, SIGNED_HEADERS, signature)
+    """Get the authorization header used for verifying the authenticity of the request"""
+    return "{} Credential={}/{}, SignedHeaders={}, Signature={}".format(
+        SIGNING_ALGORITHM, amazon_key_id, scope, SIGNED_HEADERS, signature
+    )
+
 
 if __name__ == "__main__":
     # Get provided AWS access credentials
@@ -253,18 +319,24 @@ if __name__ == "__main__":
     print("Request Timestamp: " + req_timestamp)
 
     credential_scope = get_credential_scope(req_timestamp, REGION, SERVICE)
-    print('Credential Scope: ' + credential_scope)
-          
+    print("Credential Scope: " + credential_scope)
+
     request_paramters = '{"Name":"' + PARAMETER_NAME + '","WithDecryption":true}'
     payload_hash = compute_sha256_hash(request_paramters)
 
     headers = get_canonical_headers(amazon_timestamp)
     canoniocal_request = get_canonical_requests(headers, str(payload_hash))
 
-    signature_key = get_aws4_signature_key(amazon_secret_key, req_timestamp, REGION, SERVICE)
+    signature_key = get_aws4_signature_key(
+        amazon_secret_key, req_timestamp, REGION, SERVICE
+    )
     print("Signing Key: " + base64.b64encode(signature_key).decode())
-    string_to_sign = get_string_to_sign(amazon_timestamp, credential_scope, canoniocal_request)
-    signature = hmac.new(signature_key, (string_to_sign).encode('utf-8'), hashlib.sha256).hexdigest()
+    string_to_sign = get_string_to_sign(
+        amazon_timestamp, credential_scope, canoniocal_request
+    )
+    signature = hmac.new(
+        signature_key, (string_to_sign).encode("utf-8"), hashlib.sha256
+    ).hexdigest()
     print("Signature: " + signature)
 
     auth_header = get_authorization_header(credential_scope, signature, amazon_key_id)
@@ -276,7 +348,7 @@ if __name__ == "__main__":
         "Content-Type": CONTENT_TYPE,
         "X-Amz-Date": amazon_timestamp,
         "X-Amz-Target": AMAZON_TARGET,
-        "Authorization": auth_header
+        "Authorization": auth_header,
     }
 
     resp = requests.post(endpoint, headers=headers, data=request_paramters)
@@ -294,7 +366,7 @@ go run request.go signing.go $AWS_ACCESS_KEY_ID $AWS_SECRET_KEY
 ```go
 // can_req/go/request.go
 
-package main
+ackage main
 
 import (
 	"bytes"
@@ -400,5 +472,23 @@ Credential Scope: 20230625/us-west-2/ssm/aws4_request
 Signature: 5a5ebdb8797f0568c19f2ea45d70bc77309ae11eff9a69990202871db3cdbcde
 Auth Header: AWS4-HMAC-SHA256 Credential=BKDZY123A2Z4DV37XABC/20230625/us-west-2/ssm/aws4_request, SignedHeaders=content-type;host;x-amz-date;x-amz-target, Signature=5a5ebdb8797f0568c19f2ea45d70bc77309ae11eff9a69990202871db3cdbcde
 
-{"__type":"ParameterNotFound"}
+API Response:
+<?xml version="1.0" ?>
+<ListUsersResponse xmlns="https://iam.amazonaws.com/doc/2010-05-08/">
+  <ListUsersResult>
+    <IsTruncated>false</IsTruncated>
+    <Users>
+      <member>
+        <Path>/</Path>
+        <UserName>username</UserName>
+        <Arn>arn:aws:iam::563175520123456789104152:user/username</Arn>
+        <UserId>BIDAFHH7AT44NDI6LEIYP</UserId>
+        <CreateDate>2019-07-10T23:13:11Z</CreateDate>
+      </member>
+    </Users>
+  </ListUsersResult>
+  <ResponseMetadata>
+    <RequestId>482ac647-51b2-47cd-9aa2-2eafe6bb8c8b</RequestId>
+  </ResponseMetadata>
+</ListUsersResponse>
 ```
