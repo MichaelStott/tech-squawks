@@ -16,7 +16,7 @@ ts-node request.ts $AWS_ACCESS_KEY_ID $AWS_SECRET_KEY
 ```ts
 // can_req/ts/request.ts
 
-mport * as signing from "./signing";
+import * as signing from "./signing";
 import * as https from "https";
 
 const METHOD = "POST";
@@ -136,7 +136,7 @@ node request.js $AWS_ACCESS_KEY_ID $AWS_SECRET_KEY
 ```js
 // can_req/js/request.js
 
-onst signing = require(`./signing.js`);
+const signing = require(`./signing.js`);
 const https = require("https");
 
 const METHOD = "POST";
@@ -260,19 +260,20 @@ python3 request.py $AWS_ACCESS_KEY_ID $AWS_SECRET_KEY
 from signing import *
 
 import requests
+import xml.dom.minidom
 
 # Default API parameters provided here for convenience
-METHOD = "POST"
+METHOD = "GET"
 SIGNING_ALGORITHM = "AWS4-HMAC-SHA256"
-AMAZON_TARGET = "AmazonSSM.GetParameter"
+AMAZON_TARGET = "ListUsers"
 CONTENT_TYPE = "application/x-amz-json-1.1"
 PARAMETER_NAME = "TechSquawkParam"
-SERVICE = "ssm"
-HOST = "ssm.us-west-2.amazonaws.com"
-REGION = "us-west-2"
-SIGNED_HEADERS = "content-type;host;x-amz-date;x-amz-target"
+SERVICE = "iam"
+HOST = "iam.amazonaws.com"
+REGION = "us-east-1"
+SIGNED_HEADERS = "content-type;host;x-amz-date"
 CANONICAL_URI = "/"
-CANONICAL_QUERY_STRING = ""
+CANONICAL_QUERY_STRING = "Action=ListUsers&Version=2010-05-08"
 
 
 def get_canonical_headers(amzn_date: str) -> str:
@@ -281,8 +282,7 @@ def get_canonical_headers(amzn_date: str) -> str:
         [
             "content-type:{}".format(CONTENT_TYPE),
             "host:{}".format(HOST),
-            "x-amz-date:{}".format(amzn_date),
-            "x-amz-target:{}\n".format(AMAZON_TARGET),
+            "x-amz-date:{}\n".format(amzn_date),
         ]
     )
 
@@ -321,7 +321,7 @@ if __name__ == "__main__":
     credential_scope = get_credential_scope(req_timestamp, REGION, SERVICE)
     print("Credential Scope: " + credential_scope)
 
-    request_paramters = '{"Name":"' + PARAMETER_NAME + '","WithDecryption":true}'
+    request_paramters = ""
     payload_hash = compute_sha256_hash(request_paramters)
 
     headers = get_canonical_headers(amazon_timestamp)
@@ -347,13 +347,16 @@ if __name__ == "__main__":
         "Accept-Encoding": "identity",
         "Content-Type": CONTENT_TYPE,
         "X-Amz-Date": amazon_timestamp,
-        "X-Amz-Target": AMAZON_TARGET,
         "Authorization": auth_header,
     }
-
-    resp = requests.post(endpoint, headers=headers, data=request_paramters)
-
-    print(resp.content)
+    resp = requests.get(
+        "https://iam.amazonaws.com/?Action=ListUsers&Version=2010-05-08",
+        headers=headers,
+    )
+    print(
+        "\nAPI Response:\n"
+        + xml.dom.minidom.parseString(resp.content).toprettyxml(indent="", newl="")
+    )
 
 ```
 {{% /tab %}}
@@ -366,7 +369,7 @@ go run request.go signing.go $AWS_ACCESS_KEY_ID $AWS_SECRET_KEY
 ```go
 // can_req/go/request.go
 
-ackage main
+package main
 
 import (
 	"bytes"

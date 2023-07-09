@@ -6,9 +6,7 @@ import xml.dom.minidom
 # Default API parameters provided here for convenience
 METHOD = "GET"
 SIGNING_ALGORITHM = "AWS4-HMAC-SHA256"
-AMAZON_TARGET = "ListUsers"
 CONTENT_TYPE = "application/x-amz-json-1.1"
-PARAMETER_NAME = "TechSquawkParam"
 SERVICE = "iam"
 HOST = "iam.amazonaws.com"
 REGION = "us-east-1"
@@ -16,10 +14,6 @@ SIGNED_HEADERS = "content-type;host;x-amz-date"
 CANONICAL_URI = "/"
 CANONICAL_QUERY_STRING = "Action=ListUsers&Version=2010-05-08"
 
-def get_endpoint(service_name: str, region: str = "") -> str:
-    """Generate the endpoint"""
-    base = "amazonaws.com"
-    return [service_name, region, base].remove("").join(".")
 
 def get_canonical_headers(amzn_date: str) -> str:
     """Get canonical headers in proper format"""
@@ -66,7 +60,8 @@ if __name__ == "__main__":
     credential_scope = get_credential_scope(req_timestamp, REGION, SERVICE)
     print("Credential Scope: " + credential_scope)
 
-    request_paramters = ''
+    # API  parameters should be listed here when applicable.
+    request_paramters = ""
     payload_hash = compute_sha256_hash(request_paramters)
 
     headers = get_canonical_headers(amazon_timestamp)
@@ -94,5 +89,11 @@ if __name__ == "__main__":
         "X-Amz-Date": amazon_timestamp,
         "Authorization": auth_header,
     }
-    resp = requests.get("https://iam.amazonaws.com/?Action=ListUsers&Version=2010-05-08", headers=headers)
-    print("\nAPI Response:\n" + xml.dom.minidom.parseString(resp.content).toprettyxml(indent="",newl=""))
+    resp = requests.get(
+        "https://iam.amazonaws.com/?Action=ListUsers&Version=2010-05-08",
+        headers=headers,
+    )
+    print(
+        "\nAPI Response:\n"
+        + xml.dom.minidom.parseString(resp.content).toprettyxml(indent="", newl="")
+    )
