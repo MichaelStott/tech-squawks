@@ -35,7 +35,7 @@ An _availabiilty zone_ (commonly abreviated as _AZ_) is one or more discrete AWS
 
 ![Regions and Availability Zones](/images/aws/regions.png)
 
-AZ names are of the following format "_\<region-name\>\<letter[a-z]\>_". For example:.
+AZ names are of the following format `\<region-name\>\<letter[a-z]\>`. For example:.
 {{< tabs groupId="CLI" >}}
 {{% tab name="CLI" %}}
 **Command**
