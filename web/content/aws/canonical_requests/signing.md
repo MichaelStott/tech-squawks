@@ -18,7 +18,7 @@ The version 4 signing process consists of the following steps and components[^2]
 
 2. Generate the target string to sign: This consists of the signing algorithm used to produce the signature (AWS4-HMAC-SHA256), the Amzaon-formatted request timestamp (i.e. _YYYYMMDDHHMMSSZ_), the previously produced credential scope, and a hash of the canonical requests string, all separated by newline characters:
 {{< tabs groupId="pseudo" >}}
-{{% tab name="pseudocode" %}}
+{{% tab name="Pseudocode" %}}
 ```
 signatureString = SIGNING_ALGORITHM + "\n" +
 AMAZON_DATE_TIMESTAMP + "\n" + 
@@ -28,9 +28,9 @@ SHA256(CANONICAL_REQUEST_STRING)
 {{% /tab %}}
 {{< /tabs >}}
 
-3. Create the signature key: The _signature key_, used to sign the request string, is derived from the AWS secret key, Amazon-formatted request timestamp, region, and service. The following pseudocode illustrates this process:
+3. Create the signature key: The _signature key_, used to sign the request string, is derived from the AWS secret key, Amazon-formatted request timestamp, region, and service. The following Pseudocode illustrates this process:
 {{< tabs groupId="pseudo" >}}
-{{% tab name="pseudocode" %}}
+{{% tab name="Pseudocode" %}}
 ```
 kDate = hash("AWS4" + Key, Date)
 kRegion = hash(kDate, Region)
@@ -42,7 +42,7 @@ signatureKey = hash(kService, "aws4_request")
 
 4. Sign the previously generated signature string with the signature key and encode the hexadecimal representation.
 {{< tabs groupId="pseudo" >}}
-{{% tab name="pseudocode" %}}
+{{% tab name="Pseudocode" %}}
 ```
 signature = hexEncode(hash(signatureKey, signatureString))
 ```
@@ -54,187 +54,242 @@ signature = hexEncode(hash(signatureKey, signatureString))
 Below provides a concrete example for generating a version 4 signature from an arbitrary string:
 
 {{< tabs groupId="code" >}}
-{{% tab name="Typescript" %}}
-
-**Execution**
+{{< tab name="Typescript" >}}
+{{< tabs >}}
+{{% tab name="Execution" %}}
 ```
 ts-node signing.ts $AWS_SECRET_KEY us-west-1 ssm "Hello World!"
 ```
-**Code**
+{{% /tab %}}
+{{< /tabs >}}
+{{< tabs >}}
+{{% tab name="signing.ts" %}}
 ```ts
-// can_req/ts/index.ts
+// can_req/ts/signing.ts
 
-import * as crypto from "crypto"
+import * as crypto from "crypto";
 
-const SIGNING_ALGORITHM = "AWS4-HMAC-SHA256"
+const SIGNING_ALGORITHM = "AWS4-HMAC-SHA256";
 
-function getTimestamps(): [string, string] {
-    const now = new Date()
-    const year = now.getUTCFullYear()
-    const month = String(now.getUTCMonth()).padStart(2, '0')
-    const day = String(now.getUTCDate()).padStart(2, '0')
-    const hours = String(now.getUTCHours())
-    const minutes = String(now.getUTCMinutes())
-    const seconds = String(now.getUTCSeconds())
+export function getTimestamps(): [string, string] {
+  const now = new Date();
+  const year = now.getUTCFullYear();
+  const month = String(now.getUTCMonth() + 1).padStart(2, "0");
+  const day = String(now.getUTCDate()).padStart(2, "0");
+  const hours = String(now.getUTCHours()).padStart(2, "0");
+  const minutes = String(now.getUTCMinutes()).padStart(2, "0");
+  const seconds = String(now.getUTCSeconds()).padStart(2, "0");
 
-    const amzTimestamp = `${year}${month}${day}T${hours}${minutes}${seconds}Z`
-    const reqTimestamp = `${year}${month}${day}`
-    return [amzTimestamp, reqTimestamp]
+  const amzTimestamp = `${year}${month}${day}T${hours}${minutes}${seconds}Z`;
+  const reqTimestamp = `${year}${month}${day}`;
+  return [amzTimestamp, reqTimestamp];
 }
 
-function getCredentialScope(reqTimestamp: string, region: string, service: string): string {
-    return `${reqTimestamp}/${region}/${service}/aws4_request`
+export function getCredentialScope(
+  reqTimestamp: string,
+  region: string,
+  service: string
+): string {
+  return `${reqTimestamp}/${region}/${service}/aws4_request`;
 }
 
-function getStringToSign(amzTimestamp: string, scope: string, message: string): string {
-    return [SIGNING_ALGORITHM, amzTimestamp, scope, computeSHA256SignatureHash(message)].join("\n")
+export function getStringToSign(
+  amzTimestamp: string,
+  scope: string,
+  message: string
+): string {
+  return [
+    SIGNING_ALGORITHM,
+    amzTimestamp,
+    scope,
+    computeSHA256SignatureHash(message),
+  ].join("\n");
 }
 
-function sign(key: string, message: string): string {
-    return crypto.createHmac('SHA256', key).update(message).digest('base64')
+export function sign(key: Buffer, message: Buffer): Buffer {
+  return crypto.createHmac("SHA256", key).update(message).digest();
 }
 
-function signHex(key: string, message: string): string {
-    return crypto.createHmac('SHA256', key).update(message).digest('base64')
+export function signHex(key: Buffer, message: Buffer): string {
+  return crypto.createHmac("SHA256", key).update(message).digest("hex");
 }
 
-function computeSHA256SignatureHash(input: string): string {
-    return crypto.createHash("SHA256").update(input).digest("hex")
+export function computeSHA256SignatureHash(input: string): string {
+  return crypto.createHash("SHA256").update(input).digest("hex");
 }
 
-function getAWS4SignatureKey(key: string, reqTimestamp: string, region: string, service: string): string {
-    const kDate = sign("AWS4" + key, reqTimestamp)
-    const kRegion = sign(kDate, region)
-    const kService = sign(kRegion, service)
-    const kSigning = sign(kService, "aws4_request")
-    return kSigning
+export function getAWS4SignatureKey(
+  key: string,
+  reqTimestamp: string,
+  region: string,
+  service: string
+): Buffer {
+  const kDate = sign(Buffer.from("AWS4" + key), Buffer.from(reqTimestamp));
+  const kRegion = sign(kDate, Buffer.from(region));
+  const kService = sign(kRegion, Buffer.from(service));
+  const kSigning = sign(kService, Buffer.from("aws4_request"));
+  return kSigning;
 }
 
 if (require.main === module) {
-    // Get user input
-    const secretKey = process.argv[2];
-    const region = process.argv[3];
-    const service = process.argv[4];
-    const userInput = process.argv[5];
+  // Get user input
+  const secretKey = process.argv[2];
+  const region = process.argv[3];
+  const service = process.argv[4];
+  const userInput = process.argv[5];
 
-    // Get the required timestamp strings
-    let [amzTimestamp, reqTimestamp] = getTimestamps()
-    console.log("Amazon Timestamp: " + amzTimestamp)
-    console.log("Req Timestamp: " + reqTimestamp)
+  // Get the required timestamp strings
+  let [amzTimestamp, reqTimestamp] = getTimestamps();
+  console.log("Amazon Timestamp: " + amzTimestamp);
+  console.log("Requset Timestamp: " + reqTimestamp);
 
-    // Get the scope of the request (the timestamp and the target service)
-    const scope = getCredentialScope(reqTimestamp, region, service)
-    console.log("Credential Scope: " + scope)
+  // Get the scope of the request (the timestamp and the target service)
+  const scope = getCredentialScope(reqTimestamp, region, service);
+  console.log("Credential Scope: " + scope);
 
-    //  Get the AWS v4 signing key
-    const key = getAWS4SignatureKey(secretKey, reqTimestamp, region, service)
-    console.log("Signing Key: " + key)
+  //  Get the AWS v4 signing key
+  const key = getAWS4SignatureKey(secretKey, reqTimestamp, region, service);
+  console.log("Signing Key: " + key.toString("hex"));
 
-    // Prepare string value to sign from user input
-    const stringToSign = getStringToSign(amzTimestamp, scope, userInput)
-    console.log("String to sign: `" + stringToSign + "`")
+  // Prepare string value to sign from user input
+  const stringToSign = getStringToSign(amzTimestamp, scope, userInput);
+  console.log("String to sign: " + JSON.stringify(stringToSign));
 
-    // Sign and output user string
-    const signature = signHex(key, stringToSign)
-    console.log("Signed String: " + signature)
+  // Sign and output user string
+  const signature = signHex(key, Buffer.from(stringToSign));
+  console.log("Signed String: " + signature);
 }
 
 ```
-{{% button href="https://github.com/MichaelStott/tech-squawks/tree/main/code/homepage/ts" icon="code" %}}Repository{{% /button %}}
-{{% button href="https://github.com/MichaelStott/tech-squawks/issues/new/choose" icon="bug" %}}Report Issue{{% /button %}}
 {{% /tab %}}
-{{% tab name="Javascript" %}}
-**Execution**
+{{< /tabs >}}
+{{% button href="https://github.com/MichaelStott/tech-squawks/tree/main/code/can_req/ts" icon="code" %}}Repository{{% /button %}}
+{{% button href="https://github.com/MichaelStott/tech-squawks/issues/new/choose" icon="bug" %}}Report Issue{{% /button %}}
+{{< /tab >}}
+{{< tab name="Javascript" >}}
+{{< tabs >}}
+{{% tab name="Execution" %}}
 ```
 node signing.js $AWS_SECRET_KEY us-west-1 ssm "Hello World!"
 ```
-**Code**
+{{% /tab %}}
+{{< /tabs >}}
+{{< tabs >}}
+{{% tab name="signing.js" %}}
 ```js
-// can_req/js/index.js
+// can_req/js/signing.js
 
-var crypto = require('crypto');
+var crypto = require("crypto");
 
-const SIGNING_ALGORITHM = "AWS4-HMAC-SHA256"
+const SIGNING_ALGORITHM = "AWS4-HMAC-SHA256";
 
 function getTimestamps() {
-    const now = new Date()
-    const year = now.getUTCFullYear()
-    const month = String(now.getUTCMonth()).padStart(2, '0')
-    const day = String(now.getUTCDate()).padStart(2, '0')
-    const hours = String(now.getUTCHours())
-    const minutes = String(now.getUTCMinutes())
-    const seconds = String(now.getUTCSeconds())
+  const now = new Date();
+  const year = now.getUTCFullYear();
+  const month = String(now.getUTCMonth() + 1).padStart(2, "0");
+  const day = String(now.getUTCDate()).padStart(2, "0");
+  const hours = String(now.getUTCHours()).padStart(2, "0");
+  const minutes = String(now.getUTCMinutes()).padStart(2, "0");
+  const seconds = String(now.getUTCSeconds()).padStart(2, "0");
 
-    const amzTimestamp = `${year}${month}${day}T${hours}${minutes}${seconds}Z`
-    const reqTimestamp = `${year}${month}${day}`
-    return [amzTimestamp, reqTimestamp]
+  const amzTimestamp = `${year}${month}${day}T${hours}${minutes}${seconds}Z`;
+  const reqTimestamp = `${year}${month}${day}`;
+  return [amzTimestamp, reqTimestamp];
 }
 
 function getCredentialScope(reqTimestamp, region, service) {
-    return `${reqTimestamp}/${region}/${service}/aws4_request`
+  return `${reqTimestamp}/${region}/${service}/aws4_request`;
 }
 
 function getStringToSign(amzTimestamp, scope, message) {
-    return [SIGNING_ALGORITHM, amzTimestamp, scope, computeSHA256SignatureHash(message)].join("\n")
+  return [
+    SIGNING_ALGORITHM,
+    amzTimestamp,
+    scope,
+    computeSHA256SignatureHash(message),
+  ].join("\n");
 }
 
 function sign(key, msg) {
-    return crypto.createHmac('SHA256', key).update(msg).digest('base64')
+  return crypto
+    .createHmac("SHA256", key)
+    .update(Buffer.from(msg, "utf-8"))
+    .digest();
 }
 
 function signHex(key, msg) {
-    return crypto.createHmac('SHA256', key).update(msg).digest('hex')
+  return crypto.createHmac("SHA256", key).update(msg).digest("hex");
 }
 
 function computeSHA256SignatureHash(input) {
-    return crypto.createHash("SHA256").update(input).digest("base64")
+  return crypto
+    .createHash("SHA256")
+    .update(Buffer.from(input, "utf-8"))
+    .digest("hex");
 }
 
 function getAWS4SignatureKey(key, reqTimestamp, region, service) {
-    const kDate = sign("AWS4" + key, reqTimestamp)
-    const kRegion = sign(kDate, region)
-    const kService = sign(kRegion, service)
-    const kSigning = sign(kService, "aws4_request")
-    return kSigning
+  const kDate = sign(Buffer.from("AWS4" + key, "utf-8"), reqTimestamp);
+  const kRegion = sign(kDate, region);
+  const kService = sign(kRegion, service);
+  const kSigning = sign(kService, "aws4_request");
+  return kSigning;
 }
 
 if (require.main === module) {
-    // Get user input
-    const secretKey = process.argv[2];
-    const region = process.argv[3];
-    const service = process.argv[4];
-    const userInput = process.argv[5];
+  // Get user input
+  const secretKey = process.argv[2];
+  const region = process.argv[3];
+  const service = process.argv[4];
+  const userInput = process.argv[5];
 
-    // Get the required timestamp strings
-    [amzTimestamp, reqTimestamp] = getTimestamps()
-    console.log("Amazon Timestamp: " + amzTimestamp)
-    console.log("Req Timestamp: " + reqTimestamp)
+  // Get the required timestamp strings
+  [amzTimestamp, reqTimestamp] = getTimestamps();
+  console.log("Amazon Timestamp: " + amzTimestamp);
+  console.log("Request Timestamp: " + reqTimestamp);
 
-    // Get the scope of the request (the timestamp and the target service)
-    const scope = getCredentialScope(reqTimestamp, region, service)
-    console.log("Credential Scope: " + scope)
+  // Get the scope of the request (the timestamp and the target service)
+  const scope = getCredentialScope(reqTimestamp, region, service);
+  console.log("Credential Scope: " + scope);
 
-    //  Get the AWS v4 signing key
-    const key = getAWS4SignatureKey(secretKey, reqTimestamp, region, service)
-    console.log("Signing Key: " + key)
+  //  Get the AWS v4 signing key
+  const key = getAWS4SignatureKey(secretKey, reqTimestamp, region, service);
+  console.log("Signing Key: " + key.toString("hex"));
 
-    // Prepare string value to sign from user input
-    const stringToSign = getStringToSign(amzTimestamp, scope, userInput)
-    console.log("String to sign: `" + stringToSign + "`")
+  // Prepare string value to sign from user input
+  const stringToSign = getStringToSign(amzTimestamp, scope, userInput);
+  console.log("String to sign: " + JSON.stringify(stringToSign));
 
-    // Sign and output user string
-    const signature = signHex(key, stringToSign)
-    console.log("Signed String: " + signature)
+  // Sign and output user string
+  const signature = signHex(key, stringToSign);
+  console.log("Signed String: " + signature);
 }
+
+module.exports = {
+  getTimestamps,
+  getCredentialScope,
+  computeSHA256SignatureHash,
+  getAWS4SignatureKey,
+  getStringToSign,
+  signHex,
+};
 
 ```
 {{% /tab %}}
-{{% tab name="Python" %}}
-**Execution**
+{{< /tabs >}}
+{{% button href="https://github.com/MichaelStott/tech-squawks/tree/main/code/can_req/js" icon="code" %}}Repository{{% /button %}}
+{{% button href="https://github.com/MichaelStott/tech-squawks/issues/new/choose" icon="bug" %}}Report Issue{{% /button %}}
+{{< /tab >}}
+{{< tab name="Python" >}}
+{{< tabs >}}
+{{% tab name="Execution" %}}
 ```
 python3 signing.py $AWS_SECRET_KEY us-west-1 ssm "Hello World!"
 ```
-**Code**
+{{% /tab %}}
+{{< /tabs >}}
+{{< tabs >}}
+{{% tab name="signing.py" %}}
 ```py
 # can_req/py/signing.py
 
@@ -244,8 +299,7 @@ SIGNING_ALGORITHM = "AWS4-HMAC-SHA256"
 
 
 def get_timestamps() -> tuple[str, str]:
-    """ Get strings of required timestamps for canonical requests
-    """
+    """Get strings of required timestamps for canonical requests"""
     now = datetime.datetime.utcnow()
     amazon_timestamp = now.strftime("%Y%m%dT%H%M%SZ")
     req_timestamp = now.strftime("%Y%m%d")
@@ -253,20 +307,17 @@ def get_timestamps() -> tuple[str, str]:
 
 
 def get_credential_scope(req_timestamp: str, region: str, service: str) -> str:
-    """ Define the scope of the request, which includes the target region and service
-    """
+    """Define the scope of the request, which includes the target region and service"""
     return "{}/{}/{}/aws4_request".format(req_timestamp, region, service)
 
 
 def sign(key: str, msg: str) -> bytes:
-    """ Generate the HMAC-SHA256 hash of a target string using the provided secret key
-    """
-    return hmac.new(key , msg.encode('utf-8'), hashlib.sha256).digest()
+    """Generate the HMAC-SHA256 hash of a target string using the provided secret key"""
+    return hmac.new(key, msg.encode("utf-8"), hashlib.sha256).digest()
 
 
 def compute_sha256_hash(input: str) -> str:
-    """ Create SHA256 hash of a target string
-    """
+    """Create SHA256 hash of a target string"""
     m = hashlib.sha256()
     m.update(input.encode("utf-8"))
     result = m.hexdigest()
@@ -274,14 +325,16 @@ def compute_sha256_hash(input: str) -> str:
 
 
 def get_string_to_sign(amzn_date_stamp: str, scope: str, can_req: str) -> str:
-    """ Get string to sign from request parameters
-    """
-    return "\n".join([SIGNING_ALGORITHM, amzn_date_stamp, scope, compute_sha256_hash(can_req)])
+    """Get string to sign from request parameters"""
+    return "\n".join(
+        [SIGNING_ALGORITHM, amzn_date_stamp, scope, compute_sha256_hash(can_req)]
+    )
 
 
-def get_aws4_signature_key(key: str, datestamp: str, region: str, service_name: str) -> bytes:
-    """ Generature canonical requests signature
-    """
+def get_aws4_signature_key(
+    key: str, datestamp: str, region: str, service_name: str
+) -> bytes:
+    """Generature canonical requests signature"""
     kdate = sign(("AWS4" + key).encode("utf-8"), datestamp)
     kregion = sign(kdate, region)
     kservice = sign(kregion, service_name)
@@ -303,25 +356,38 @@ if __name__ == "__main__":
 
     # The scope/action permitted by the signed credentials
     credential_scope = get_credential_scope(req_timestamp, region, service)
-    print('Credential Scope: ' + credential_scope)
+    print("Credential Scope: " + credential_scope)
 
-    # Generate and print signed string 
-    signature_key = get_aws4_signature_key(amazon_secret_key, req_timestamp, region, service)
-    print ("Signing Key: " + base64.b64encode(signature_key).decode())
+    # Generate and print signed string
+    signature_key = get_aws4_signature_key(
+        amazon_secret_key, req_timestamp, region, service
+    )
+    print("Signing Key: " + base64.b64encode(signature_key).decode())
     string_to_sign = get_string_to_sign(amazon_timestamp, credential_scope, user_input)
-    print ("String to sign: " + json.dumps(string_to_sign))
-    signature = hmac.new(signature_key, string_to_sign.encode('utf-8'), hashlib.sha256).hexdigest()
+    print("String to sign: " + json.dumps(string_to_sign))
+    signature = hmac.new(
+        signature_key, string_to_sign.encode("utf-8"), hashlib.sha256
+    ).hexdigest()
     print("Signed String: " + signature)
+
 ```
 {{% /tab %}}
-{{% tab name="Go" %}}
-**Execution**
+{{< /tabs >}}
+{{% button href="https://github.com/MichaelStott/tech-squawks/tree/main/code/can_req/py" icon="code" %}}Repository{{% /button %}}
+{{% button href="https://github.com/MichaelStott/tech-squawks/issues/new/choose" icon="bug" %}}Report Issue{{% /button %}}
+{{< /tab >}}
+{{< tab name="Go" >}}
+{{< tabs >}}
+{{% tab name="Execution" %}}
 ```
-go run signingDriver.go signing.go $AWS_SECRET_KEY us-west-1 ssm "Hello World!"
+go run signing_driver.go signing.go $AWS_SECRET_KEY us-west-1 ssm "Hello World!"
 ```
-**Code**
+{{% /tab %}}
+{{< /tabs >}}
+{{< tabs >}}
+{{% tab name="signing.go" %}}
 ```go
-// can_req\go\signing.go
+// can_req/go/signing.go
 
 package main
 
@@ -405,6 +471,22 @@ func runDemo() {
 
 ```
 {{% /tab %}}
+{{% tab name="signing_driver.go" %}}
+```go
+// can_req/go/signing_driver.go
+
+package main
+
+func main() {
+	runDemo()
+}
+
+```
+{{% /tab %}}
+{{< /tabs >}}
+{{% button href="https://github.com/MichaelStott/tech-squawks/tree/main/code/can_req/go" icon="code" %}}Repository{{% /button %}}
+{{% button href="https://github.com/MichaelStott/tech-squawks/issues/new/choose" icon="bug" %}}Report Issue{{% /button %}}
+{{< /tab >}}
 {{< /tabs >}}
 
 **Output**

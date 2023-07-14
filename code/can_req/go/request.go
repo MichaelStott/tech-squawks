@@ -9,19 +9,17 @@ import (
 	"strings"
 )
 
-const METHOD = "POST"
-const AMAZON_TARGET = "AmazonSSM.GetParameter"
+const METHOD = "GET"
 const CONTENT_TYPE = "application/x-amz-json-1.1"
-const PARAMETER_NAME = "TechSquawkParam"
-const SERVICE = "ssm"
-const HOST = "ssm.us-west-2.amazonaws.com"
-const REGION = "us-west-2"
-const SIGNED_HEADERS = "content-type;host;x-amz-date;x-amz-target"
+const SERVICE = "iam"
+const HOST = "iam.amazonaws.com"
+const REGION = "us-east-1"
+const SIGNED_HEADERS = "content-type;host;x-amz-date"
 const CANONICAL_URI = "/"
-const CANONICAL_QUERY_STRING = ""
+const CANONICAL_QUERY_STRING = "Action=ListUsers&Version=2010-05-08"
 
 func getCanonicalHeaders(amazonDate string) string {
-	headers := [...]string{"content-type:" + CONTENT_TYPE, "host:" + HOST, "x-amz-date:" + amazonDate, "x-amz-target:" + AMAZON_TARGET + "\n"}
+	headers := [...]string{"content-type:" + CONTENT_TYPE, "host:" + HOST, "x-amz-date:" + amazonDate + "\n"}
 	return strings.Join(headers[:], "\n")
 }
 
@@ -48,7 +46,8 @@ func main() {
 	scope := getCredentialScope(request_timestamp, REGION, SERVICE)
 	fmt.Printf("Credential Scope: %s\n", scope)
 
-	requestParamters := `{"Name":"` + PARAMETER_NAME + `","WithDecryption":true}`
+	// API parameters should be listed here when applicable.
+	requestParamters := ``
 	payloadHash := computeSHA256Hash(requestParamters)
 
 	headers := getCanonicalHeaders(amazon_timestamp)
@@ -66,8 +65,8 @@ func main() {
 	fmt.Printf("Auth Header: %s\n", auth_header)
 
 	client := &http.Client{}
-	endpoint := fmt.Sprintf("https://%s/", HOST)
-	req, err := http.NewRequest("POST", endpoint, bytes.NewBuffer([]byte(requestParamters)))
+	endpoint := fmt.Sprintf("https://%s/?"+CANONICAL_QUERY_STRING, HOST)
+	req, err := http.NewRequest(METHOD, endpoint, bytes.NewBuffer([]byte(requestParamters)))
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -75,7 +74,6 @@ func main() {
 	req.Header.Add("Accept-Encoding", "identity")
 	req.Header.Add("Content-Type", CONTENT_TYPE)
 	req.Header.Add("X-Amz-Date", amazon_timestamp)
-	req.Header.Add("X-Amz-Target", AMAZON_TARGET)
 	req.Header.Add("Authorization", auth_header)
 	resp, err := client.Do(req)
 	if err != nil {
