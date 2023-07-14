@@ -69,7 +69,7 @@ http_request(endpoint=URI + QUERY_PARAMATERS, headers={header_1=value_1, header_
 
 #### Example
 
-The following are concrete code examples demonstrating how to generate and send canonical requests to list the AWS account users. For those interested, the AWS SDKs can provide further concrete examples for handling canonical requests in a more general manner.
+The following are concrete code examples demonstrating how to generate and send a canonical request to list the AWS account users. For those interested, the AWS SDKs can provide further concrete examples for handling canonical requests in a more general manner.
 
 {{< tabs groupId="code" >}}
 {{% tab name="Typescript" %}}
