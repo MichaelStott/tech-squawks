@@ -4,7 +4,72 @@ draft: false
 weight: 3
 ---
 
-The following code examples demonstrate how to generate and send canonical requests. For those interested, the AWS SDKs can provide further concrete examples for handling canonical requests in a more general and performant manner.
+The below steps provide a broad overview for how to successfully perform a canonical request to AWS services.
+
+#### Canonical Requests
+
+1. Procure AWS credentials, an access key ID and a secret key value, for generating the canonical request. The access key ID will indicate the identity of the caller and the secret value will be used to generate the request signature. 
+
+2. Creating the _credential scope_: This value restricts the request to the target service and region and is of the following format: `TIMESTAMP/REGION/SERVICE/SIGNING_VERSION` where the timestamp value is of form _YYYYMMDD_.
+
+3. Generate a SHA256 hash of the parameters included in the request body.
+{{< tabs groupId="pseudo" >}}
+{{% tab name="Pseudocode" %}}
+```
+payloadHash = SHA256(CANONICAL_REQUEST_STRING)
+```
+{{% /tab %}}
+{{< /tabs >}}
+
+4. Generate a string containing a list of request headers, with each key/value pair separated by newline characters. Ensure that the headers are listed alphabetically and that the resulting string is also newline terminated.
+{{< tabs groupId="pseudo" >}}
+{{% tab name="Pseudocode" %}}
+```
+canonicalHeadersString = ""
+headers.sort()
+for headerName, headerValue in headers:
+  canonicalHeadersString += headerName + ":" + headerValue + "\n"
+```
+{{% /tab %}}
+{{< /tabs >}}
+
+5. Generate a string containing all the canonical request information, including the HTTP method, request URI, query parameters, the previously generated header string, alphabetically listed headers used in signing process, and the previously generated request payload hash separated by newline characters. 
+{{< tabs groupId="pseudo" >}}
+{{% tab name="Pseudocode" %}}
+```
+canonicalRequest = httpMethod + "\n" +
+  requestUri + "\m" + 
+  queryString + "\n" + 
+  canonicalHeadersString + "\m"  + 
+  SIGNED_HEADERS + "\m" +
+  payloadHash
+```
+{{% /tab %}}
+{{< /tabs >}}
+
+6. Following the steps outline in the previous [section]({{< ref "signing.md" >}} "Request Signing Instructions"), generate the request signature.
+
+7. Generate the authorization header from the following components.
+{{< tabs groupId="pseudo" >}}
+{{% tab name="Pseudocode" %}}
+```
+authorizationHeader = `${SIGNING_ALGORITHM} Credential=${amazonKeyId}/${scope}, SignedHeaders=${SIGNED_HEADERS}, Signature=${signature}`;
+```
+{{% /tab %}}
+{{< /tabs >}}
+
+8. Perform an HTTP request with the canonical request parameters.
+{{< tabs groupId="pseudo" >}}
+{{% tab name="Pseudocode" %}}
+```
+http_request(endpoint=URI + QUERY_PARAMATERS, headers={header_1=value_1, header_2=value_2, ..., header_n=value_n, Authorization=authorizationHeader}, data=apiParameters, method=httpMethod)
+```
+{{% /tab %}}
+{{< /tabs >}}
+
+#### Example
+
+The following are concrete code examples demonstrating how to generate and send canonical requests to list the AWS account users. For those interested, the AWS SDKs can provide further concrete examples for handling canonical requests in a more general manner.
 
 {{< tabs groupId="code" >}}
 {{% tab name="Typescript" %}}
@@ -19,24 +84,21 @@ ts-node request.ts $AWS_ACCESS_KEY_ID $AWS_SECRET_KEY
 import * as signing from "./signing";
 import * as https from "https";
 
-const METHOD = "POST";
+const METHOD = "GET";
 const SIGNING_ALGORITHM = "AWS4-HMAC-SHA256";
-const AMAZON_TARGET = "AmazonSSM.GetParameter";
 const CONTENT_TYPE = "application/x-amz-json-1.1";
-const PARAMETER_NAME = "TechSquawkParam";
-const SERVICE = "ssm";
-const HOST = "ssm.us-west-2.amazonaws.com";
-const REGION = "us-west-2";
-const SIGNED_HEADERS = "content-type;host;x-amz-date;x-amz-target";
+const SERVICE = "iam";
+const HOST = "iam.amazonaws.com";
+const REGION = "us-east-1";
+const SIGNED_HEADERS = "content-type;host;x-amz-date";
 const CANONICAL_URI = "/";
-const CANONICAL_QUERY_STRING = "";
+const CANONICAL_QUERY_STRING = "Action=ListUsers&Version=2010-05-08";
 
 function getCanonicalHeaders(amzTimestamp: string) {
   return [
     "content-type:" + CONTENT_TYPE,
     "host:" + HOST,
-    "x-amz-date:" + amzTimestamp,
-    "x-amz-target:" + AMAZON_TARGET + "\n",
+    "x-amz-date:" + amzTimestamp + "\n",
   ].join("\n");
 }
 
@@ -72,9 +134,9 @@ if (require.main === module) {
   // Get the scope of the request (the timestamp and the target service)
   const scope = signing.getCredentialScope(reqTimestamp, REGION, SERVICE);
   console.log("Credential Scope: " + scope);
-
-  const requestParamters =
-    `{"Name":"` + PARAMETER_NAME + `","WithDecryption":true}`;
+  
+  // API  parameters should be listed here when applicable.
+  const requestParamters = ``;
   const payloadHash = signing.computeSHA256SignatureHash(requestParamters);
 
   const headers = getCanonicalHeaders(amzTimestamp);
@@ -104,16 +166,15 @@ if (require.main === module) {
     "Accept-Encoding": "identity",
     "Content-Type": CONTENT_TYPE,
     "X-Amz-Date": amzTimestamp,
-    "X-Amz-Target": AMAZON_TARGET,
     Authorization: authHeader,
     "Content-Length": requestParamters.length,
   };
 
   var options = {
     hostname: HOST,
-    path: "/",
+    path: "/?Action=ListUsers&Version=2010-05-08",
     port: 443,
-    method: "POST",
+    method: METHOD,
     headers: canReqHeaders,
   };
   var req = https.request(options, function (res) {
@@ -139,24 +200,21 @@ node request.js $AWS_ACCESS_KEY_ID $AWS_SECRET_KEY
 const signing = require(`./signing.js`);
 const https = require("https");
 
-const METHOD = "POST";
+const METHOD = "GET";
 const SIGNING_ALGORITHM = "AWS4-HMAC-SHA256";
-const AMAZON_TARGET = "AmazonSSM.GetParameter";
 const CONTENT_TYPE = "application/x-amz-json-1.1";
-const PARAMETER_NAME = "TechSquawkParam";
-const SERVICE = "ssm";
-const HOST = "ssm.us-west-2.amazonaws.com";
-const REGION = "us-west-2";
-const SIGNED_HEADERS = "content-type;host;x-amz-date;x-amz-target";
+const SERVICE = "iam";
+const HOST = "iam.amazonaws.com";
+const REGION = "us-east-1";
+const SIGNED_HEADERS = "content-type;host;x-amz-date";
 const CANONICAL_URI = "/";
-const CANONICAL_QUERY_STRING = "";
+const CANONICAL_QUERY_STRING = "Action=ListUsers&Version=2010-05-08";
 
 function getCanonicalHeaders(amzTimestamp) {
   return [
     "content-type:" + CONTENT_TYPE,
     "host:" + HOST,
-    "x-amz-date:" + amzTimestamp,
-    "x-amz-target:" + AMAZON_TARGET + "\n",
+    "x-amz-date:" + amzTimestamp + "\n",
   ].join("\n");
 }
 
@@ -189,8 +247,7 @@ if (require.main === module) {
   const scope = signing.getCredentialScope(reqTimestamp, REGION, SERVICE);
   console.log("Credential Scope: " + scope);
 
-  const requestParamters =
-    `{"Name":"` + PARAMETER_NAME + `","WithDecryption":true}`;
+  const requestParamters = ``;
   const payloadHash = signing.computeSHA256SignatureHash(requestParamters);
 
   const headers = getCanonicalHeaders(amzTimestamp);
@@ -223,16 +280,15 @@ if (require.main === module) {
     "Accept-Encoding": "identity",
     "Content-Type": CONTENT_TYPE,
     "X-Amz-Date": amzTimestamp,
-    "X-Amz-Target": AMAZON_TARGET,
     Authorization: authHeader,
     "Content-Length": requestParamters.length,
   };
 
   var options = {
     hostname: HOST,
-    path: "/",
+    path: "/?" + CANONICAL_QUERY_STRING,
     port: 443,
-    method: "POST",
+    method: METHOD,
     headers: canReqHeaders,
   };
   var req = https.request(options, function (res) {
@@ -265,9 +321,7 @@ import xml.dom.minidom
 # Default API parameters provided here for convenience
 METHOD = "GET"
 SIGNING_ALGORITHM = "AWS4-HMAC-SHA256"
-AMAZON_TARGET = "ListUsers"
 CONTENT_TYPE = "application/x-amz-json-1.1"
-PARAMETER_NAME = "TechSquawkParam"
 SERVICE = "iam"
 HOST = "iam.amazonaws.com"
 REGION = "us-east-1"
@@ -321,6 +375,7 @@ if __name__ == "__main__":
     credential_scope = get_credential_scope(req_timestamp, REGION, SERVICE)
     print("Credential Scope: " + credential_scope)
 
+    # API parameters should be listed here when applicable.
     request_paramters = ""
     payload_hash = compute_sha256_hash(request_paramters)
 
@@ -380,19 +435,17 @@ import (
 	"strings"
 )
 
-const METHOD = "POST"
-const AMAZON_TARGET = "AmazonSSM.GetParameter"
+const METHOD = "GET"
 const CONTENT_TYPE = "application/x-amz-json-1.1"
-const PARAMETER_NAME = "TechSquawkParam"
-const SERVICE = "ssm"
-const HOST = "ssm.us-west-2.amazonaws.com"
-const REGION = "us-west-2"
-const SIGNED_HEADERS = "content-type;host;x-amz-date;x-amz-target"
+const SERVICE = "iam"
+const HOST = "iam.amazonaws.com"
+const REGION = "us-east-1"
+const SIGNED_HEADERS = "content-type;host;x-amz-date"
 const CANONICAL_URI = "/"
-const CANONICAL_QUERY_STRING = ""
+const CANONICAL_QUERY_STRING = "Action=ListUsers&Version=2010-05-08"
 
 func getCanonicalHeaders(amazonDate string) string {
-	headers := [...]string{"content-type:" + CONTENT_TYPE, "host:" + HOST, "x-amz-date:" + amazonDate, "x-amz-target:" + AMAZON_TARGET + "\n"}
+	headers := [...]string{"content-type:" + CONTENT_TYPE, "host:" + HOST, "x-amz-date:" + amazonDate + "\n"}
 	return strings.Join(headers[:], "\n")
 }
 
@@ -419,7 +472,8 @@ func main() {
 	scope := getCredentialScope(request_timestamp, REGION, SERVICE)
 	fmt.Printf("Credential Scope: %s\n", scope)
 
-	requestParamters := `{"Name":"` + PARAMETER_NAME + `","WithDecryption":true}`
+	// API parameters should be listed here when applicable.
+	requestParamters := ``
 	payloadHash := computeSHA256Hash(requestParamters)
 
 	headers := getCanonicalHeaders(amazon_timestamp)
@@ -437,8 +491,8 @@ func main() {
 	fmt.Printf("Auth Header: %s\n", auth_header)
 
 	client := &http.Client{}
-	endpoint := fmt.Sprintf("https://%s/", HOST)
-	req, err := http.NewRequest("POST", endpoint, bytes.NewBuffer([]byte(requestParamters)))
+	endpoint := fmt.Sprintf("https://%s/?"+CANONICAL_QUERY_STRING, HOST)
+	req, err := http.NewRequest(METHOD, endpoint, bytes.NewBuffer([]byte(requestParamters)))
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -446,7 +500,6 @@ func main() {
 	req.Header.Add("Accept-Encoding", "identity")
 	req.Header.Add("Content-Type", CONTENT_TYPE)
 	req.Header.Add("X-Amz-Date", amazon_timestamp)
-	req.Header.Add("X-Amz-Target", AMAZON_TARGET)
 	req.Header.Add("Authorization", auth_header)
 	resp, err := client.Do(req)
 	if err != nil {
