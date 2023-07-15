@@ -1,4 +1,4 @@
-# Canoncial Requests Example (Python)
+# Canonical Requests Example (Python)
 
 ## Instructions
 
@@ -16,7 +16,7 @@ To run the signing portion of the demo, execute the following:
 $ python3 signing.py $AWS_SECRET_KEY us-west-1 ssm "Hello World!"
 ```
 
-For the canonical requests, run the following:
+For invoking canonical requests, run the following:
 ```
 $ python3 request.py $AWS_ACCESS_KEY_ID $AWS_SECRET_KEY 
 ```
