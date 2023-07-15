@@ -6,7 +6,7 @@ weight: 1
 
 AWS cloud services are available through public API endpoints. Whether invoked via the AWS CLI, SDKs, or Infrastructure as Code (IaC) tools, each approach ultimately results in sending HTTP requests to AWS service endpoints. These underlying HTTP requests are referred to as _canonical requests_.
 
-AWS canonical requests include a _signature_ generated with request parameters and user credentials, consisting of an _Access Key ID_, for determining the user, and _Secret Key_, for generating the signature hash. This signature enables AWS to validate the identity of the client, protect the API request data in transit, and mitigate potential relay attacks.
+AWS canonical requests include a _signature_ generated with request parameters and _AWS secret key_. This signature enables AWS to validate the identity of the client, protect the API request data in transit, and mitigate potential relay attacks.
 
 ![Cloud Computing Overview](/images/can_req/can_req2.png)
 

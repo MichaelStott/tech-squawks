@@ -1,7 +1,7 @@
 ---
 title: Review
-draft: true
+draft: false
 weight: 4
 ---
 
-{{< flashcards >}}
+{{< quizlet 814393493 >}}
