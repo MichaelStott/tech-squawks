@@ -8,7 +8,7 @@ IAM, which stands for Identity Access Management, is an AWS service used to mana
 
 ## Overview
 
-When a user or web service needs to access an AWS resource through the API, web console, or SDK, an HTTP request is sent to the endpoint for that AWS service. This request is then evaluated against all relevant IAM policies, which dictate the permissions for the caller. As long as there exists at least one permission granting access and no explicit deny effect in any policies or permission boundaries, then the request is granted. Otherwise, it is rejected.
+When a user or application needs to access an AWS resource through the API or web console, an HTTP request is sent to the endpoint for the target AWS service. After verifying the signature, the request is evaluated against all relevant IAM access policies, which dictate the allowed actions for the caller. As long as there exists at least one rule granting access and no explicit deny rule in any policies or permission boundaries, then the request is granted. Otherwise, it is rejected.
 
 ![IAM Access Flow](/images/iam/iam_flow.png)
 
@@ -20,11 +20,11 @@ IAM primarily handles all aspects of authentication and authorization when acces
 
 ### Authentication
 
-Authentication verifies the idenitty of the caller. To accomplish this, IAM provides user and group entities for managing user identity information. Users, which typically define human users, groups, which can manage permissions for a group of users, and roles, which can be assumed by a caller to perform a given set of actions.
+Authentication verifies the identity of the caller. To accomplish this, IAM provides user and group entities for managing user identity information. Users, which typically define human users, groups, which can manage permissions for a group of users, and roles, which can be assumed by a caller to perform a given set of actions.
 
 ### Authorization
 
-Once the identity of the caller has been verified, the next step is to determine whether they are authorized to perform the requested action. To accomplish this, IAM checks identitiy permissions against policies, which determine the allowed and restricted actions for a given user. Additionally, IAM also provides Attribute Access Control (ABAC), which allows or denies a given action based on the tags associated with a given caller.
+Once the identity of the caller has been verified, the next step is to determine whether they are authorized to perform the requested action. To accomplish this, IAM checks identity permissions against policies, which determine the allowed and restricted actions for a given user. Additionally, IAM also provides Attribute Access Control (ABAC), which allows or denies a given action based on the tags associated with a given caller.
 
 ## Non-Features
 
