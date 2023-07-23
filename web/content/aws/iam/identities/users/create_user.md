@@ -9,13 +9,26 @@ weight: 2
 {{< tabs >}}
 {{% tab name="Execution" %}}
 ```
-ts-node signing.ts $AWS_SECRET_KEY us-west-1 ssm "Hello World!"
+pulumi up -y
 ```
 {{% /tab %}}
 {{< /tabs >}}
 {{< tabs >}}
-{{% tab name="signing.ts" %}}
+{{% tab name="index.ts" %}}
 ```ts
+// iam/identities/users/create_user/ts/index.ts
+
+import * as aws from "@pulumi/aws";
+
+// Create IAM user with long-lived access credentials
+const user = new aws.iam.User("techsquawks-user", {
+    name: "techsquawks-user"
+});
+
+// Export user information
+export const userArn = user.arn;
+export const userName = user.name;
+
 ```
 {{% /tab %}}
 {{< /tabs >}}
@@ -26,13 +39,27 @@ ts-node signing.ts $AWS_SECRET_KEY us-west-1 ssm "Hello World!"
 {{< tabs >}}
 {{% tab name="Execution" %}}
 ```
-node signing.js $AWS_SECRET_KEY us-west-1 ssm "Hello World!"
+pulumi up -y
 ```
 {{% /tab %}}
 {{< /tabs >}}
 {{< tabs >}}
-{{% tab name="signing.js" %}}
+{{% tab name="index.js" %}}
 ```js
+// iam/identities/users/create_user/js/index.js
+
+"use strict";
+const aws = require("@pulumi/aws");
+
+// Create IAM user with long-lived access credentials
+const user = new aws.iam.User("techsquawks-user", {
+    name: "techsquawks-user"
+});
+
+// Export user information
+exports.userArn = user.arn;
+exports.userName = user.name;
+
 ```
 {{% /tab %}}
 {{< /tabs >}}
@@ -43,13 +70,25 @@ node signing.js $AWS_SECRET_KEY us-west-1 ssm "Hello World!"
 {{< tabs >}}
 {{% tab name="Execution" %}}
 ```
-python3 signing.py $AWS_SECRET_KEY us-west-1 ssm "Hello World!"
+pulumi up -y
 ```
 {{% /tab %}}
 {{< /tabs >}}
 {{< tabs >}}
-{{% tab name="signing.py" %}}
+{{% tab name="__main__.py" %}}
 ```py
+# iam/identities/users/create_user/py/__main__.py
+
+import pulumi
+from pulumi_aws import iam
+
+# Create IAM user with long-lived access credentials
+user = iam.User("techsquawks-user", name="techsquawks-user")
+
+# Export user information
+pulumi.export('userArn', user.arn)
+pulumi.export('userName', user.name)
+
 ```
 {{% /tab %}}
 {{< /tabs >}}
@@ -60,13 +99,39 @@ python3 signing.py $AWS_SECRET_KEY us-west-1 ssm "Hello World!"
 {{< tabs >}}
 {{% tab name="Execution" %}}
 ```
-go run signingDriver.go signing.go $AWS_SECRET_KEY us-west-1 ssm "Hello World!"
+pulumi up -y
 ```
 {{% /tab %}}
 {{< /tabs >}}
 {{< tabs >}}
-{{% tab name="signing.go" %}}
+{{% tab name="main.go" %}}
 ```go
+// iam/identities/users/create_user/go/main.go
+
+package main
+
+import (
+	"github.com/pulumi/pulumi-aws/sdk/v5/go/aws/iam"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+)
+
+func main() {
+	pulumi.Run(func(ctx *pulumi.Context) error {
+		// Create IAM user with long-lived access credentials
+		user, err := iam.NewUser(ctx, "techsquawks-user", &iam.UserArgs{
+			Name: pulumi.String("techsquawks-user"),
+		})
+		if err != nil {
+			return err
+		}
+
+		// Export user information
+		ctx.Export("userArn", user.Arn)
+		ctx.Export("userName", user.Name)
+		return nil
+	})
+}
+
 ```
 {{% /tab %}}
 {{< /tabs >}}

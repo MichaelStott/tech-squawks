@@ -389,7 +389,7 @@ go run signing_driver.go signing.go $AWS_SECRET_KEY us-west-1 ssm "Hello World!"
 ```go
 // can_req/go/signing.go
 
-package main
+ackage main
 
 import (
 	hmac "crypto/hmac"
