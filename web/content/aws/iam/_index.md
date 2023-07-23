@@ -7,4 +7,4 @@ weight: 5
 
 # IAM
 
-When managing AWS accounts and developing services that need access to cloud resources, it is necessary to provide a way to define levels of access to AWS APIs and resources within a given AWS account. AWS Identity and Access Management (IAM) service enables cloud administrators to manage access for given actors within an AWS account.
+When managing AWS accounts, it is necessary define levels of access to AWS APIs and resources for different users and entities. AWS Identity and Access Management (IAM) service enables cloud administrators to manage access for actors within an AWS account.

@@ -1,6 +1,6 @@
 ---
 title: Management
-draft: false
+draft: true
 weight: 4
 ---
 

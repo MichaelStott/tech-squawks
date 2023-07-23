@@ -1,0 +1,6 @@
+name: create_user_py
+description: Create an IAM user
+runtime:
+    name: python
+    options:
+        virtualenv: venv
