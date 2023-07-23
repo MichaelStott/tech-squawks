@@ -31,7 +31,7 @@ may differ between regions. Therefore, cloud engineers should verify that any re
 
 ### Availability Zones
 
-An _availabiilty zone_ (commonly abreviated as _AZ_) is one or more discrete AWS data centers that have redundant connectivity, networking, and power within a given AWS region. AZs are interconnected through low-latency networking and resource/data replciation.[^2]. It is considered best practice to deploy cloud applications across multiple AZs for increased fault tolerance, in the event that one or more AZs experience technical outages.[^2]
+An _availabiilty zone_ (commonly abreviated as _AZ_) is one or more discrete AWS data centers that have redundant connectivity, networking, and power within a given AWS region. AZs are interconnected through low-latency networking and data replication. It is considered best practice to deploy cloud applications across multiple AZs for increased fault tolerance, in the event that one or more AZs experience technical outages.[^2]
 
 ![Regions and Availability Zones](/images/aws/regions.png)
 

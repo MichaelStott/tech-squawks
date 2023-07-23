@@ -52,9 +52,9 @@ There are two possible login flows depending on the type of user attempting to s
 
 To sign in as a root user, simply navigate to the [sign-in page](https://signin.aws.amazon.com/console), select "Root User", and enter the root user credentials and optional MFA code.
 
-### IAM (non-root) User
+### IAM User
 
-To sign in to the AWS console as a non-root user, you can either use standard sign-in webpage and provide the target AWS account number or specify the account alias in the URL as such: https://account_alias_or_id.signin.aws.amazon.com/console/.
+To sign in to the AWS console as a non-root user, you can either use standard sign-in webpage and provide the target AWS account number or specify the account alias in the URL as such: https://<account_id_or_alias>.signin.aws.amazon.com/console/.
 
 ## Federated Access
 

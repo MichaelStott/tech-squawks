@@ -1,0 +1,6 @@
+name: access_credentials_js
+description: Create an IAM user
+runtime:
+    name: nodejs
+    options:
+        typescript: false
