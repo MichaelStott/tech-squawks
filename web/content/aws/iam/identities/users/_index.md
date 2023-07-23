@@ -8,10 +8,10 @@ weight: 1
 
 IAM _users_ represent a human user or programmatic workload and provides access to AWS resources or services. Users belong to a single parent account and consists of the following properties and credentials:
 
-- Username/Password: AWS web console credentials.
-- Email: Email of the user.
-- Access Keypair: Programatic long-lived credentials consisting of an access key ID and secret key.
-- MFA Device: MFA devices required for accessing AWS resources, whether through the web console or programatically.
+- Access Credentials: Programmatic long-lived credentials consisting of an access key ID and secret key.
+- Path: The IAM namespace which contains the user.
+- Login Profile: AWS web console credentials.
+- MFA Device: MFA devices required for accessing AWS resources, whether through the web console or programmatically.
 - SSL Certificates: May be used to authenticate with certain AWS services.
 - SSH Keys: SSH public keys to be used with AWS Codecommit, a git repository service, during application development.
 
@@ -56,13 +56,13 @@ To sign in as a root user, simply navigate to the [sign-in page](https://signin.
 
 To sign in to the AWS console as a non-root user, you can either use standard sign-in webpage and provide the target AWS account number or specify the account alias in the URL as such: https://<account_id_or_alias>.signin.aws.amazon.com/console/.
 
-## Federated Access
+<!-- ## Federated Access
 
 It is considered best practice for organizations to manage user information through some corporate root directory, such as an IDP, and integrate this directory with AWS IAM. This makes centrally managing authorized users easier and make certain tasks such as offboarding much easier.
 
 Some protocols that are supported:
 - SAML2
-- OIDC
+- OIDC -->
 
 <!-- ## Password Management
 

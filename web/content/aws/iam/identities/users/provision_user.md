@@ -1,15 +1,22 @@
 ---
-title: Create Users
+title: Provision Users
 draft: false
 weight: 2
 ---
 
+To provision an IAM user, the only required property is the username, which is unique within the AWS account.
+
 {{< tabs groupId="code" >}}
 {{< tab name="Typescript" >}}
 {{< tabs >}}
-{{% tab name="Execution" %}}
+{{% tab name="Provision" %}}
 ```
 pulumi up -y
+```
+{{% /tab %}}
+{{% tab name="Teardown" %}}
+```
+pulumi destroy -y
 ```
 {{% /tab %}}
 {{< /tabs >}}
@@ -32,14 +39,20 @@ export const userName = user.name;
 ```
 {{% /tab %}}
 {{< /tabs >}}
-{{% button href="https://github.com/MichaelStott/tech-squawks/tree/main/code/can_req/ts" icon="code" %}}Repository{{% /button %}}
+{{% button href="https://app.pulumi.com/new?template=https://github.com/MichaelStott/tech-squawks/tree/main/code/iam/identities/users/create_user/ts" icon="rocket" %}}Deploy{{% /button %}}
+{{% button href="https://github.com/MichaelStott/tech-squawks/tree/main/code/iam/identities/users/create_user/ts" icon="code" %}}Repository{{% /button %}}
 {{% button href="https://github.com/MichaelStott/tech-squawks/issues/new/choose" icon="bug" %}}Report Issue{{% /button %}}
 {{< /tab >}}
 {{< tab name="Javascript" >}}
 {{< tabs >}}
-{{% tab name="Execution" %}}
+{{% tab name="Provision" %}}
 ```
 pulumi up -y
+```
+{{% /tab %}}
+{{% tab name="Teardown" %}}
+```
+pulumi destroy -y
 ```
 {{% /tab %}}
 {{< /tabs >}}
@@ -63,14 +76,20 @@ exports.userName = user.name;
 ```
 {{% /tab %}}
 {{< /tabs >}}
-{{% button href="https://github.com/MichaelStott/tech-squawks/tree/main/code/can_req/js" icon="code" %}}Repository{{% /button %}}
+{{% button href="https://app.pulumi.com/new?template=https://github.com/MichaelStott/tech-squawks/tree/main/code/iam/identities/users/create_user/js" icon="rocket" %}}Deploy{{% /button %}}
+{{% button href="https://github.com/MichaelStott/tech-squawks/tree/main/code/iam/identities/users/create_user/js" icon="code" %}}Repository{{% /button %}}
 {{% button href="https://github.com/MichaelStott/tech-squawks/issues/new/choose" icon="bug" %}}Report Issue{{% /button %}}
 {{< /tab >}}
 {{< tab name="Python" >}}
 {{< tabs >}}
-{{% tab name="Execution" %}}
+{{% tab name="Provision" %}}
 ```
 pulumi up -y
+```
+{{% /tab %}}
+{{% tab name="Teardown" %}}
+```
+pulumi destroy -y
 ```
 {{% /tab %}}
 {{< /tabs >}}
@@ -92,14 +111,20 @@ pulumi.export('userName', user.name)
 ```
 {{% /tab %}}
 {{< /tabs >}}
-{{% button href="https://github.com/MichaelStott/tech-squawks/tree/main/code/can_req/py" icon="code" %}}Repository{{% /button %}}
+{{% button href="https://app.pulumi.com/new?template=https://github.com/MichaelStott/tech-squawks/tree/main/code/iam/identities/users/create_user/py" icon="rocket" %}}Deploy{{% /button %}}
+{{% button href="https://github.com/MichaelStott/tech-squawks/tree/main/code/iam/identities/users/create_user/py" icon="code" %}}Repository{{% /button %}}
 {{% button href="https://github.com/MichaelStott/tech-squawks/issues/new/choose" icon="bug" %}}Report Issue{{% /button %}}
 {{< /tab >}}
 {{< tab name="Go" >}}
 {{< tabs >}}
-{{% tab name="Execution" %}}
+{{% tab name="Provision" %}}
 ```
 pulumi up -y
+```
+{{% /tab %}}
+{{% tab name="Teardown" %}}
+```
+pulumi destroy -y
 ```
 {{% /tab %}}
 {{< /tabs >}}
@@ -135,7 +160,38 @@ func main() {
 ```
 {{% /tab %}}
 {{< /tabs >}}
-{{% button href="https://github.com/MichaelStott/tech-squawks/tree/main/code/can_req/go" icon="code" %}}Repository{{% /button %}}
+{{% button href="https://app.pulumi.com/new?template=https://github.com/MichaelStott/tech-squawks/tree/main/code/iam/identities/users/create_user/go" icon="rocket" %}}Deploy{{% /button %}}
+{{% button href="https://github.com/MichaelStott/tech-squawks/tree/main/code/iam/identities/users/create_user/go" icon="code" %}}Repository{{% /button %}}
 {{% button href="https://github.com/MichaelStott/tech-squawks/issues/new/choose" icon="bug" %}}Report Issue{{% /button %}}
 {{< /tab >}}
+{{< /tabs >}}
+
+**Stack Outputs**
+```
+Outputs:
+    userArn : "arn:aws:iam::012345678910:user/techsquawks-user"
+    userName: "techsquawks-user"
+```
+
+To further verify that the user was provisioned correctly, the identity can be fetched via the `get-user` IAM API call. 
+
+{{< tabs groupId="CLI" >}}
+{{% tab name="CLI" %}}
+**Command**
+```sh
+aws iam get-user --user-name techsquawks-user
+```
+**Output**
+```
+{
+    "User": {
+        "Path": "/",
+        "UserName": "techsquawks-user",
+        "UserId": "DBSAYFF32444NEI6MNIOP",
+        "Arn": "arn:aws:iam::012345678910:user/techsquawks-user",
+        "CreateDate": "2023-07-10T23:13:11+00:00",
+    }
+}
+```
+{{% /tab %}}
 {{< /tabs >}}
