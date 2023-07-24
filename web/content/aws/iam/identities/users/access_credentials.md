@@ -1,7 +1,7 @@
 ---
 title: Access Credentials
 draft: false
-weight: 3
+weight: 4
 ---
 
 To access cloud resources through the API, users may be associated with a set of long-lived access credential key pair, consisting of an access key ID and secret key for signing requests.
@@ -189,7 +189,7 @@ Outputs:
     userAccessKeyId: "BKINYAJ78Q44D3CT4NER"
     userArn :        "arn:aws:iam::012345678910:user/techsquawks-user"
     userName:        "techsquawks-user"
-    userSecretKey  : [secret]
+    userSecretKey:   [secret]
 ```
 
 {{% notice style="info" %}}
