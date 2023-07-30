@@ -56,6 +56,7 @@ jobs:
           WORKING_DIR: ${{ matrix.project }}
       - uses: pulumi/actions@v4
         with:
+          upsert: true
           command: preview
           stack-name: dev
           work-dir: ./${{ matrix.project }} 
