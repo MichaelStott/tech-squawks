@@ -1,0 +1,6 @@
+name: virtual_mfa_device_py
+description: Create an IAM user
+runtime:
+    name: python
+    options:
+        virtualenv: venv

@@ -1,4 +1,4 @@
-name: create_user_js
+name: users_path_js
 description: Create an IAM user
 runtime:
     name: nodejs

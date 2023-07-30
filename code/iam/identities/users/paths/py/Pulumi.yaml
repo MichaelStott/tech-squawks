@@ -1,4 +1,4 @@
-name: create_user_py
+name: users_path_py
 description: Create an IAM user
 runtime:
     name: python

@@ -1,0 +1,6 @@
+name: virtual_mfa_device_js
+description: Create an IAM user
+runtime:
+    name: nodejs
+    options:
+        typescript: false
