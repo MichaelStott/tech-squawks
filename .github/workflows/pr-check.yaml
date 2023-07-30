@@ -54,7 +54,7 @@ jobs:
         run: bash scripts/install_dep.sh
         env:
           WORKING_DIR: ${{ matrix.project }}
-      - uses: pulumi/actions@v3
+      - uses: pulumi/actions@v4
         with:
           command: preview
           stack-name: dev
@@ -111,7 +111,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       - name: Install Project Dependencies
         run: npm i
-      - uses: pulumi/actions@v3
+      - uses: pulumi/actions@v4
         with:
           command: preview
           diff: true
