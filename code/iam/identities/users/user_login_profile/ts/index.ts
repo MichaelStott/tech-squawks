@@ -1,8 +1,8 @@
 import * as aws from "@pulumi/aws";
 
-// Create IAM user with long-lived access credentials
-const user = new aws.iam.User("techsquawks-userz", {
-    name: "techsquawks-userz",
+// Create IAM user with password/console credentials
+const user = new aws.iam.User("techsquawks-user", {
+    name: "techsquawks-user",
     forceDestroy: true
 });
 const loginProfile = new aws.iam.UserLoginProfile("techsquawks-user-login-profile", {

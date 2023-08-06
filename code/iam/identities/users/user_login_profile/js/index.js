@@ -1,16 +1,14 @@
 "use strict";
 const aws = require("@pulumi/aws");
 
-// Create IAM user with long-lived access credentials
-const user1 = new aws.iam.User("techsquawks-user-1", {
-    name: "techsquawks-user1",
-    path: "/example/path/1/"
+// Create IAM user with password/console credentials
+const user = new aws.iam.User("techsquawks-user", {
+    name: "techsquawks-user",
+    forceDestroy: true
 });
-const user2 = new aws.iam.User("techsquawks-user-2", {
-    name: "techsquawks-user-2",
-    path: "/example/path/2/"
+const loginProfile = new aws.iam.UserLoginProfile("techsquawks-user-login-profile", {
+    user: user.name,
+    passwordLength: 15,
+    passwordResetRequired: true
 });
-const user2a = new aws.iam.User("techsquawks-user-2a", {
-    name: "techsquawks-user-2a",
-    path: "/example/path/2/"
-});
+export const password = loginProfile.password;

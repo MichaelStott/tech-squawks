@@ -1,7 +1,7 @@
 ---
 title: SSH Keys
 draft: false
-weight: 7
+weight: 6
 ---
 
 - Command for creating SSH key

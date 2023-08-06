@@ -1,7 +1,7 @@
 ---
-title: Signing Certificates
+title: Certificates
 draft: false
-weight: 8
+weight: 7
 ---
 
 ### Signing Certificates
