@@ -15,9 +15,9 @@ func main() {
 			return err
 		}
 		loginProfile, err := iam.NewUserLoginProfile(ctx, "loginProfile", &iam.UserLoginProfileArgs{
-			User:           user.Name,
-			PasswordLength: 15,
-			PasswordReset:  true,
+			User:                  user.Name,
+			PasswordLength:        pulumi.Int(15),
+			PasswordResetRequired: pulumi.Bool(true),
 		})
 		if err != nil {
 			return err
