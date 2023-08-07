@@ -1,0 +1,6 @@
+name: user_login_profile_js
+description: Create an IAM user
+runtime:
+    name: nodejs
+    options:
+        typescript: false

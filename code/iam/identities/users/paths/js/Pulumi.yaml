@@ -1,0 +1,6 @@
+name: users_path_js
+description: Create an IAM user
+runtime:
+    name: nodejs
+    options:
+        typescript: false

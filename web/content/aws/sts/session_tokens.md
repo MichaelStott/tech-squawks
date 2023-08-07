@@ -1,30 +1,35 @@
 ---
-title: Overview
-draft: true
+title: Session Tokens
+draft: false
 weight: 1
 ---
 
-AWS enables customers to provision cloud infrastructure via its public-facing REST API endpoints. To access these APIs however, developers must first procure valid credentials. _Secure Token Service_, abbreviated _STS_, can be used to fetch short-lived AWS tokens for this purpose. Such credentials consist of the following properties:
+While IAM users may use their access credentials to programaticlly access AWS services and resources, it can be desirable to leverage short-term credentials in cases where users may want to provide temporary access or perform a priviliged action in a limited timeframe. _Secure Token Service_, abbreviated _STS_, can be used both for obtaining short-lived AWS tokens and obtaining client information. Such credentials consist of the following properties:[^1]
 
 - Access Key ID: Unique identifier for provided credentials
 - Secret Access Key: Used for signing API requests
 - Session Token: Used to authenticate the API request
 - Expiration Time: Date when credentials are no longer valid
 
+{{< tabs groupId="CLI" >}}
+{{% tab name="CLI" %}}
+**Command**
 ```sh
-$ aws sts get-session-token
-
+aws sts get-session-token
+```
+**Output**
+```
 {
     "Credentials": {
-        "AccessKeyId": "ASIAYGH7AT44NA7VMLAO",
-        "SecretAccessKey": "0zaJykOHUUQV2lalUAgoXcNoXZ2OKfxau//tAck+",
-        "SessionToken": "SESSION_TOKEN_VALUE",
-        "Expiration": "2022-09-19T08:42:24+00:00"
+        "AccessKeyId": "ASIAYBJ8AT44NA7VMLB1",
+        "SecretAccessKey": "0aZJykOJAUQV3lalUAgoXcNoXZ2OKfxau//tAck+",
+        "SessionToken": "IQoJb3JpZ2lu ... paRFtuA5mBac=",
+        "Expiration": "2023-09-19T08:42:24+00:00"
     }
 }
 ```
-
-[//]: # (This should be moved to the AWS account overview)
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Global and Regional Endpoints
 
@@ -71,3 +76,5 @@ $ export AWS_ACCESS_KEY_ID=”STS_PROVIDED_ACCESS_KEY_ID”
 $ export AWS_SECRET_ACCESS_KEY=”STS_PROVIDED_SECRET_ACCESS_KEY”
 $ aws sts get-caller-identity
 ```
+
+[^1]: https://docs.aws.amazon.com/STS/latest/APIReference/welcome.html

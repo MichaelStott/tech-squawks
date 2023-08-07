@@ -2,7 +2,7 @@
 title: Canonical Requests
 draft: false
 chapter: true
-weight: 5
+weight: 4
 ---
 
 # Canonical Requests
