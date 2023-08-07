@@ -5,8 +5,8 @@ from pulumi_aws import iam
 user = iam.User("techsquawks-user", name="techsquawks-user")
 login_profile = iam.UserLoginProfile("techsquawks-user-login-profile",
     user=user.name,
-    passwordLength=15,
-    passwordResetRequired=True
+    password_length=15,
+    password_reset_required=True
 );
 
 pulumi.export('password', login_profile.password)

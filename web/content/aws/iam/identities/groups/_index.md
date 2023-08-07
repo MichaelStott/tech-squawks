@@ -12,7 +12,7 @@ There is no default group for newly created users. Therefore, any groups must be
 
 {{< figure src="/images/iam/groups.png" caption="_Figure 1: Permissions may be assigned to groups which are automatically applied to assigned users._">}}
 
-Groups are represented rather simply, with the main component required being the group name.
+Groups are rather simply entities, with the main component required being the group name. Similar to users, groups also may have a path specified which can be used to further distinguish groups while querying.
 
 {{< tabs groupId="CLI" >}}
 {{% tab name="CLI" %}}
