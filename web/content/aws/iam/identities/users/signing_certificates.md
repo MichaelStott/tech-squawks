@@ -1,6 +1,6 @@
 ---
 title: Certificates
-draft: false
+draft: true
 weight: 7
 ---
 
