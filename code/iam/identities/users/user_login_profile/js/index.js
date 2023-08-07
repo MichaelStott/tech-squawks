@@ -11,4 +11,4 @@ const loginProfile = new aws.iam.UserLoginProfile("techsquawks-user-login-profil
     passwordLength: 15,
     passwordResetRequired: true
 });
-export const password = loginProfile.password;
+exports.password = loginProfile.password;
