@@ -1,6 +1,6 @@
 {
     "name": "create_user",
-    "main": "index.ts",
+    "main": "index.js",
     "devDependencies": {
         "@types/node": "^16"
     },
