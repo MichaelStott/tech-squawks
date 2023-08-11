@@ -9,8 +9,8 @@ After initially signing up for AWS, a default _root account_ is created. AWS _ac
 ![Regions and Availability Zones](/images/aws/aws_accounts.png)
 
 An AWS account has the following unique identifiers:[^2]
-- _AWS Account ID_: 12 digit unique ID
-- _Canonical User ID_: Obfuscated form of the account ID. Used to identify an account when granting cross-account access to cloud resources.
+- _AWS Account ID_: 12-digit unique ID
+- _Canonical User ID_: Obfuscated form of the account ID. Used when granting cross-account access to cloud resources.
 
 The active account ID can be fetched from the Security Token Service (STS) with the following CLI command:
 {{< tabs groupId="CLI" >}}
