@@ -4,7 +4,7 @@ draft: false
 weight: 1
 ---
 
-While IAM users may use their access credentials to programaticlly access AWS services and resources, it can be desirable to leverage short-term credentials in cases where users may want to provide temporary access or perform a priviliged action in a limited timeframe. _Secure Token Service_, abbreviated _STS_, can be used both for obtaining short-lived AWS tokens and obtaining client information. Such credentials consist of the following properties:[^1]
+While IAM users may use their access credentials to programmatically access AWS services and resources, it can be desirable to leverage short-term credentials in cases where users may want to provide temporary access or perform a privileged action in a limited timeframe. _Secure Token Service_, abbreviated _STS_, can be used both for obtaining short-lived AWS tokens and obtaining client information. Such credentials consist of the following properties:[^1]
 
 - Access Key ID: Unique identifier for provided credentials
 - Secret Access Key: Used for signing API requests
@@ -39,7 +39,7 @@ STS is a global service, meaning the API is available in all AWS regions. The de
 - Adds redundancy should certain STS endpoints become available
 - Increase token validity
 
-For example, while it is possible to request `eu-central-1`-scoped credentials from the global STS endpoint, services hosted in `eu-central-1` should target https://sts.eu-central-1.amazonaws.com for deacreased latency. The following two STS commands were executed on an AWS server instance hosted in `eu-central-1` to further illustrate this:
+For example, while it is possible to request `eu-central-1`-scoped credentials from the global STS endpoint, services hosted in `eu-central-1` should target https://sts.eu-central-1.amazonaws.com for decreased latency. The following two STS commands were executed on an AWS server instance hosted in `eu-central-1` to further illustrate this:
 
 ```sh
 $ export TIMEFORMAT=%R
