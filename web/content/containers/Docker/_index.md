@@ -2,9 +2,9 @@
 title: Docker
 draft: false
 chapter: true
-weight: 5
+weight: 4
 ---
 
 # Docker
 
-Docker Ecosystem
+Developing containerized applications
