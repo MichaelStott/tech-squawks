@@ -1,6 +1,6 @@
 
 build:
-	docker build . -t techsqauwks/hello-world
+	@docker build . -t techsqauwks/hello-world
 
 run:
-	docker run -t techsqauwks/hello-world
+	@docker run -t techsqauwks/hello-world

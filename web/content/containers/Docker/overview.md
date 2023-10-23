@@ -11,9 +11,9 @@ _Docker_ is a platform primarily for developing and distributing containerized s
 
 The two primary Docker entities are _images_ and _containers_. Images provide instructions for constructing the private filesystem and including any process executables. Images may be published and shared with others through _registeries_, such as _Docker Hub_. Images are defined via _Dockerfiles_ which provides a set of instructions for building an image.
 
-#### Building and Running Containers
-
 Containers are running instances of images. These container processes are isolated from each other and may be started, stopped, moved, or deleted via the _Docker CLI_. Any data within a container's private filesystem that is not written to persistent storage will be lost upon deleting the container.
+
+#### Building and Running Containers
 
 {{< tabs groupId="code" >}}
 {{< tab name="Example 1: Hello World!" >}}
@@ -67,4 +67,4 @@ The first line of the Dockerfile defines the _base image_ version to use when bu
 
 Docker consists of three primary components, the Docker client, Docker Host, and Docker Hub. The Docker client is used to interact the Docker engine and invoke certain actions. The docker engine builds images and manages containers. Lastly, Docker Hub is an _image registry_, and is used to distribute images for both public and private use cases.
 
-{{< figure src="/images/containers/docker_architecture.png" caption="_Figure 1: The three primary Docker components, the Docker Client, Docker Host, and Docker Hub._">}}
+{{< figure src="/images/containers/docker_architecture.png" caption="_Figure 1: The three primary Docker components, the Docker Client, Docker Host, and Docker Hub. The Docker Host manages containers and images on a particular machine, the Docker Client invokes certain Docker operations, and the images may be distributed (pushed and pulled) from Docker Hub._">}}
