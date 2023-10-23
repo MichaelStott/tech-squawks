@@ -2,5 +2,5 @@
 title: Images
 draft: false
 chapter: false
-weight: 6
+weight: 7
 ---

@@ -18,7 +18,7 @@ While internally both technologies operate quite differently, containers are oft
 
 {{< figure src="/images/containers/virtualization.png" caption="_Figure 1: Virtualization overview. Guest virtual machines, containing an OS and child processes, are isolated from each other via the hypervisor._">}}
 
-Containers isolate processes rather than operating systems. However, instead of leveraging a hypervisor, containers are managed by a _container engine_, which achieves process isolation and resource allocation via the host OS system calls.
+Simarily, containers also provide isolated environments and resources processes conainers isolate processes rather than operating systems. However, instead of leveraging a hypervisor, containers are managed by a _container engine_, which achieves process isolation and resource allocation via the host OS system calls.
 
 {{< figure src="/images/containers/containers.png" caption="_Figure 2: Containerization overview. Container processes are managed via the container engine, which runs on the host machine OS._">}}
 

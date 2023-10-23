@@ -1,10 +1,10 @@
 ---
 title: Docker
-draft: true
+draft: false
 chapter: true
 weight: 4
 ---
 
 # Docker
 
-Developing containerized applications
+Developing containerized applications within the Docker ecosystem.
