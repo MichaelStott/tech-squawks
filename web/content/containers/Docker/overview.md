@@ -5,7 +5,7 @@ chapter: false
 weight: 6
 ---
 
-_Docker_ is a platform primarily for developing and distributing containerized software. Rather than being a comprehensive overview of Docker's features, this guide is intended to highlight aspects most important for developers.
+_Docker_ is a platform for developing and distributing containerized software.
 
 ### Images and Containers
 
