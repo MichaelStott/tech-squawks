@@ -5,13 +5,11 @@ chapter: false
 weight: 8
 ---
 
-// Containers or images first. Kinda chicken and egg here. 0\_-
+Docker _images_ and _containers_ are closely related, with containers being the running process managed by the Docker engine while images provide instructions to the Docker engine on building the container.
 
 #### Images
 
-When containers are initially built, the end result is what is known as an _image_. This image contains the filesystem, configuration, scripts and binaries packaged in the container needed for the application to run.
-
-In Docker, the first line of the file indicates which parent image the container should be built from. Here we can define which environment and technologies we want to be included in our image.
+Containers images are portable and distributable files which contain the containerized application executable, configuration, dependencies, and runtime entrypoint.
 
 ##### Ubuntu Image Examples
 
