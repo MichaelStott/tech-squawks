@@ -5,11 +5,11 @@ chapter: false
 weight: 8
 ---
 
-Docker _images_ and _containers_ are closely related, with containers being the running process managed by the Docker engine while images provide instructions to the Docker engine on building the container.
+_Images_ and _containers_ are closely related, with images being files which contain application and containers being running instances of those images.
 
 #### Images
 
-Containers images are portable and distributable files which contain the containerized application executable, configuration, dependencies, and runtime entrypoint.
+Containers images are portable, distributable files which contain the containerized application executable, configuration, dependencies, and runtime command.
 
 ##### Ubuntu Image Examples
 

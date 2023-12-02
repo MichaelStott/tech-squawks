@@ -62,6 +62,7 @@ docker run hello-world
 
 **Output**
 
+```
 Hello from Docker!
 This message shows that your installation appears to be working correctly.
 
@@ -75,9 +76,7 @@ To generate this message, Docker took the following steps:
 4.  The Docker daemon streamed that output to the Docker client, which sent it
     to your terminal.
     ...
-
 ```
 
 {{% /tab %}}
 {{< /tabs >}}
-```
