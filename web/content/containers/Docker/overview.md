@@ -5,11 +5,11 @@ chapter: false
 weight: 6
 ---
 
-_Docker_ is an open-source platform for developing and distributing containerized software.
+_Docker_ is an open-source platform for developing, deploying, and distributing containerized software.
 
 ### Images and Containers
 
-The two primary Docker entities are _images_ and _containers_. Images provide instructions for constructing the private filesystem and including any process executables. Images may be published and shared with others through _registeries_, such as _Docker Hub_. Images are defined via _Dockerfiles_ which provides a set of sequential instructions for building an image.
+The two primary Docker entities are _images_ and _containers_. Images provide information for constructing the private filesystem and including any process executables. Images may be published and shared with others through _registeries_, such as _Docker Hub_. Images are defined via _Dockerfiles_ which provides a set of sequential instructions for building an image.
 
 Containers are running instances of images. These container processes are isolated from each other and may be started, stopped, moved, or deleted via the _Docker CLI_. Any data within a container's private filesystem that is not written to persistent storage will be lost upon deleting the container.
 
