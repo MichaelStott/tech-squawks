@@ -111,9 +111,9 @@ import pulumi
 from pulumi_aws import iam
 
 # Create IAM user with long-lived access credentials
-user1 = iam.User("techsquawks-user", name="techsquawks-user1", path="/example/path/1/")
-user2 = iam.User("techsquawks-user", name="techsquawks-user2", path="/example/path/2/")
-user2a = iam.User("techsquawks-user", name="techsquawks-user2a", path="/example/path/2/")
+user1 = iam.User("techsquawks-user-1", name="techsquawks-user1", path="/example/path/1/")
+user2 = iam.User("techsquawks-user-2a", name="techsquawks-user2", path="/example/path/2/")
+user2a = iam.User("techsquawks-user-2b", name="techsquawks-user2a", path="/example/path/2/")
 
 ```
 {{% /tab %}}
@@ -150,21 +150,21 @@ import (
 func main() {
 	pulumi.Run(func(ctx *pulumi.Context) error {
 		// Create IAM user with long-lived access credentials
-		user1, err := iam.NewUser(ctx, "techsquawks-user1", &iam.UserArgs{
+		_, err := iam.NewUser(ctx, "techsquawks-user1", &iam.UserArgs{
 			Name: pulumi.String("techsquawks-user1"),
 			Path: pulumi.String("/example/path/1/"),
 		})
 		if err != nil {
 			return err
 		}
-		user2, err := iam.NewUser(ctx, "techsquawks-user2", &iam.UserArgs{
+		_, err = iam.NewUser(ctx, "techsquawks-user2", &iam.UserArgs{
 			Name: pulumi.String("techsquawks-user2"),
 			Path: pulumi.String("/example/path/2/"),
 		})
 		if err != nil {
 			return err
 		}
-		user2a, err := iam.NewUser(ctx, "techsquawks-user2a", &iam.UserArgs{
+		_, err = iam.NewUser(ctx, "techsquawks-user2a", &iam.UserArgs{
 			Name: pulumi.String("techsquawks-user2a"),
 			Path: pulumi.String("/example/path/2/"),
 		})
