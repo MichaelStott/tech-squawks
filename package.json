@@ -2,7 +2,7 @@
     "name": "techsquawks",
     "devDependencies": {
         "@types/node": "^10.0.0",
-        "embedme": "^1.22.0",
+        "embedme": "^1.22.1",
         "typescript": "^5.1.3"
     },
     "dependencies": {
