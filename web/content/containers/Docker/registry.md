@@ -1,6 +1,6 @@
 ---
 title: Registry
-draft: false
+draft: true
 chapter: false
 weight: 8
 ---

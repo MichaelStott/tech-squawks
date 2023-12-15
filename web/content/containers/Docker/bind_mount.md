@@ -1,6 +1,6 @@
 ---
 title: Bind Mounts
-draft: false
-chapter: false
+draft: true
+chapter: true
 weight: 11
 ---
