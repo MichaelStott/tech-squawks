@@ -9,9 +9,7 @@ _Docker_ is an open-source platform for developing, deploying, and distributing 
 
 ### Images and Containers
 
-The two primary Docker entities are _images_ and _containers_. Images provide information for constructing the private filesystem and including any process executables. Images may be published and shared with others through _registeries_, such as _Docker Hub_. Images are defined via _Dockerfiles_ which provides a set of sequential instructions for building an image.
-
-Containers are running instances of images. These container processes are isolated from each other and may be started, stopped, moved, or deleted via the _Docker CLI_. Any data within a container's private filesystem that is not written to persistent storage will be lost upon deleting the container.
+The two primary Docker entities are _images_ and _containers_. Images provide application executable and file system information and may be distributed through _registries_, which are services that hosts image information. These images are defined via _Dockerfiles_, consisting of sequential instructions for building an image. On the other hand, containers are running instances of images. These container processes are isolated from each other and may be started, stopped, moved, or deleted via the _Docker CLI_. Any data within a container's private file system that is not written to persistent storage will be lost upon deleting the container.
 
 #### Building and Running Containers
 
@@ -21,14 +19,14 @@ Containers are running instances of images. These container processes are isolat
 {{% tab name="Build" %}}
 
 ```sh
-docker build . -t techsqauwks/hello-world
+docker build . -t techsquawks/hello-world
 ```
 
 {{% /tab %}}
 {{% tab name="Run" %}}
 
 ```sh
-docker run -t techsqauwks/hello-world
+docker run -t techsquawks/hello-world
 ```
 
 {{% /tab %}}
@@ -61,7 +59,9 @@ hello world!
 {{< /tab >}}
 {{< /tabs >}}
 
-The first line of the Dockerfile defines the _base image_ version to use when building the image. In this case, `alpine` is leveraged due to its lightweight nature. The second line defines the container _entrypoint_, or the underlying command that will be executed upon running the container.
+The first line of the Dockerfile defines the _base image_ to use when building the image. In this case, `alpine` is leveraged due to its minimal image size. The second line defines the container _entrypoint_, or the underlying command that will be executed upon running the container.
+
+Docker containers are executed and maintained by the Docker engine, which can be accessed via the Docker API or, more preferably, the Docker CLI. `docker build` prompts the Docker engine to build the image from the local Dockerfile and tag the image with `techsquawks/hello-world`so the build may be readily referenced. Likewise, `docker run` executes the resulting image, with the executable program and arguments determined by the Dockerfile `ENTRYPOINT` line.
 
 ### Architecture
 

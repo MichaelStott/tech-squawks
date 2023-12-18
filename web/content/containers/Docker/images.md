@@ -21,14 +21,14 @@ To illustrate this, we first start with a Docker image that leverages an existin
 {{% tab name="Build" %}}
 
 ```sh
-docker build . -t techsqauwks/ubuntu
+docker build . -t techsquawks/ubuntu
 ```
 
 {{% /tab %}}
 {{% tab name="Run" %}}
 
 ```sh
-docker run -t techsqauwks/ubuntu
+docker run -t techsquawks/ubuntu
 ```
 
 {{% /tab %}}
@@ -82,14 +82,14 @@ In the above, we copy the `hello` binary executable into the image, which has be
 {{% tab name="Build" %}}
 
 ```sh
-docker build . -t techsqauwks/ubuntu
+docker build . -t techsquawks/ubuntu
 ```
 
 {{% /tab %}}
 {{% tab name="Run" %}}
 
 ```sh
-docker run -t techsqauwks/ubuntu
+docker run -t techsquawks/ubuntu
 ```
 
 {{% /tab %}}
