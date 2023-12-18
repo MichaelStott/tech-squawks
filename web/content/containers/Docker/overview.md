@@ -9,7 +9,7 @@ _Docker_ is an open-source platform for developing, deploying, and distributing 
 
 ### Images and Containers
 
-The two primary Docker entities are _images_ and _containers_. Images provide application executable and file system information and may be distributed through _registries_, which are services that hosts image information. These images are defined via _Dockerfiles_, consisting of sequential instructions for building an image. On the other hand, containers are running instances of images. These container processes are isolated from each other and may be started, stopped, moved, or deleted via the _Docker CLI_. Any data within a container's private file system that is not written to persistent storage will be lost upon deleting the container.
+The two primary Docker entities are _images_ and _containers_. Images provide application executable and file system information and may be distributed through _registries_, which are services that hosts and provide images. These images are defined via _Dockerfiles_, consisting of sequential build instructions. Relatedly, containers are running instances of images. These container processes are isolated from each other and may be started, stopped, moved, or deleted via the _Docker CLI_. Any data within a container's private file system that is not written to persistent storage will be lost upon deleting the container.
 
 #### Building and Running Containers
 
@@ -61,10 +61,10 @@ hello world!
 
 The first line of the Dockerfile defines the _base image_ to use when building the image. In this case, `alpine` is leveraged due to its minimal image size. The second line defines the container _entrypoint_, or the underlying command that will be executed upon running the container.
 
-Docker containers are executed and maintained by the Docker engine, which can be accessed via the Docker API or, more preferably, the Docker CLI. `docker build` prompts the Docker engine to build the image from the local Dockerfile and tag the image with `techsquawks/hello-world`so the build may be readily referenced. Likewise, `docker run` executes the resulting image, with the executable program and arguments determined by the Dockerfile `ENTRYPOINT` line.
+Docker containers are executed and maintained by the Docker host, which can be accessed via the Docker API or, more preferably, the Docker CLI. `docker build` prompts the Docker engine to build the image from the local Dockerfile and tag the image with `techsquawks/hello-world`so the build may be readily referenced. Likewise, `docker run` executes the resulting image, with the executable program and arguments determined by the Dockerfile `ENTRYPOINT` line.
 
 ### Architecture
 
-Docker consists of three primary components, the Docker client, Docker Host, and Docker Hub. The Docker client is used to interact the Docker engine and invoke certain actions. The docker engine builds images and manages containers. Lastly, Docker Hub is an _image registry_, and is used to distribute images for both public and private use cases.
+Docker broadly consists of three components, the Docker client, Docker Host, and Docker Hub. The Docker client is used to interact the Docker engine and invoke certain actions. The docker engine builds images and manages containers. Lastly, Docker Hub is an _image registry_, and is used to distribute images for both public and private use cases.
 
 {{< figure src="/images/containers/docker_architecture.png" caption="_Figure 1: The three primary Docker components, the Docker Client, Docker Host, and Docker Hub. The Docker Host manages containers and images on a particular machine, the Docker Client invokes certain Docker operations, and the images may be distributed (pushed and pulled) from Docker Hub._">}}
