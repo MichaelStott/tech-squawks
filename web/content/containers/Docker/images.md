@@ -5,15 +5,11 @@ chapter: false
 weight: 8
 ---
 
-_Images_ and _containers_ are closely related, with images being files which contain application and containers being running instances of those images.
-
-#### Images
-
-Containers images are portable files which contain the containerized application executable, configuration, dependencies, and runtime command. These images can be distributed and executed in other environments which the Docker Engine supports.
+_Images_ and _containers_ are closely related entities in Docker, with images being files consisting of application and related dependency information and containers being running instances of those images managed by the Docker Host.
 
 ##### Ubuntu Image Examples
 
-To illustrate this, we first start with a Docker image that leverages an existing Ubuntu base image. Similar to how code can utilize libraries and packages to simplify development, images can reference existing images to simplify what application dependencies are required.
+To illustrate this, we first start with a Docker image that leverages an existing Ubuntu base image, which contains all the same shared libraries and utilities found in the Ubuntu OS. Similar to how application code can leverage shared libraries, developers can reference existing base images to simplify what dependencies are needed.
 
 {{< tabs groupId="code" >}}
 {{< tab name="Example 1: Ubuntu Image" >}}
@@ -72,9 +68,9 @@ ubuntu image example
 {{< /tab >}}
 {{< /tabs >}}
 
-##### Empty Image example
+##### Scratch Base Image
 
-In the above, we copy the `hello` binary executable into the image, which has been compiled for the Docker scratch image architecture. We can then execute the binary via the entrypoint.
+If we don't want to leverage an existing image, we can leverage the `scartch` base image, which is the most minimal base image Docker provides, containing no directories or files. This can be useful when wanting to minimize the container and image size or for creating custom base images.
 
 {{< tabs groupId="code" >}}
 {{< tab name="Example 1: Ubuntu Image" >}}
@@ -127,9 +123,11 @@ ubuntu image example
 {{< /tab >}}
 {{< /tabs >}}
 
-The COPY command packages the hello_world file into the image filesystem so it can be accessed as the container runs. The entrypoint indicates the executable that should be run when running our container. This can be a system command or
+In the above, we copy the `hello` binary executable into the image, which has been compiled for the Docker scratch image architecture. We can then execute the binary via the entrypoint.
 
-The highest level of image would be the SCRATCH image, indicating that we are starting from an empty filesystem
+The COPY command copies the local `hello` binary executable into the image file system the image file system, so it can be accessed as the container runs. The entrypoint indicates the executable that should be run when running our container.
+
+For a compressive list of Docker commands that can be used when building an image, please refer to the table below:
 
 #### Containers
 
