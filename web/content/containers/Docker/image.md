@@ -128,3 +128,24 @@ In the above, we copy the `hello` binary executable into the image, which has be
 The COPY command copies the local `hello` binary executable into the image file system the image file system, so it can be accessed as the container runs. The entrypoint indicates the executable that should be run when running our container.
 
 For a compressive list of Docker commands that can be used when building an image, please refer to the table below:
+
+| Instruction | Description                                                 |
+| ----------- | ----------------------------------------------------------- |
+| ADD         | Add local or remote files and directories.                  |
+| ARG         | Use build-time variables.                                   |
+| CMD         | Specify default commands.                                   |
+| COPY        | Copy files and directories.                                 |
+| ENTRYPOINT  | Specify default executable.                                 |
+| ENV         | Set environment variables.                                  |
+| EXPOSE      | Describe which ports your application is listening on.      |
+| FROM        | Create a new build stage from a base image.                 |
+| HEALTHCHECK | Check a container's health on startup.                      |
+| LABEL       | Add metadata to an image.                                   |
+| MAINTAINER  | Specify the author of an image.                             |
+| ONBUILD     | Specify instructions for when the image is used in a build. |
+| RUN         | Execute build commands.                                     |
+| SHELL       | Set the default shell of an image.                          |
+| STOPSIGNAL  | Specify the system call signal for exiting a container.     |
+| USER        | Set user and group ID.                                      |
+| VOLUME      | Create volume mounts.                                       |
+| WORKDIR     | Change working directory.                                   |
