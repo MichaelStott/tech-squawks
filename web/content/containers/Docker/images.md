@@ -1,11 +1,11 @@
 ---
-title: Images & Containers
+title: Images
 draft: false
 chapter: false
 weight: 8
 ---
 
-_Images_ and _containers_ are closely related entities in Docker, with images being files consisting of application and related dependency information and containers being running instances of those images managed by the Docker Host.
+An _image_ is a read-only template that contains all the necessary files, libraries, and configuration required to initialize a container. It acts as a blueprint which defines the application, but is not the actual running process.
 
 ##### Ubuntu Image Examples
 
@@ -128,7 +128,3 @@ In the above, we copy the `hello` binary executable into the image, which has be
 The COPY command copies the local `hello` binary executable into the image file system the image file system, so it can be accessed as the container runs. The entrypoint indicates the executable that should be run when running our container.
 
 For a compressive list of Docker commands that can be used when building an image, please refer to the table below:
-
-#### Containers
-
-When the docker host runs an image, it produces a _containers_.

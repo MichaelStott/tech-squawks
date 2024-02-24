@@ -59,7 +59,10 @@ hello world!
 {{< /tab >}}
 {{< /tabs >}}
 
-The first line of the Dockerfile defines the _base image_ to use when building the image. In this case, `alpine` is leveraged due to its minimal image size. The second line defines the container _entrypoint_, or the underlying command that will be executed upon running the container.
+The first l0
+
+++010+
+.ne of the Dockerfile defines the _base image_ to use when building the image. In this case, `alpine` is leveraged due to its minimal image size. The second line defines the container _entrypoint_, or the underlying command that will be executed upon running the container.
 
 Docker containers are executed and maintained by the Docker host, which can be accessed via the Docker API or, more preferably, the Docker CLI. `docker build` prompts the Docker engine to build the image from the local Dockerfile and tag the image with `techsquawks/hello-world`so the build may be readily referenced. Likewise, `docker run` executes the resulting image, with the executable program and arguments determined by the Dockerfile `ENTRYPOINT` line.
 
