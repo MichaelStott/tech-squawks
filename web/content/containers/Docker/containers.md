@@ -61,6 +61,8 @@ ubuntu image example
 
 #### Container Management
 
+The following are common commands for managing containers in the Docker runtime.
+
 ##### docker run
 
 Executes a specified Docker image, opening a new container from it and running the commands or processes within it. This command allows you to interact with the container's filesystem, environment variables, ports, and volumes, making it suitable for running applications or other tasks in a managed and isolated environment.
