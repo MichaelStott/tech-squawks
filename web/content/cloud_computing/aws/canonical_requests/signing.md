@@ -17,41 +17,35 @@ The version 4 signing process consists of the following steps and components[^2]
 1. Creating the _credential scope_: This value restricts the request to the target service and region and is of the following format: `TIMESTAMP/REGION/SERVICE/SIGNING_VERSION` where the timestamp value is of form _YYYYMMDD_.
 
 2. Generate the target string to sign: This consists of the signing algorithm used to produce the signature (AWS4-HMAC-SHA256), the Amzaon-formatted request timestamp (i.e. _YYYYMMDDHHMMSSZ_), the previously produced credential scope, and a hash of the canonical requests string, all separated by newline characters:
-   {{< tabs groupId="pseudo" >}}
-   {{% tab name="Pseudocode" %}}
-
+{{< tabs groupId="pseudo" >}}
+{{% tab name="Pseudocode" %}}
 ```
 signatureString = SIGNING_ALGORITHM + "\n" +
-AMAZON_DATE_TIMESTAMP + "\n" +
-CREDENTIAL_SCOPE + "\n" +
+AMAZON_DATE_TIMESTAMP + "\n" + 
+CREDENTIAL_SCOPE + "\n" + 
 SHA256(CANONICAL_REQUEST_STRING)
 ```
-
 {{% /tab %}}
 {{< /tabs >}}
 
 3. Create the signature key: The _signature key_, used to sign the request string, is derived from the AWS secret key, Amazon-formatted request timestamp, region, and service. The following Pseudocode illustrates this process:
-   {{< tabs groupId="pseudo" >}}
-   {{% tab name="Pseudocode" %}}
-
+{{< tabs groupId="pseudo" >}}
+{{% tab name="Pseudocode" %}}
 ```
 kDate = hash("AWS4" + Key, Date)
 kRegion = hash(kDate, Region)
 kService = hash(kRegion, Service)
 signatureKey = hash(kService, "aws4_request")
 ```
-
 {{% /tab %}}
 {{< /tabs >}}
 
 4. Sign the previously generated signature string with the signature key and encode the hexadecimal representation.
-   {{< tabs groupId="pseudo" >}}
-   {{% tab name="Pseudocode" %}}
-
+{{< tabs groupId="pseudo" >}}
+{{% tab name="Pseudocode" %}}
 ```
 signature = hexEncode(hash(signatureKey, signatureString))
 ```
-
 {{% /tab %}}
 {{< /tabs >}}
 
@@ -63,16 +57,13 @@ Below provides a concrete example for generating a version 4 signature from an a
 {{< tab name="Typescript" >}}
 {{< tabs >}}
 {{% tab name="Execution" %}}
-
 ```
 ts-node signing.ts $AWS_SECRET_KEY us-west-1 ssm "Hello World!"
 ```
-
 {{% /tab %}}
 {{< /tabs >}}
 {{< tabs >}}
 {{% tab name="signing.ts" %}}
-
 ```ts
 // can_req/ts/signing.ts
 
@@ -168,8 +159,8 @@ if (require.main === module) {
   const signature = signHex(key, Buffer.from(stringToSign));
   console.log("Signed String: " + signature);
 }
-```
 
+```
 {{% /tab %}}
 {{< /tabs >}}
 {{% button href="https://github.com/MichaelStott/tech-squawks/tree/main/code/can_req/ts" icon="code" %}}Repository{{% /button %}}
@@ -178,16 +169,13 @@ if (require.main === module) {
 {{< tab name="Javascript" >}}
 {{< tabs >}}
 {{% tab name="Execution" %}}
-
 ```
 node signing.js $AWS_SECRET_KEY us-west-1 ssm "Hello World!"
 ```
-
 {{% /tab %}}
 {{< /tabs >}}
 {{< tabs >}}
 {{% tab name="signing.js" %}}
-
 ```js
 // can_req/js/signing.js
 
@@ -285,8 +273,8 @@ module.exports = {
   getStringToSign,
   signHex,
 };
-```
 
+```
 {{% /tab %}}
 {{< /tabs >}}
 {{% button href="https://github.com/MichaelStott/tech-squawks/tree/main/code/can_req/js" icon="code" %}}Repository{{% /button %}}
@@ -295,16 +283,13 @@ module.exports = {
 {{< tab name="Python" >}}
 {{< tabs >}}
 {{% tab name="Execution" %}}
-
 ```
 python3 signing.py $AWS_SECRET_KEY us-west-1 ssm "Hello World!"
 ```
-
 {{% /tab %}}
 {{< /tabs >}}
 {{< tabs >}}
 {{% tab name="signing.py" %}}
-
 ```py
 # can_req/py/signing.py
 
@@ -386,7 +371,6 @@ if __name__ == "__main__":
     print("Signed String: " + signature)
 
 ```
-
 {{% /tab %}}
 {{< /tabs >}}
 {{% button href="https://github.com/MichaelStott/tech-squawks/tree/main/code/can_req/py" icon="code" %}}Repository{{% /button %}}
@@ -395,16 +379,13 @@ if __name__ == "__main__":
 {{< tab name="Go" >}}
 {{< tabs >}}
 {{% tab name="Execution" %}}
-
 ```
 go run signing_driver.go signing.go $AWS_SECRET_KEY us-west-1 ssm "Hello World!"
 ```
-
 {{% /tab %}}
 {{< /tabs >}}
 {{< tabs >}}
 {{% tab name="signing.go" %}}
-
 ```go
 // can_req/go/signing.go
 
@@ -489,10 +470,8 @@ func runDemo() {
 }
 
 ```
-
 {{% /tab %}}
 {{% tab name="signing_driver.go" %}}
-
 ```go
 // can_req/go/signing_driver.go
 
@@ -503,7 +482,6 @@ func main() {
 }
 
 ```
-
 {{% /tab %}}
 {{< /tabs >}}
 {{% button href="https://github.com/MichaelStott/tech-squawks/tree/main/code/can_req/go" icon="code" %}}Repository{{% /button %}}
@@ -512,7 +490,6 @@ func main() {
 {{< /tabs >}}
 
 **Output**
-
 ```
 Amazon Timestamp: 20230625T174754Z
 Requset Timestamp: 20230625
@@ -521,6 +498,7 @@ Signing Key: 843b458b4664ec9c54e42274a490b2c7cb2802cc104dcba2ad2df8fe71c008ff
 String to sign: "AWS4-HMAC-SHA256\n20230625T174754Z\n20230625/us-west-1/ssm/aws4_request\n7f83b1657ff1fc53b92dc18148a1d65dfc2d4b1fa3d677284addd200126d9069"
 Signed String: cc1a8368f317707c89b33e8f627f722819ed4d28341fef7b56720103b5d3fe79
 ```
-
 [^1]: https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html
+
 [^2]: https://docs.aws.amazon.com/general/latest/gr/sigv4_signing.html
+    
