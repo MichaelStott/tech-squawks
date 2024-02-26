@@ -71,18 +71,15 @@ def code():
 
 @web.command("has-changed")
 def changed_web():
-    helper = CIHelper()
-    click.echo(helper.dir_changed("web/"))
+    click.echo(CIHelper().dir_changed("web/"))
 
 @code.command("has-changed")
 def changed_code():
-    helper = CIHelper()
-    click.echo(helper.dir_changed("code/"))
+    click.echo(CIHelper().dir_changed("code/"))
 
 @code.command("ls")
 def list_pulumi():
-    helper = CIHelper()
-    click.echo(helper.get_pulumi_projects())
+    click.echo(CIHelper().get_pulumi_projects())
 
 if __name__ == "__main__":
     helper()
