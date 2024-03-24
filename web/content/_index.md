@@ -17,53 +17,27 @@ For instance, the below example demonstrates developing and deploying a serverle
 {{< tab name="Typescript" >}}
 {{< tabs >}}
 {{% tab name="Provision" %}}
+
 ```
 pulumi up -y
 ```
+
 {{% /tab %}}
 {{% tab name="Teardown" %}}
+
 ```
 pulumi destroy -y
 ```
+
 {{% /tab %}}
 {{< /tabs >}}
 {{< tabs >}}
 {{% tab name="index.ts" %}}
+
 ```ts
-// homepage/ts/index.ts
-
-import * as aws from "@pulumi/aws";
-import * as awsx from "@pulumi/awsx";
-
-const payload =
-  '<img src="https://cultofthepartyparrot.com/parrots/hd/revolutionparrot.gif">';
-
-// Provision an API Gateway instance.
-const api = new awsx.classic.apigateway.API("serverless-party-parrot", {
-  routes: [
-    {
-      // Define an HTTP endpoint.
-      path: "/",
-      method: "GET",
-      // Create a Lambda function that will be triggered upon accessing this endpoint.
-      eventHandler: new aws.lambda.CallbackFunction("handler", {
-        callback: async (event) => {
-          // Cry havoc and let slip the parrots of war.
-          return {
-            statusCode: 200,
-            headers: { "Content-Type": "text/html" },
-            body: payload,
-          };
-        },
-      }),
-    },
-  ],
-});
-
-// The URL of the deployed serverless webpage.
-export const url = api.url;
-
+{{% include file="code\homepage\ts\index.ts" %}}
 ```
+
 {{% /tab %}}
 {{< /tabs >}}
 {{% button href="https://app.pulumi.com/new?template=https://github.com/MichaelStott/tech-squawks/tree/main/code/homepage/ts" icon="rocket" %}}Deploy{{% /button %}}
@@ -73,18 +47,23 @@ export const url = api.url;
 {{< tab name="Javascript" >}}
 {{< tabs >}}
 {{% tab name="Provision" %}}
+
 ```
 pulumi up -y
 ```
+
 {{% /tab %}}
 {{% tab name="Teardown" %}}
+
 ```
 pulumi destroy -y
 ```
+
 {{% /tab %}}
 {{< /tabs >}}
 {{< tabs >}}
 {{% tab name="index.js" %}}
+
 ```js
 // homepage/js/index.js
 
@@ -119,8 +98,8 @@ const api = new awsx.classic.apigateway.API("serverless-party-parrot", {
 
 // The URL of the deployed serverless webpage.
 exports.url = api.url;
-
 ```
+
 {{% /tab %}}
 {{< /tabs >}}
 {{% button href="https://app.pulumi.com/new?template=https://github.com/MichaelStott/tech-squawks/tree/main/code/homepage/js" icon="rocket" %}}Deploy{{% /button %}}
@@ -130,18 +109,23 @@ exports.url = api.url;
 {{< tab name="Python" >}}
 {{< tabs >}}
 {{% tab name="Provision" %}}
+
 ```
 pulumi up -y
 ```
+
 {{% /tab %}}
 {{% tab name="Teardown" %}}
+
 ```
 pulumi destroy -y
 ```
+
 {{% /tab %}}
 {{< /tabs >}}
 {{< tabs >}}
 {{% tab name="__main__.py" %}}
+
 ```py
 # homepage/py/__main__.py
 
@@ -178,8 +162,10 @@ pulumi.export("url", apigw.api_endpoint)
 pulumi.export("invoke_arn", lambda_function.name)
 
 ```
+
 {{% /tab %}}
 {{% tab name="lambda.py" %}}
+
 ```py
 # homepage/py/lambda.py
 
@@ -192,8 +178,10 @@ def handler(event, context):
     }
 
 ```
+
 {{% /tab %}}
 {{% tab name="lambda_util.py" %}}
+
 ```py
 # homepage/py/lambda_util.py
 
@@ -254,6 +242,7 @@ def create_python_lambda(package, source, version, bucket_name="ts-test-lambda-p
     return lambda_function
 
 ```
+
 {{% /tab %}}
 {{< /tabs >}}
 {{% button href="https://app.pulumi.com/new?template=https://github.com/MichaelStott/tech-squawks/tree/main/code/homepage/py" icon="rocket" %}}Deploy{{% /button %}}
@@ -263,18 +252,23 @@ def create_python_lambda(package, source, version, bucket_name="ts-test-lambda-p
 {{< tab name="Go" >}}
 {{< tabs >}}
 {{% tab name="Provision" %}}
+
 ```
 pulumi up -y
 ```
+
 {{% /tab %}}
 {{% tab name="Teardown" %}}
+
 ```
 pulumi destroy -y
 ```
+
 {{% /tab %}}
 {{< /tabs >}}
 {{< tabs >}}
 {{% tab name="main.go" %}}
+
 ```go
 // homepage/go/main.go
 
@@ -311,8 +305,10 @@ func main() {
 }
 
 ```
+
 {{% /tab %}}
 {{% tab name="handler.go" %}}
+
 ```go
 // homepage/go/handler/handler.go
 
@@ -339,8 +335,10 @@ func main() {
 }
 
 ```
+
 {{% /tab %}}
 {{% tab name="lambda_util.go" %}}
+
 ```go
 // homepage/go/lambda_util.go
 
@@ -503,6 +501,7 @@ func CreateGoLambda(ctx *pulumi.Context) (*lambda.Function, error) {
 }
 
 ```
+
 {{% /tab %}}
 {{< /tabs >}}
 {{% button href="https://app.pulumi.com/new?template=https://github.com/MichaelStott/tech-squawks/tree/main/code/homepage/go" icon="rocket" %}}Deploy{{% /button %}}
@@ -511,19 +510,20 @@ func CreateGoLambda(ctx *pulumi.Context) (*lambda.Function, error) {
 {{< /tab >}}
 {{< /tabs >}}
 **Stack Outputs**
+
 ```
 Outputs:
     invoke_arn: "ServerlessExample-93b31c3"
     url       : "https://pu00gu5pmg.execute-api.us-east-1.amazonaws.com"
 ```
 
-The exported URL will display the following image in your web browser: 
+The exported URL will display the following image in your web browser:
 
 ![squawk](https://cultofthepartyparrot.com/parrots/hd/revolutionparrot.gif)
 
 ### Local Development
 
-In an effort to make these tutorials accessible to those without cloud access and minimize costs, examples are designed 
+In an effort to make these tutorials accessible to those without cloud access and minimize costs, examples are designed
 to support local execution, using technologies such as [LocalStack](https://localstack.cloud/), [Cloud Code](https://cloud.google.com/code), [Kind](https://kind.sigs.k8s.io/), etc., whenever possible.
 
 ### Study Aid
