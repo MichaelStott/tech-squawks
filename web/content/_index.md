@@ -65,39 +65,7 @@ pulumi destroy -y
 {{% tab name="index.js" %}}
 
 ```js
-// homepage/js/index.js
-
-"use strict";
-const aws = require("@pulumi/aws");
-const awsx = require("@pulumi/awsx");
-
-const payload =
-  '<img src="https://cultofthepartyparrot.com/parrots/hd/revolutionparrot.gif">';
-
-// Provision an API Gateway instance.
-const api = new awsx.classic.apigateway.API("serverless-party-parrot", {
-  routes: [
-    {
-      // Define an HTTP endpoint.
-      path: "/",
-      method: "GET",
-      // Create a Lambda function that will be triggered upon accessing this endpoint.
-      eventHandler: new aws.lambda.CallbackFunction("handler", {
-        callback: async (event) => {
-          // Cry havoc and let slip the parrots of war.
-          return {
-            statusCode: 200,
-            headers: { "Content-Type": "text/html" },
-            body: payload,
-          };
-        },
-      }),
-    },
-  ],
-});
-
-// The URL of the deployed serverless webpage.
-exports.url = api.url;
+{{% include file="code\homepage\js\index.js" %}}
 ```
 
 {{% /tab %}}
@@ -127,120 +95,21 @@ pulumi destroy -y
 {{% tab name="__main__.py" %}}
 
 ```py
-# homepage/py/__main__.py
-
-import pulumi
-import pulumi_aws
-
-from lambda_util import create_python_lambda
-
-LAMBDA_SOURCE = "lambda.py"
-LAMBDA_PACKAGE = "lambda"
-LAMBDA_VERSION = "1.0.0"
-
-# Provision Lambda function which will be invoked upon an http request.
-lambda_function = create_python_lambda(LAMBDA_PACKAGE, LAMBDA_SOURCE, LAMBDA_VERSION)
-
-# Give API Gateway permissions to invoke the Lambda
-lambda_permission = pulumi_aws.lambda_.Permission(
-    "lambdaPermission",
-    action="lambda:InvokeFunction",
-    principal="apigateway.amazonaws.com",
-    function=lambda_function,
-)
-
-# Set up the API Gateway
-apigw = pulumi_aws.apigatewayv2.Api(
-    "httpApiGateway",
-    protocol_type="HTTP",
-    route_key="GET /",
-    target=lambda_function.invoke_arn,
-)
-
-# Export the API endpoint for easy access
-pulumi.export("url", apigw.api_endpoint)
-pulumi.export("invoke_arn", lambda_function.name)
-
+{{% include file="code\homepage\py\__main__.py" %}}
 ```
 
 {{% /tab %}}
 {{% tab name="lambda.py" %}}
 
 ```py
-# homepage/py/lambda.py
-
-# Define handler logic and Lambda function
-def handler(event, context):
-    return {
-        "statusCode": 200,
-        "headers": {"Content-Type": "text/html"},
-        "body": '<img src="https://cultofthepartyparrot.com/parrots/hd/revolutionparrot.gif">',
-    }
-
+{{% include file="code\homepage\py\lambda.py" %}}
 ```
 
 {{% /tab %}}
 {{% tab name="lambda_util.py" %}}
 
 ```py
-# homepage/py/lambda_util.py
-
-import json, mimetypes, shutil, os
-import pulumi_aws as aws
-from pulumi_aws import lambda_, s3
-from pulumi import FileAsset
-
-lambda_role = aws.iam.Role(
-    "apiGatewayLambdaRole",
-    assume_role_policy=json.dumps(
-        {
-            "Version": "2012-10-17",
-            "Statement": [
-                {
-                    "Action": "sts:AssumeRole",
-                    "Principal": {
-                        "Service": "lambda.amazonaws.com",
-                    },
-                    "Effect": "Allow",
-                    "Sid": "",
-                }
-            ],
-        }
-    ),
-)
-role_policy_attachment = aws.iam.RolePolicyAttachment(
-    "lambdaRoleAttachment",
-    role=lambda_role,
-    policy_arn=aws.iam.ManagedPolicy.AWS_LAMBDA_BASIC_EXECUTION_ROLE,
-)
-
-
-def create_python_lambda(package, source, version, bucket_name="ts-test-lambda-py"):
-    """Uploads handler project to S3 and returns S3 object."""
-    shutil.make_archive(package, "zip", ".", source)
-
-    # Create an AWS resource (S3 Bucket)c
-    bucket = s3.Bucket(bucket_name)
-    package += ".zip"
-    mime_type, _ = mimetypes.guess_type(package)
-    obj = s3.BucketObject(
-        version + "/" + package,
-        bucket=bucket.id,
-        source=FileAsset(package),
-        content_type=mime_type,
-    )
-
-    lambda_function = lambda_.Function(
-        "ServerlessExample",
-        s3_bucket=bucket.id,
-        s3_key=obj.key,
-        handler="lambda.handler",
-        runtime="python3.7",
-        role=lambda_role.arn,
-    )
-
-    return lambda_function
-
+{{% include file="code\homepage\py\lambda_util.py" %}}
 ```
 
 {{% /tab %}}
@@ -270,236 +139,21 @@ pulumi destroy -y
 {{% tab name="main.go" %}}
 
 ```go
-// homepage/go/main.go
-
-ackage main
-
-import (
-	"github.com/pulumi/pulumi-aws/sdk/v5/go/aws/apigatewayv2"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-)
-
-func main() {
-	pulumi.Run(func(ctx *pulumi.Context) error {
-		// Create lambda function that will return HTML.
-		lambda, err := CreateGoLambda(ctx)
-		if err != nil {
-			panic(err)
-		}
-
-		// Provision API Gateway instance to invoke Lambda
-		api, err := apigatewayv2.NewApi(ctx,
-			"serverless-parrot-demo-gov2",
-			&apigatewayv2.ApiArgs{
-				ProtocolType: pulumi.String("HTTP"),
-				RouteKey:     pulumi.String("GET /"),
-				Target:       lambda.InvokeArn,
-			},
-			nil,
-		)
-
-		ctx.Export("url", api.ApiEndpoint)
-
-		return nil
-	})
-}
-
+{{% include file="code\homepage\go\main.go" %}}
 ```
 
 {{% /tab %}}
 {{% tab name="handler.go" %}}
 
 ```go
-// homepage/go/handler/handler.go
-
-ackage main
-
-import (
-	"github.com/aws/aws-lambda-go/events"
-	"github.com/aws/aws-lambda-go/lambda"
-)
-
-// handler is a simple function that takes a string and does a ToUpper.
-func handler(request events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
-	return events.APIGatewayProxyResponse{
-		StatusCode: 200,
-		Headers: map[string]string{
-			"Content-Type": "text/html",
-		},
-		Body: "<img src=\"https://cultofthepartyparrot.com/parrots/hd/revolutionparrot.gif\">",
-	}, nil
-}
-
-func main() {
-	lambda.Start(handler)
-}
-
+{{% include file="code\homepage\go\handler\handler.go" %}}
 ```
 
 {{% /tab %}}
 {{% tab name="lambda_util.go" %}}
 
 ```go
-// homepage/go/lambda_util.go
-
-ackage main
-
-import (
-	"archive/zip"
-	"encoding/json"
-	"io"
-	"os"
-	"path/filepath"
-
-	"github.com/gabriel-vasile/mimetype"
-	"github.com/pulumi/pulumi-aws/sdk/v4/go/aws/iam"
-	"github.com/pulumi/pulumi-aws/sdk/v4/go/aws/s3"
-	"github.com/pulumi/pulumi-aws/sdk/v5/go/aws/lambda"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-)
-
-func zipSource(source, target string) error {
-	// 1. Create a ZIP file and zip.Writer
-	f, err := os.Create(target)
-	if err != nil {
-		return err
-	}
-	defer f.Close()
-
-	writer := zip.NewWriter(f)
-	defer writer.Close()
-
-	// 2. Go through all the files of the source
-	return filepath.Walk(source, func(path string, info os.FileInfo, err error) error {
-		if err != nil {
-			return err
-		}
-
-		// 3. Create a local file header
-		header, err := zip.FileInfoHeader(info)
-		if err != nil {
-			return err
-		}
-
-		// set compression
-		header.Method = zip.Deflate
-
-		// 4. Set relative path of a file as the header name
-		header.Name, err = filepath.Rel(filepath.Dir(source), path)
-		if err != nil {
-			return err
-		}
-		if info.IsDir() {
-			header.Name += "/"
-		}
-
-		// 5. Create writer for the file header and save content of the file
-		headerWriter, err := writer.CreateHeader(header)
-		if err != nil {
-			return err
-		}
-
-		if info.IsDir() {
-			return nil
-		}
-
-		f, err := os.Open(path)
-		if err != nil {
-			return err
-		}
-		defer f.Close()
-
-		_, err = io.Copy(headerWriter, f)
-		return err
-	})
-}
-
-func CreateLambdaRole(ctx *pulumi.Context) (*iam.Role, error) {
-	tmpJSON0, err := json.Marshal(map[string]interface{}{
-		"Version": "2012-10-17",
-		"Statement": []map[string]interface{}{
-			map[string]interface{}{
-				"Action": "sts:AssumeRole",
-				"Effect": "Allow",
-				"Sid":    "",
-				"Principal": map[string]interface{}{
-					"Service": "lambda.amazonaws.com",
-				},
-			},
-		},
-	})
-	if err != nil {
-		return nil, err
-	}
-	json0 := string(tmpJSON0)
-	lambdaRole, err := iam.NewRole(ctx, "lambdaRole", &iam.RoleArgs{
-		AssumeRolePolicy: pulumi.String(json0),
-	})
-	if err != nil {
-		return nil, err
-	}
-	_, err = iam.NewRolePolicyAttachment(ctx, "lambdaRoleAttach", &iam.RolePolicyAttachmentArgs{
-		Role:      lambdaRole.Name,
-		PolicyArn: iam.ManagedPolicyIAMReadOnlyAccess,
-	})
-	if err != nil {
-		return nil, err
-	}
-	return lambdaRole, nil
-}
-
-func CreateGoLambda(ctx *pulumi.Context) (*lambda.Function, error) {
-	// Package lambda function.
-	err := zipSource("handler/handler", "handler.zip")
-	if err != nil {
-		return nil, err
-	}
-
-	// Allow API Gateway to invoke Lambda functions.
-	role, err := CreateLambdaRole(ctx)
-	if err != nil {
-		return nil, err
-	}
-
-	// Provision bucket for uploading Lambda handler.
-	bucket, err := s3.NewBucket(ctx, "ts-test-bucket-go", nil)
-	if err != nil {
-		return nil, err
-	}
-
-	// Upload handler to S3 bucket.
-	mtype, err := mimetype.DetectFile("./handler.zip")
-	if err != nil {
-		return nil, err
-	}
-	obj, err := s3.NewBucketObject(ctx, "1.0.0/handler.zip", &s3.BucketObjectArgs{
-		Bucket:      bucket.ID(),
-		Source:      pulumi.NewFileAsset("./handler.zip"),
-		ContentType: pulumi.String(mtype.String()),
-	})
-
-	// Create and return lambda function
-	function, err := lambda.NewFunction(
-		ctx, "lambdaAPIGatewayFunction", &lambda.FunctionArgs{
-			S3Bucket: bucket.ID(),
-			S3Key:    obj.Key,
-			Runtime:  pulumi.String("go1.x"),
-			Handler:  pulumi.String("handler"),
-			Role:     role.Arn,
-		},
-		nil,
-	)
-
-	lambda.NewPermission(ctx, "lambdaPermission", &lambda.PermissionArgs{
-		Action:    pulumi.String("lambda:InvokeFunction"),
-		Principal: pulumi.String("apigateway.amazonaws.com"),
-		Function:  function,
-	})
-
-	// Enable API Gateway to invoke the Lambda
-	return function, err
-}
-
+{{% include file="code\homepage\go\lambda_util.go" %}}
 ```
 
 {{% /tab %}}

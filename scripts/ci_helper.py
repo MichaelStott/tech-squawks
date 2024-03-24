@@ -71,11 +71,11 @@ def code():
 
 @web.command("has-changed")
 def changed_web():
-    click.echo(CIHelper().dir_changed("web/"))
+    click.echo(CIHelper().dir_changed("web/content"))
 
 @code.command("has-changed")
 def changed_code():
-    click.echo(CIHelper().dir_changed("code/"))
+    click.echo(CIHelper().dir_changed("web/code"))
 
 @code.command("ls")
 def list_pulumi():
