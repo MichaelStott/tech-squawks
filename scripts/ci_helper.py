@@ -10,10 +10,10 @@ class CIHelper():
     """ Helper class for all CI/CD operations.
     """
 
-    DEFAULT_PROJECT_DIR = "code"
+    DEFAULT_PROJECT_DIR = "web/code"
 
     def __init__(self):
-        """ Initialize enumera   tors. Determine which directories to test.
+        """ Initialize enumerators. Determine which directories to test.
         """
         self.project_dir = os.getenv("PROJECT_DIR", self.DEFAULT_PROJECT_DIR)
         self.blacklisted = self._get_ignore_dirs()
