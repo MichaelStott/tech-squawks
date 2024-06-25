@@ -22,15 +22,15 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ needs.get-pulumi-projects.outputs.matrix != '[]' && needs.get-pulumi-projects.outputs.matrix != '' }}
     strategy:
-      matrix: 
+      matrix:
         project: ${{fromJson(needs.get-pulumi-projects.outputs.matrix)}}
     steps:
       - uses: actions/checkout@v3
         with:
           submodules: true
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v4
         with:
-          node-version: 14.x
+          node-version: 16.17.x
       - uses: actions/setup-go@v2
         with:
           go-version: 1.17.x
@@ -39,8 +39,8 @@ jobs:
           python-version: 3.9
       - uses: actions/setup-java@v3
         with:
-          distribution: 'temurin'
-          java-version: '17'
+          distribution: "temurin"
+          java-version: "17"
       - name: Set up Homebrew
         id: set-up-homebrew
         uses: Homebrew/actions/setup-homebrew@master
@@ -59,7 +59,7 @@ jobs:
           upsert: true
           command: preview
           stack-name: dev
-          work-dir: ./${{ matrix.project }} 
+          work-dir: ./${{ matrix.project }}
           comment-on-pr: false
         env:
           PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
@@ -75,7 +75,7 @@ jobs:
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
         with:
-          hugo-version: '0.111.3'
+          hugo-version: "0.111.3"
       - name: Set up Homebrew
         id: set-up-homebrew
         uses: Homebrew/actions/setup-homebrew@master
@@ -94,7 +94,7 @@ jobs:
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
         with:
-          hugo-version: '0.111.3'
+          hugo-version: "0.111.3"
       - name: Set up Homebrew
         id: set-up-homebrew
         uses: Homebrew/actions/setup-homebrew@master
@@ -120,4 +120,3 @@ jobs:
           comment-on-pr: true
         env:
           PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
-  
