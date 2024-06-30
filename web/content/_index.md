@@ -35,7 +35,7 @@ pulumi destroy -y
 {{% tab name="index.ts" %}}
 
 ```ts
-{{% include file="code\homepage\ts\index.ts" %}}
+{{% include file="assets\homepage\ts\index.ts" %}}
 ```
 
 {{% /tab %}}
@@ -65,7 +65,7 @@ pulumi destroy -y
 {{% tab name="index.js" %}}
 
 ```js
-{{% include file="code\homepage\js\index.js" %}}
+{{% include file="assets\homepage\js\index.js" %}}
 ```
 
 {{% /tab %}}
@@ -95,21 +95,21 @@ pulumi destroy -y
 {{% tab name="__main__.py" %}}
 
 ```py
-{{% include file="code\homepage\py\__main__.py" %}}
+{{% include file="assets\homepage\py\__main__.py" %}}
 ```
 
 {{% /tab %}}
 {{% tab name="lambda.py" %}}
 
 ```py
-{{% include file="code\homepage\py\lambda.py" %}}
+{{% include file="assets\homepage\py\lambda.py" %}}
 ```
 
 {{% /tab %}}
 {{% tab name="lambda_util.py" %}}
 
 ```py
-{{% include file="code\homepage\py\lambda_util.py" %}}
+{{% include file="assets\homepage\py\lambda_util.py" %}}
 ```
 
 {{% /tab %}}
@@ -139,21 +139,21 @@ pulumi destroy -y
 {{% tab name="main.go" %}}
 
 ```go
-{{% include file="code\homepage\go\main.go" %}}
+{{% include file="assets\homepage\go\main.go" %}}
 ```
 
 {{% /tab %}}
 {{% tab name="handler.go" %}}
 
 ```go
-{{% include file="code\homepage\go\handler\handler.go" %}}
+{{% include file="assets\homepage\go\handler\handler.go" %}}
 ```
 
 {{% /tab %}}
 {{% tab name="lambda_util.go" %}}
 
 ```go
-{{% include file="code\homepage\go\lambda_util.go" %}}
+{{% include file="assets\homepage\go\lambda_util.go" %}}
 ```
 
 {{% /tab %}}

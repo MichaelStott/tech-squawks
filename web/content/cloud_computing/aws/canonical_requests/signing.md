@@ -74,7 +74,7 @@ ts-node signing.ts $AWS_SECRET_KEY us-west-1 ssm "Hello World!"
 {{% tab name="signing.ts" %}}
 
 ```ts
-{{% include file="code\can_req\ts\signing.ts" %}}
+{{% include file="assets\can_req\ts\signing.ts" %}}
 ```
 
 {{% /tab %}}
@@ -96,7 +96,7 @@ node signing.js $AWS_SECRET_KEY us-west-1 ssm "Hello World!"
 {{% tab name="signing.js" %}}
 
 ```js
-{{% include file="code\can_req\js\signing.js" %}}
+{{% include file="assets\can_req\js\signing.js" %}}
 ```
 
 {{% /tab %}}
@@ -118,7 +118,7 @@ python3 signing.py $AWS_SECRET_KEY us-west-1 ssm "Hello World!"
 {{% tab name="signing.py" %}}
 
 ```py
-{{% include file="code\can_req\py\signing.py" %}}
+{{% include file="assets\can_req\py\signing.py" %}}
 ```
 
 {{% /tab %}}
@@ -140,14 +140,14 @@ go run signing_driver.go signing.go $AWS_SECRET_KEY us-west-1 ssm "Hello World!"
 {{% tab name="signing.go" %}}
 
 ```go
-{{% include file="code\can_req\go\signing.go" %}}
+{{% include file="assets\can_req\go\signing.go" %}}
 ```
 
 {{% /tab %}}
 {{% tab name="signing_driver.go" %}}
 
 ```go
-{{% include file="code\can_req\go\signing_driver.go" %}}
+{{% include file="assets\can_req\go\signing_driver.go" %}}
 ```
 
 {{% /tab %}}

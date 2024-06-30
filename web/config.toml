@@ -5,16 +5,16 @@ themesdir = "themes"
 theme = "hugo-theme-relearn"
 
 [params]
-  alwaysopen = false
-  editUrl = 'https://github.com/MichaelStott/tech-squawks/tree/main/web/content/'
-  showVisitedLinks = false
-  collapsibleMenu = true
-  disableBreadcrumb = false
-  disableInlineCopyToClipBoard = true
-  disableNextPrev = false
-  disableLandingPageButton = false
-  titleSeparator = "::"
-  themeVariant = [ "light", "dark" ]
+alwaysopen = false
+editUrl = 'https://github.com/MichaelStott/tech-squawks/tree/main/web/content/'
+showVisitedLinks = false
+collapsibleMenu = true
+disableBreadcrumb = false
+disableInlineCopyToClipBoard = true
+disableNextPrev = false
+disableLandingPageButton = false
+titleSeparator = "::"
+themeVariant = ["light", "dark"]
 
 [[menu.shortcuts]]
 name = "<i class='fab fa-fw fa-github'></i> Tech Squawks Repository"
@@ -29,6 +29,6 @@ url = "https://github.com/MichaelStott/tech-squawks/issues/new/choose"
 weight = 20
 
 [outputs]
-  home = ["HTML", "RSS", "PRINT", "SEARCH", "SEARCHPAGE"]
-  section = ["HTML", "RSS", "PRINT"]
-  page = ["HTML", "RSS", "PRINT"]
+home = ["HTML", "RSS", "PRINT", "SEARCH", "SEARCHPAGE"]
+section = ["HTML", "RSS", "PRINT"]
+page = ["HTML", "RSS", "PRINT"]
