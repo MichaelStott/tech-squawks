@@ -10,10 +10,10 @@ class CIHelper():
     """ Helper class for all CI/CD operations.
     """
 
-    DEFAULT_PROJECT_DIR = "web/code"
+    DEFAULT_PROJECT_DIR = "code"
 
     def __init__(self):
-        """ Initialize enumerators. Determine which directories to test.
+        """ Initialize enumera   tors. Determine which directories to test.
         """
         self.project_dir = os.getenv("PROJECT_DIR", self.DEFAULT_PROJECT_DIR)
         self.blacklisted = self._get_ignore_dirs()
@@ -71,11 +71,11 @@ def code():
 
 @web.command("has-changed")
 def changed_web():
-    click.echo(CIHelper().dir_changed("web/content"))
+    click.echo(CIHelper().dir_changed("web/"))
 
 @code.command("has-changed")
 def changed_code():
-    click.echo(CIHelper().dir_changed("web/code"))
+    click.echo(CIHelper().dir_changed("code/"))
 
 @code.command("ls")
 def list_pulumi():
